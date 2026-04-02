@@ -1,0 +1,17 @@
+{
+    "host": "localhost",
+    "port": 5001,
+
+    "groq_api_key": "YOUR_GROQ_API_KEY_HERE",
+
+    "min_confluence_score": 5,
+    "min_rr": 2.0,
+    "min_confidence": 65,
+
+    "news_blackout_before_min": 30,
+    "news_blackout_after_min": 15,
+
+    "risk_percent_default": 0.75,
+    "max_open_trades": 2,
+    "daily_loss_limit_pct": 4.0
+}
