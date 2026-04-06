@@ -2,7 +2,7 @@
 ChartVisualizer — grafic + auto-trader integrat
 """
 
-from flask import Flask, render_template_string, request, Response, send_file
+from flask import Flask, render_template_string, request, Response, send_file, session, redirect, url_for
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
@@ -23,6 +23,36 @@ except ImportError:
     log.info("MT5 nu e instalat")
 
 app = Flask(__name__)
+app.secret_key = "cv_secret_2024_xK9mP"  # schimba cu ceva random
+
+# ── Auth config ───────────────────────────────────────────────────────────────
+import hashlib, functools
+
+def _load_auth_config():
+    cfg_path = os.path.join(os.path.dirname(__file__), "config.json")
+    if os.path.exists(cfg_path):
+        try:
+            with open(cfg_path, encoding="utf-8") as f:
+                cfg = json.load(f)
+            if "users" in cfg:
+                return cfg["users"]
+        except Exception:
+            pass
+    # fallback default
+    return {"admin": hashlib.sha256("admin123".encode()).hexdigest()}
+
+def _check_password(username, password):
+    users = _load_auth_config()
+    hashed = hashlib.sha256(password.encode()).hexdigest()
+    return users.get(username) == hashed
+
+def login_required(f):
+    @functools.wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("logged_in"):
+            return redirect("/login?next=" + request.path)
+        return f(*args, **kwargs)
+    return decorated
 
 # AutoTrader blueprint
 try:
@@ -45,19 +75,34 @@ SYMBOLS = [
     "USDCHF",
 ]
 
+SYMBOLS_CRYPTO = [
+    # Top volum & lichiditate
+    "BTCUSD",   # Bitcoin       — cel mai tranzactionat
+    "ETHUSD",   # Ethereum      — al 2-lea
+    "XRPUSD",   # Ripple        — volum mare, spread mic
+    "SOLUSD",   # Solana        — volatil, trend clar
+    "BNBUSD",   # BNB           — ecosistem Binance
+    "DOGEUSD",  # Dogecoin      — volatil, popular
+    "ADAUSD",   # Cardano
+    "AVAXUSD",  # Avalanche
+    "LINKUSD",  # Chainlink
+    "LTCUSD",   # Litecoin      — lichid, vechi
+]
+
 RISK_DOLLARS    = 50.0
-TRADE_MAGIC     = 202800
+TRADE_MAGIC      = 202800
+_pending_symbols = set()  # simboluri cu order in curs — anti-race condition
 MIN_TF_VOTES    = 2         # voturi minime absolute
-MIN_CONFIDENCE  = 60.0      # % minim confidence pentru a intra (ex: 3/4 = 75%, 3/5 = 60%)
+MIN_CONFIDENCE  = 50.0      # % minim confidence pentru a intra (ex: 2/4 = 50%)
 MAX_OPEN_TRADES = 5
+TP_RATIO        = 1.0   # raport TP/SL: 1.0 = 1:1, 1.5 = 1:1.5, 2.0 = 1:2
 
 # Sesiuni active (UTC) — in afara acestor ferestre botul nu deschide trades
 TRADING_SESSIONS = [
-    (7, 0, 12, 0),   # London
-    (13, 0, 17, 0),  # New York / Overlap
+    (6, 0, 18, 0),   # Tokyo open → NY close (mai permisiv)
 ]
 
-ADX_MIN = 25  # forta minima a trendului pentru a intra
+ADX_MIN = 20  # forta minima a trendului pentru a intra
 
 # ── Reguli FTMO ───────────────────────────────────────────────────────────────
 FTMO_DAILY_LOSS_PCT   = 0.05   # 5% din balanta initiala
@@ -454,6 +499,251 @@ def calc_entry(df, ph_idx, pl_idx, trend, ema20, ema50, rsi):
 
     return entry_signal, entry_reason, price_now
 
+# ══════════════════════════════════════════════════════════════════════════════
+# ── SMC Strategy: Order Blocks, Fair Value Gap, Break of Structure ────────────
+# ══════════════════════════════════════════════════════════════════════════════
+
+def find_order_blocks(df, lookback=50):
+    """
+    Detecteaza Order Blocks (OB):
+    - Bullish OB: ultima lumanare bearish inainte de o miscare bullish puternica
+    - Bearish OB: ultima lumanare bullish inainte de o miscare bearish puternica
+    Returneaza lista de OB: {type, high, low, index, broken}
+    """
+    obs = []
+    closes = df["close"].values
+    opens  = df["open"].values
+    highs  = df["high"].values
+    lows   = df["low"].values
+    n = len(closes)
+    start = max(3, n - lookback)
+
+    for i in range(start, n - 2):
+        # Bullish OB: lumanare bearish urmata de impuls bullish puternic
+        if closes[i] < opens[i]:  # bearish candle
+            # miscare bullish dupa: urmatoarele 2 close > high-ul OB
+            if closes[i+1] > highs[i] and closes[i+2] > highs[i]:
+                obs.append({
+                    "type":   "BULLISH",
+                    "high":   round(float(highs[i]), 5),
+                    "low":    round(float(lows[i]), 5),
+                    "mid":    round(float((highs[i] + lows[i]) / 2), 5),
+                    "index":  i,
+                    "broken": False,
+                })
+        # Bearish OB: lumanare bullish urmata de impuls bearish puternic
+        elif closes[i] > opens[i]:  # bullish candle
+            if closes[i+1] < lows[i] and closes[i+2] < lows[i]:
+                obs.append({
+                    "type":   "BEARISH",
+                    "high":   round(float(highs[i]), 5),
+                    "low":    round(float(lows[i]), 5),
+                    "mid":    round(float((highs[i] + lows[i]) / 2), 5),
+                    "index":  i,
+                    "broken": False,
+                })
+
+    # Marcheaza OB-urile sparte (pretul a trecut prin ele)
+    price_now = float(closes[-1])
+    for ob in obs:
+        if ob["type"] == "BULLISH" and price_now < ob["low"]:
+            ob["broken"] = True
+        elif ob["type"] == "BEARISH" and price_now > ob["high"]:
+            ob["broken"] = True
+
+    # Returneaza doar OB-urile active (nesparte), cele mai recente primele
+    active = [ob for ob in obs if not ob["broken"]]
+    return active[-5:]  # ultimele 5 active
+
+
+def find_fvg(df, lookback=100):
+    """
+    Detecteaza Fair Value Gaps (FVG):
+    - Bullish FVG: high[i-2] < low[i]  → gap intre lumanarea i-2 si i
+    - Bearish FVG: low[i-2] > high[i]  → gap intre lumanarea i-2 si i
+    Returneaza lista: {type, top, bottom, mid, index, filled}
+    """
+    fvgs = []
+    highs  = df["high"].values
+    lows   = df["low"].values
+    closes = df["close"].values
+    n = len(closes)
+    start = max(2, n - lookback)
+
+    for i in range(start, n):
+        # Bullish FVG
+        if highs[i-2] < lows[i]:
+            fvgs.append({
+                "type":   "BULLISH",
+                "top":    round(float(lows[i]), 5),
+                "bottom": round(float(highs[i-2]), 5),
+                "mid":    round(float((lows[i] + highs[i-2]) / 2), 5),
+                "index":  i,
+                "filled": False,
+            })
+        # Bearish FVG
+        elif lows[i-2] > highs[i]:
+            fvgs.append({
+                "type":   "BEARISH",
+                "top":    round(float(lows[i-2]), 5),
+                "bottom": round(float(highs[i]), 5),
+                "mid":    round(float((lows[i-2] + highs[i]) / 2), 5),
+                "index":  i,
+                "filled": False,
+            })
+
+    price_now = float(closes[-1])
+    for fvg in fvgs:
+        # FVG umplut daca pretul a trecut prin mijloc
+        if fvg["type"] == "BULLISH" and price_now < fvg["mid"]:
+            fvg["filled"] = True
+        elif fvg["type"] == "BEARISH" and price_now > fvg["mid"]:
+            fvg["filled"] = True
+
+    active = [f for f in fvgs if not f["filled"]]
+    return active[-5:]
+
+
+def detect_bos(df, ph_idx, pl_idx):
+    """
+    Break of Structure (BOS):
+    - Bullish BOS: pretul a spart ultimul Higher High → trend bullish confirmat
+    - Bearish BOS: pretul a spart ultimul Lower Low → trend bearish confirmat
+    Returneaza: "BULLISH" / "BEARISH" / None
+    """
+    highs  = df["high"].values
+    lows   = df["low"].values
+    closes = df["close"].values
+    n      = len(closes)
+    cutoff = max(0, n - 100)
+
+    ph_r = [i for i in ph_idx if i >= cutoff]
+    pl_r = [i for i in pl_idx if i >= cutoff]
+    if len(ph_r) < 2 or len(pl_r) < 2:
+        return None
+
+    price_now = float(closes[-1])
+
+    # Bullish BOS: pretul > ultimul pivot high
+    last_ph = float(highs[ph_r[-1]])
+    prev_ph = float(highs[ph_r[-2]])
+    if price_now > last_ph and last_ph > prev_ph:
+        return "BULLISH"
+
+    # Bearish BOS: pretul < ultimul pivot low
+    last_pl = float(lows[pl_r[-1]])
+    prev_pl = float(lows[pl_r[-2]])
+    if price_now < last_pl and last_pl < prev_pl:
+        return "BEARISH"
+
+    return None
+
+
+def price_in_ob(price, obs, direction, tolerance=0.001):
+    """Verifica daca pretul e intr-un Order Block activ in directia dorita."""
+    for ob in obs:
+        if ob["type"] != direction:
+            continue
+        lo = ob["low"] * (1 - tolerance)
+        hi = ob["high"] * (1 + tolerance)
+        if lo <= price <= hi:
+            return True, ob
+    return False, None
+
+
+def price_near_fvg(price, fvgs, direction, tolerance=0.002):
+    """Verifica daca pretul e langa un FVG activ in directia dorita."""
+    for fvg in fvgs:
+        if fvg["type"] != direction:
+            continue
+        lo = fvg["bottom"] * (1 - tolerance)
+        hi = fvg["top"] * (1 + tolerance)
+        if lo <= price <= hi:
+            return True, fvg
+    return False, None
+
+
+def calc_entry_smc(df, ph_idx, pl_idx, elements=None):
+    """
+    Strategie SMC:
+    - BOS confirma directia
+    - Order Block = zona de intrare
+    - FVG = confirmare suplimentara
+    elements = dict cu toggle-uri: {"bos": True, "ob": True, "fvg": True, "structure": True}
+    """
+    if elements is None:
+        elements = {"bos": True, "ob": True, "fvg": True, "structure": True}
+
+    closes = df["close"].values
+    highs  = df["high"].values
+    lows   = df["low"].values
+    price_now = float(closes[-1])
+
+    reasons = []
+    signal  = "HOLD"
+    score_buy  = 0
+    score_sell = 0
+
+    # 1. Break of Structure
+    bos = detect_bos(df, ph_idx, pl_idx) if elements.get("bos") else None
+    if bos == "BULLISH":
+        score_buy += 2
+        reasons.append("BOS Bullish ✓")
+    elif bos == "BEARISH":
+        score_sell += 2
+        reasons.append("BOS Bearish ✓")
+
+    # 2. Order Blocks
+    obs = find_order_blocks(df) if elements.get("ob") else []
+    in_bull_ob, bull_ob = price_in_ob(price_now, obs, "BULLISH")
+    in_bear_ob, bear_ob = price_in_ob(price_now, obs, "BEARISH")
+    if in_bull_ob:
+        score_buy += 3
+        reasons.append(f"Order Block Bullish [{bull_ob['low']}–{bull_ob['high']}] ✓")
+    if in_bear_ob:
+        score_sell += 3
+        reasons.append(f"Order Block Bearish [{bear_ob['low']}–{bear_ob['high']}] ✓")
+
+    # 3. Fair Value Gap
+    fvgs = find_fvg(df) if elements.get("fvg") else []
+    near_bull_fvg, bull_fvg = price_near_fvg(price_now, fvgs, "BULLISH")
+    near_bear_fvg, bear_fvg = price_near_fvg(price_now, fvgs, "BEARISH")
+    if near_bull_fvg:
+        score_buy += 2
+        reasons.append(f"FVG Bullish [{bull_fvg['bottom']}–{bull_fvg['top']}] ✓")
+    if near_bear_fvg:
+        score_sell += 2
+        reasons.append(f"FVG Bearish [{bear_fvg['bottom']}–{bear_fvg['top']}] ✓")
+
+    # 4. Market Structure (Higher Highs / Lower Lows)
+    if elements.get("structure"):
+        n  = len(closes)
+        cutoff = max(0, n - 50)
+        ph_r = [i for i in ph_idx if i >= cutoff]
+        pl_r = [i for i in pl_idx if i >= cutoff]
+        if len(ph_r) >= 2 and len(pl_r) >= 2:
+            hh = highs[ph_r[-1]] > highs[ph_r[-2]]  # Higher High
+            hl = lows[pl_r[-1]]  > lows[pl_r[-2]]   # Higher Low
+            lh = highs[ph_r[-1]] < highs[ph_r[-2]]  # Lower High
+            ll = lows[pl_r[-1]]  < lows[pl_r[-2]]   # Lower Low
+            if hh and hl:
+                score_buy += 1
+                reasons.append("Structure: HH+HL ✓")
+            elif lh and ll:
+                score_sell += 1
+                reasons.append("Structure: LH+LL ✓")
+
+    # Decizie — necesita minim 2 puncte pentru a intra
+    min_score = 2
+    if score_buy >= min_score and score_buy > score_sell:
+        signal = "BUY"
+    elif score_sell >= min_score and score_sell > score_buy:
+        signal = "SELL"
+
+    conviction = max(score_buy, score_sell)
+    return signal, reasons, price_now, conviction
+
+
 # ── SL/TP din pivoti ──────────────────────────────────────────────────────────
 def calc_sl_tp(df, ph_idx, pl_idx, signal, price):
     highs = df["high"].values
@@ -531,7 +821,7 @@ def analyze_symbol(symbol, tfs=None, bars=500):
     }
 
 # ── Verificari FTMO ──────────────────────────────────────────────────────────
-def check_ftmo_rules():
+def check_ftmo_rules(symbol=""):
     """Returneaza (ok, motiv) — ok=False inseamna trade blocat."""
     if not FTMO_ENABLED or not MT5_AVAILABLE or mt5 is None:
         return True, ""
@@ -563,13 +853,17 @@ def check_ftmo_rules():
             return False, f"Blocat: drawdown total 10% atins (equity {equity:.2f})"
 
     # 4. Weekend — nu tranzactiona vineri dupa 21:00 UTC si sambata/duminica
-    weekday = now_utc.weekday()  # 4=vineri, 5=sambata, 6=duminica
-    if weekday == 6:
-        return False, "Blocat: duminica — piata inchisa"
-    if weekday == 5:
-        return False, "Blocat: sambata — piata inchisa"
-    if weekday == 4 and now_utc.hour >= 21:
-        return False, "Blocat: vineri dupa 21:00 UTC — inchidere weekend"
+    # Crypto nu are weekend — sari verificarea pentru crypto
+    CRYPTO_KEYWORDS = {"BTC","ETH","XRP","LTC","ADA","SOL","BNB","DOT","DOGE","MATIC","XLM","LINK","UNI","AVAX"}
+    is_crypto = any(kw in symbol.upper() for kw in CRYPTO_KEYWORDS)
+    if not is_crypto:
+        weekday = now_utc.weekday()  # 4=vineri, 5=sambata, 6=duminica
+        if weekday == 5:
+            return False, "Blocat: sambata — piata inchisa"
+        if weekday == 6 and now_utc.hour < 22:
+            return False, "Blocat: duminica — piata inchisa pana la 22:00 UTC"
+        if weekday == 4 and now_utc.hour >= 21:
+            return False, "Blocat: vineri dupa 21:00 UTC — inchidere weekend"
 
     return True, ""
 
@@ -584,7 +878,7 @@ def get_signal_file_path():
     # fallback langa app.py
     return os.path.join(os.path.dirname(__file__), "cv_signal.json")
 
-def place_trade(symbol, signal, sl, tp, risk_dollars=50.0):
+def place_trade(symbol, signal, sl, tp, risk_dollars=50.0, strategy="classic"):
     import math, os
     if not MT5_AVAILABLE or mt5 is None:
         return False, "MT5 indisponibil"
@@ -592,21 +886,22 @@ def place_trade(symbol, signal, sl, tp, risk_dollars=50.0):
     if not mt5.initialize():
         return False, "MT5 initialize() esuat"
 
-    # Verificare sesiune activa
-    if not in_trading_session():
-        from datetime import datetime, timezone
-        now_utc = datetime.now(timezone.utc)
-        return False, f"In afara sesiunii de tranzactionare ({now_utc.strftime('%H:%M')} UTC) — activ 07-12 si 13-17"
+    # Verificare sesiune activa (doar daca filtrul e activ)
+    try:
+        from autotrader import scanner as _sc
+        _use_ses = _sc.get("use_session_filter", True)
+        _use_h4  = _sc.get("use_h4_filter", True)
+    except Exception:
+        _use_ses = True
+        _use_h4  = True
 
-    # Verificare H4 direction — tranzactionam doar cu trendul mare
-    h4_dir = get_h4_direction(symbol)
-    if h4_dir is None:
-        return False, f"H4 lateral sau ADX slab pe {symbol} — nu intra"
-    if h4_dir != signal:
-        return False, f"H4 direction={h4_dir} dar semnal={signal} — contra-trend blocat"
+    # Filtru sesiuni dezactivat — user controleaza manual scannerul
+
+    # Verificare H4 direction (doar daca filtrul e activ)
+    # H4 direction nu mai e filtru separat — e controlat din lista TF
 
     # Verificare reguli FTMO
-    ftmo_ok, ftmo_msg = check_ftmo_rules()
+    ftmo_ok, ftmo_msg = check_ftmo_rules(symbol)
     if not ftmo_ok:
         log.warning(f"FTMO block: {ftmo_msg}")
         return False, ftmo_msg
@@ -616,10 +911,15 @@ def place_trade(symbol, signal, sl, tp, risk_dollars=50.0):
     if open_count >= MAX_OPEN_TRADES:
         return False, f"Limita atinsa: {open_count}/{MAX_OPEN_TRADES} pozitii deschise — asteapta sa se inchida una"
 
-    # Verificare: nu deschide al doilea trade pe acelasi simbol
-    existing = mt5.positions_get(symbol=symbol)
-    if existing and len(existing) > 0:
-        return False, f"Deja exista {len(existing)} pozitie deschisa pe {symbol} — skip"
+    # Verificare: max 1 trade per simbol (indiferent de strategie)
+    existing = mt5.positions_get(symbol=symbol) or []
+    if existing:
+        return False, f"Deja exista trade deschis pe {symbol} — skip"
+
+    # Verificare anti-race: simbolul e deja in curs de trimitere?
+    if symbol in _pending_symbols:
+        return False, f"{symbol} in curs de procesare — skip"
+    _pending_symbols.add(symbol)
 
     # Verificare corelatie USD — max 1 trade in aceeasi directie USD simultan
     # Ex: EURUSD BUY + GBPUSD BUY + AUDUSD BUY = toate "vand USD" → risc corelat
@@ -688,11 +988,11 @@ def place_trade(symbol, signal, sl, tp, risk_dollars=50.0):
     if sl_dist <= 0:
         return False, f"SL invalid dupa ajustare"
 
-    # TP fix 1:1 (risca 1, castiga 1)
+    # TP configurabil via TP_RATIO
     if signal == "BUY":
-        tp = exec_price + sl_dist * 1.0
+        tp = exec_price + sl_dist * TP_RATIO
     else:
-        tp = exec_price - sl_dist * 1.0
+        tp = exec_price - sl_dist * TP_RATIO
 
     lot_step = info.volume_step
     min_lot  = info.volume_min
@@ -720,7 +1020,7 @@ def place_trade(symbol, signal, sl, tp, risk_dollars=50.0):
         "tp":           round(tp, info.digits),
         "deviation":    30,
         "magic":        TRADE_MAGIC,
-        "comment":      f"CV_{signal}",
+        "comment":      f"CV_{signal}_{strategy.upper()[:3]}",
         "type_time":    mt5.ORDER_TIME_GTC,
         "type_filling": filling,
     }
@@ -734,28 +1034,31 @@ def place_trade(symbol, signal, sl, tp, risk_dollars=50.0):
         {k: v for k, v in req.items() if k != "type_filling"},  # fara filling
     ]
     last_code = -1
-    for attempt in attempts:
-        result = mt5.order_send(attempt)
-        if result is not None and result.retcode == mt5.TRADE_RETCODE_DONE:
-            ticket = result.order
-            import threading as _thr
-            _thr.Thread(target=save_trade_snapshot, args=(ticket, symbol, signal, exec_price,
-                round(sl, info.digits), round(tp, info.digits)), kwargs={"tf": "M5"}, daemon=True).start()
-            return True, f"OK — {lots} loturi {signal} {symbol} @ {exec_price}  SL={round(sl,info.digits)}  TP={round(tp,info.digits)}"
-        last_code = result.retcode if result else -1
-        log.warning(f"attempt filling={attempt.get('type_filling','none')} retcode={last_code}")
+    try:
+        for attempt in attempts:
+            result = mt5.order_send(attempt)
+            if result is not None and result.retcode == mt5.TRADE_RETCODE_DONE:
+                ticket = result.order
+                import threading as _thr
+                _thr.Thread(target=save_trade_snapshot, args=(ticket, symbol, signal, exec_price,
+                    round(sl, info.digits), round(tp, info.digits)), kwargs={"tf": "M5"}, daemon=True).start()
+                return True, f"OK — {lots} loturi {signal} {symbol} @ {exec_price}  SL={round(sl,info.digits)}  TP={round(tp,info.digits)}"
+            last_code = result.retcode if result else -1
+            log.warning(f"attempt filling={attempt.get('type_filling','none')} retcode={last_code}")
 
-    msgs = {
-        10027: "AutoTrading dezactivat — Tools→Options→Expert Advisors→Allow algorithmic trading",
-        10030: "Filling mode incompatibil cu brokerul (10030)",
-        10018: "Piata inchisa",
-        10019: "Fonduri insuficiente",
-        10016: f"SL/TP invalid ({info.digits} zecimale)",
-        10014: f"Volum invalid (lots={lots})",
-        10006: "Ordin respins de broker",
-        10013: "Parametri invalizi",
-    }
-    return False, msgs.get(last_code, f"Eroare MT5: {last_code}")
+        msgs = {
+            10027: "AutoTrading dezactivat — Tools→Options→Expert Advisors→Allow algorithmic trading",
+            10030: "Filling mode incompatibil cu brokerul (10030)",
+            10018: "Piata inchisa",
+            10019: "Fonduri insuficiente",
+            10016: f"SL/TP invalid ({info.digits} zecimale)",
+            10014: f"Volum invalid (lots={lots})",
+            10006: "Ordin respins de broker",
+            10013: "Parametri invalizi",
+        }
+        return False, msgs.get(last_code, f"Eroare MT5: {last_code}")
+    finally:
+        _pending_symbols.discard(symbol)  # elibereaza intotdeauna, chiar si la eroare
 
 # ── Build chart ───────────────────────────────────────────────────────────────
 def build_chart(symbol, tf, lookback, compact=False):
@@ -924,11 +1227,22 @@ def save_trade_snapshot(ticket, symbol, signal, entry, sl, tp, tf="M5", analysis
                 mode="markers", marker=dict(symbol="triangle-up", size=8, color="#26a69a"),
                 name="Pivot L"), row=1, col=1)
 
-        # ── Linii Entry / SL / TP ──
-        entry_col = "#26a69a" if signal == "BUY" else "#ef5350"
-        fig.add_hline(y=entry, line=dict(color=entry_col, width=2, dash="solid"),
-            annotation_text=f"  ENTRY {signal} @ {round(entry,5)}",
-            annotation_font=dict(color=entry_col, size=11), row=1, col=1)
+        # ── Entry ca punct mare pe ultima candela ──
+        entry_col  = "#26a69a" if signal == "BUY" else "#ef5350"
+        entry_sym  = "triangle-up" if signal == "BUY" else "triangle-down"
+        entry_date = dates[-1]
+        fig.add_trace(go.Scatter(
+            x=[entry_date], y=[entry],
+            mode="markers+text",
+            marker=dict(symbol=entry_sym, size=18, color=entry_col,
+                        line=dict(color="#fff", width=1.5)),
+            text=[f"  ENTRY {signal} @ {round(entry,5)}"],
+            textposition="middle right",
+            textfont=dict(color=entry_col, size=11),
+            name=f"Entry {signal}", showlegend=True,
+        ), row=1, col=1)
+
+        # ── SL si TP ca linii orizontale ──
         fig.add_hline(y=sl, line=dict(color="#ef5350", width=1.5, dash="dash"),
             annotation_text=f"  SL @ {round(sl,5)}",
             annotation_font=dict(color="#ef5350", size=10), row=1, col=1)
@@ -1171,8 +1485,8 @@ async function runAnalysis() {
         const data = await resp.json();
         showResult(data);
         // Reîncarcă graficele în fundal pentru a fi sincronizate cu analiza
-        document.getElementById('chart-age').textContent = 'Grafic: sinc cu analiza ✓';
-        document.getElementById('chart-age').style.color = '#26a69a';
+        const chartAgeEl = document.getElementById('chart-age');
+        if (chartAgeEl) { chartAgeEl.textContent = 'Grafic: sinc cu analiza ✓'; chartAgeEl.style.color = '#26a69a'; }
     } catch(e) {
         alert('Eroare la analiza: ' + e);
     } finally {
@@ -1558,8 +1872,72 @@ async function executeManual(signal) {
 
 </body></html>"""
 
+# ── Login page HTML ──────────────────────────────────────────────────────────
+LOGIN_HTML = """<!DOCTYPE html>
+<html lang="ro"><head>
+<meta charset="utf-8">
+<title>Login — ChartVisualizer</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:#0e0e0e; color:#eee; font-family:'Segoe UI',sans-serif;
+       display:flex; align-items:center; justify-content:center; min-height:100vh; }
+.card { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:10px;
+        padding:36px 40px; width:100%; max-width:360px; box-shadow:0 8px 32px rgba(0,0,0,0.5); }
+.logo { font-size:1.5rem; font-weight:700; color:#9c27b0; margin-bottom:6px; }
+.sub  { font-size:0.83rem; color:#666; margin-bottom:28px; }
+label { font-size:0.78rem; color:#888; text-transform:uppercase; display:block; margin-bottom:4px; }
+input { width:100%; background:#242424; color:#eee; border:1px solid #383838;
+        padding:10px 12px; border-radius:5px; font-size:0.95rem; margin-bottom:16px; }
+input:focus { outline:none; border-color:#9c27b0; }
+button { width:100%; background:#9c27b0; color:#fff; border:none; padding:11px;
+         border-radius:5px; font-size:1rem; font-weight:600; cursor:pointer; transition:background 0.15s; }
+button:hover { background:#7b1fa2; }
+.err { background:#b71c1c22; border:1px solid #b71c1c; color:#ef9a9a;
+       padding:9px 12px; border-radius:5px; font-size:0.85rem; margin-bottom:16px; display:none; }
+.err.show { display:block; }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="logo">⚡ ChartVisualizer</div>
+    <div class="sub">Autentifica-te pentru a continua</div>
+    {% if error %}<div class="err show">{{ error }}</div>{% endif %}
+    <form method="POST" action="/login">
+        <input type="hidden" name="next" value="{{ next }}">
+        <label>Utilizator</label>
+        <input type="text" name="username" autofocus autocomplete="username" placeholder="username">
+        <label>Parola</label>
+        <input type="password" name="password" autocomplete="current-password" placeholder="••••••••">
+        <button type="submit">Intra</button>
+    </form>
+</div>
+</body></html>"""
+
 # ── Routes ────────────────────────────────────────────────────────────────────
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+        next_url = request.form.get("next", "/")
+        if _check_password(username, password):
+            session["logged_in"] = True
+            session["username"]  = username
+            return redirect(next_url or "/")
+        error = "Utilizator sau parola incorecta"
+        return render_template_string(LOGIN_HTML, error=error, next=next_url)
+    next_url = request.args.get("next", "/")
+    if session.get("logged_in"):
+        return redirect(next_url)
+    return render_template_string(LOGIN_HTML, error=None, next=next_url)
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/login")
 @app.route("/")
+@login_required
 def index():
     symbol = request.args.get("symbol", "EURUSD").upper()
     mode   = request.args.get("mode", "single")
@@ -1583,6 +1961,7 @@ def index():
     )
 
 @app.route("/ftmo_status")
+@login_required
 def ftmo_status():
     from datetime import datetime, timezone
     ok, msg = check_ftmo_rules()
@@ -1618,6 +1997,7 @@ def ftmo_status():
     }), mimetype="application/json")
 
 @app.route("/tick")
+@login_required
 def tick_route():
     symbol = request.args.get("symbol", "EURUSD").upper()
     if not MT5_AVAILABLE or mt5 is None:
@@ -1636,6 +2016,7 @@ def tick_route():
     }), mimetype="application/json")
 
 @app.route("/chart_html")
+@login_required
 def chart_html_route():
     symbol = request.args.get("symbol", "EURUSD").upper()
     mode   = request.args.get("mode", "single")
@@ -1650,6 +2031,7 @@ def chart_html_route():
     return Response(html, mimetype="text/html")
 
 @app.route("/analyze")
+@login_required
 def analyze_route():
     symbol  = request.args.get("symbol", "EURUSD").upper()
     tfs_str = request.args.get("tfs", "M1,M5,M15,H1,H4")
@@ -1677,6 +2059,7 @@ def analyze_route():
     return Response(json.dumps(data, cls=NpEncoder), mimetype="application/json")
 
 @app.route("/debug_trade")
+@login_required
 def debug_trade():
     symbol = request.args.get("symbol", "EURUSD").upper()
     if not MT5_AVAILABLE or mt5 is None:
@@ -1705,6 +2088,7 @@ def debug_trade():
     return Response(json.dumps(data), mimetype="application/json")
 
 @app.route("/mt5_status")
+@login_required
 def mt5_status():
     if not MT5_AVAILABLE or mt5 is None:
         return Response(json.dumps({"ok": False, "msg": "MT5 nu e disponibil"}), mimetype="application/json")
@@ -1722,6 +2106,7 @@ def mt5_status():
     return Response(json.dumps(data), mimetype="application/json")
 
 @app.route("/trade", methods=["POST"])
+@login_required
 def trade_route():
     symbol = request.args.get("symbol", "EURUSD").upper()
     signal = request.args.get("signal", "")
@@ -1938,10 +2323,12 @@ window.onload = () => { loadData(); startAutoRefresh(); };
 </body></html>"""
 
 @app.route("/account")
+@login_required
 def account_page():
     return ACCOUNT_HTML
 
 @app.route("/mt5_login", methods=["POST"])
+@login_required
 def mt5_login():
     global MT5_AVAILABLE
     import os
@@ -1986,6 +2373,7 @@ def mt5_login():
         return Response(json.dumps({"ok": False, "message": str(e)}), mimetype="application/json")
 
 @app.route("/account_data")
+@login_required
 def account_data():
     if not MT5_AVAILABLE or mt5 is None:
         return Response(json.dumps({"ok": False, "msg": "MT5 indisponibil"}), mimetype="application/json")
@@ -2025,6 +2413,7 @@ def account_data():
                 "sl":            round(p.sl, 5) if p.sl else 0,
                 "tp":            round(p.tp, 5) if p.tp else 0,
                 "profit":        round(p.profit, 2),
+                "comment":       p.comment or "",
             })
 
     total_profit = sum(p["profit"] for p in positions)
@@ -2044,7 +2433,39 @@ def account_data():
     }
     return Response(json.dumps(data, cls=NpEncoder), mimetype="application/json")
 
+@app.route("/close_all_trades", methods=["POST"])
+@login_required
+def close_all_trades():
+    if not MT5_AVAILABLE or mt5 is None:
+        return Response(json.dumps({"ok": False, "message": "MT5 indisponibil"}), mimetype="application/json")
+    positions = mt5.positions_get() or []
+    closed = 0
+    for pos in positions:
+        tick = mt5.symbol_info_tick(pos.symbol)
+        if not tick:
+            continue
+        info = mt5.symbol_info(pos.symbol)
+        close_price = tick.bid if pos.type == 0 else tick.ask
+        order_type  = mt5.ORDER_TYPE_SELL if pos.type == 0 else mt5.ORDER_TYPE_BUY
+        fm = info.filling_mode if info else 0
+        if fm & 2:    filling = mt5.ORDER_FILLING_IOC
+        elif fm & 1:  filling = mt5.ORDER_FILLING_FOK
+        else:         filling = mt5.ORDER_FILLING_RETURN
+        req = {
+            "action": mt5.TRADE_ACTION_DEAL, "symbol": pos.symbol,
+            "volume": pos.volume, "type": order_type, "price": close_price,
+            "position": pos.ticket, "deviation": 30, "magic": pos.magic,
+            "comment": "manual_close_all", "type_time": mt5.ORDER_TIME_GTC,
+            "type_filling": filling,
+        }
+        result = mt5.order_send(req)
+        if result and result.retcode == mt5.TRADE_RETCODE_DONE:
+            closed += 1
+    return Response(json.dumps({"ok": True, "closed": closed}), mimetype="application/json")
+
+
 @app.route("/close_position", methods=["POST"])
+@login_required
 def close_position():
     if not MT5_AVAILABLE or mt5 is None:
         return Response(json.dumps({"ok": False, "message": "MT5 indisponibil"}), mimetype="application/json")
@@ -2079,6 +2500,7 @@ def close_position():
     return Response(json.dumps({"ok": False, "message": f"Eroare inchidere: {code}"}), mimetype="application/json")
 
 @app.route("/modify_trade", methods=["POST"])
+@login_required
 def modify_trade():
     if not MT5_AVAILABLE or mt5 is None:
         return Response(json.dumps({"ok": False, "message": "MT5 indisponibil"}), mimetype="application/json")
@@ -2107,6 +2529,7 @@ def modify_trade():
 
 
 @app.route("/trade_chart/<int:ticket>")
+@login_required
 def trade_chart(ticket):
     if not MT5_AVAILABLE or mt5 is None:
         return Response("<p style='color:#ef5350'>MT5 indisponibil</p>", mimetype="text/html")
@@ -2273,6 +2696,9 @@ body { background:#111; color:#eee; font-family:'Segoe UI',sans-serif; }
 <div class="navbar">
     <div class="navbar-brand">📊 Trades Active</div>
     <div class="nav-links">
+        <button class="btn btn-teal" onclick="autoReview()" id="btn-review">🔍 Auto Review</button>
+        <button class="btn btn-red" onclick="closeAllTrades()" id="btn-close-all">✕ Închide toate</button>
+        <div id="review-result" style="font-size:0.82rem;padding:4px 10px;border-radius:4px;display:none"></div>
         <a href="/" class="btn btn-grey">ChartVisualizer</a>
         <a href="/autotrader" class="btn btn-grey">AutoTrader</a>
         <a href="/account" class="btn btn-grey">Cont</a>
@@ -2365,10 +2791,18 @@ function renderTrades(d) {
             </div>`;
         }
 
+        const c = (p.comment||'').toUpperCase();
+        const stratBadge = c.includes('SMC')
+            ? `<span style="background:#3a2200;color:#ff9800;padding:2px 6px;border-radius:3px;font-size:0.7rem;font-weight:600">SMC</span>`
+            : (c.includes('CLA') || c.includes('CV_'))
+            ? `<span style="background:#00302a;color:#26a69a;padding:2px 6px;border-radius:3px;font-size:0.7rem;font-weight:600">Classic</span>`
+            : '';
+
         const cardHtml = `
         <div class="trade-header" onclick="toggleCard('${ticket}')">
             <span class="th-sym">${p.symbol}</span>
             <span class="th-type ${isBuy ? 'buy' : 'sell'}">${p.type}</span>
+            ${stratBadge}
             <div class="th-stat"><span class="lbl">Volume</span><span class="val">${p.volume}</span></div>
             <div class="th-stat"><span class="lbl">Entry</span><span class="val">${p.price_open}</span></div>
             <div class="th-stat"><span class="lbl">Curent</span><span class="val" style="color:#ffeb3b">${p.price_current}</span></div>
@@ -2474,8 +2908,6 @@ async function closeTrade(ticket, symbol) {
 }
 
 // ── Istoric ───────────────────────────────────────────────────────────────────
-let histPage = 0;
-const HIST_PAGE_SIZE = 30;
 let allHistory = [];
 
 async function loadHistory() {
@@ -2488,7 +2920,6 @@ async function loadHistory() {
             return;
         }
         allHistory = d.history || [];
-        histPage = 0;
         // stats
         const net = d.total_net;
         const wr  = d.wins + d.losses > 0 ? Math.round(d.wins / (d.wins + d.losses) * 100) : 0;
@@ -2505,10 +2936,9 @@ async function loadHistory() {
 }
 
 function renderHistory() {
-    const slice = allHistory.slice(0, (histPage + 1) * HIST_PAGE_SIZE);
-    const hasMore = allHistory.length > slice.length;
+    const slice = allHistory;
     let html = '<table class="hist-table"><thead><tr>';
-    ['Data inchidere','Simbol','Tip','Volum','Entry','Close','Profit','Comision','Net','Comment','📸'].forEach(h => {
+    ['Data inchidere','Simbol','Tip','Volum','Entry','Close','Profit','Comision','Net','Strategie','📸'].forEach(h => {
         html += `<th>${h}</th>`;
     });
     html += '</tr></thead><tbody>';
@@ -2519,6 +2949,14 @@ function renderHistory() {
         const snapBtn = hasSnap
             ? `<a href="/snapshot/${h.ticket}" target="_blank" style="background:#1a2a1a;border:1px solid #2e4a2e;color:#66bb6a;padding:3px 8px;border-radius:3px;font-size:0.75rem;text-decoration:none;white-space:nowrap">📸 Vezi</a>`
             : `<span style="color:#333;font-size:0.75rem">—</span>`;
+        const c = (h.comment||'').toUpperCase();
+        const isSmc = c.includes('SMC');
+        const isCls = c.includes('CLA') || c.includes('CV_');
+        const stratBadge = isSmc
+            ? `<span style="background:#3a2200;color:#ff9800;padding:2px 7px;border-radius:3px;font-size:0.72rem;font-weight:600">SMC</span>`
+            : isCls
+            ? `<span style="background:#00302a;color:#26a69a;padding:2px 7px;border-radius:3px;font-size:0.72rem;font-weight:600">Classic</span>`
+            : `<span style="color:#444;font-size:0.72rem">${h.comment||'—'}</span>`;
         html += `<tr>
             <td style="color:#666;white-space:nowrap">${h.close_time || h.open_time}</td>
             <td style="font-weight:bold">${h.symbol}</td>
@@ -2529,20 +2967,12 @@ function renderHistory() {
             <td class="${profCls}">${h.profit>=0?'+':''}${h.profit.toFixed(2)}</td>
             <td style="color:#666">${h.commission.toFixed(2)}</td>
             <td class="${netCls}" style="font-size:0.85rem">${h.net>=0?'+':''}${h.net.toFixed(2)}</td>
-            <td style="color:#555;font-size:0.75rem">${h.comment||'—'}</td>
+            <td>${stratBadge}</td>
             <td>${snapBtn}</td>
         </tr>`;
     });
     html += '</tbody></table>';
-    if (hasMore) {
-        html += `<button class="hist-load-more" onclick="loadMoreHistory()">↓ Arata mai multe (${allHistory.length - slice.length} ramase)</button>`;
-    }
     document.getElementById('hist-container').innerHTML = html;
-}
-
-function loadMoreHistory() {
-    histPage++;
-    renderHistory();
 }
 
 // ── Snapshots ─────────────────────────────────────────────────────────────────
@@ -2561,6 +2991,50 @@ loadSnapshots();
 loadHistory();
 setInterval(loadHistory, 30000);
 setInterval(loadSnapshots, 30000);
+
+// ── Auto Review ──────────────────────────────────────────────────────────────
+async function autoReview() {
+    const btn = document.getElementById("btn-review");
+    const res = document.getElementById("review-result");
+    btn.disabled = true; btn.textContent = "⏳ Analizeaza...";
+    try {
+        const r = await fetch("/autotrader/review_trades", {method:"POST"});
+        const d = await r.json();
+        res.style.display = "inline-block";
+        if (d.ok) {
+            res.style.background = d.closed > 0 ? "#b71c1c" : "#1b5e20";
+            res.style.color = "#fff";
+            res.textContent = d.closed > 0 ? `Inchis ${d.closed} trade(uri) anticipat` : "Niciun trade nu necesita iesire";
+        } else {
+            res.style.background = "#333"; res.style.color = "#ef5350";
+            res.textContent = d.message || "Eroare review";
+        }
+        setTimeout(() => { res.style.display="none"; }, 5000);
+    } catch(e) {
+        res.style.display="inline-block"; res.style.background="#333"; res.style.color="#ef5350";
+        res.textContent = "Eroare: " + e;
+    }
+    btn.disabled = false; btn.textContent = "🔍 Auto Review";
+}
+
+// ── Inchide toate ────────────────────────────────────────────────────────────
+async function closeAllTrades() {
+    if (!confirm("Inchizi TOATE pozitiile deschise?")) return;
+    const btn = document.getElementById("btn-close-all");
+    btn.disabled = true; btn.textContent = "⏳ Se inchid...";
+    try {
+        const r = await fetch("/close_all_trades", {method:"POST"});
+        const d = await r.json();
+        const res = document.getElementById("review-result");
+        res.style.display = "inline-block";
+        res.style.background = d.ok ? "#b71c1c" : "#333";
+        res.style.color = "#fff";
+        res.textContent = d.ok ? `Inchis ${d.closed} pozitii` : (d.message || "Eroare");
+        setTimeout(() => { res.style.display="none"; }, 4000);
+        if (d.ok) loadTrades();
+    } catch(e) {}
+    btn.disabled = false; btn.textContent = "✕ Închide toate";
+}
 
 // ── Live refresh ─────────────────────────────────────────────────────────────
 // refresh date la 1s, graficele la 10s
@@ -2692,6 +3166,7 @@ def _fetch_all_news():
 
 
 @app.route("/news_data")
+@login_required
 def news_data():
     events, err = _fetch_all_news()
     if not events and err:
@@ -2876,11 +3351,13 @@ setInterval(loadNews, 60000);  // refresh la 1 minut
 
 
 @app.route("/news")
+@login_required
 def news_page():
     return NEWS_HTML
 
 
 @app.route("/snapshot/<int:ticket>")
+@login_required
 def snapshot_view(ticket):
     path = os.path.join(SNAPSHOTS_DIR, f"{ticket}.html")
     if not os.path.exists(path):
@@ -2889,6 +3366,7 @@ def snapshot_view(ticket):
 
 
 @app.route("/snapshots_list")
+@login_required
 def snapshots_list():
     """Returneaza lista de ticket-uri care au snapshot."""
     try:
@@ -2904,7 +3382,34 @@ def snapshots_list():
         return Response(json.dumps({"tickets": []}), mimetype="application/json")
 
 
+@app.route("/debug_deals")
+@login_required
+def debug_deals():
+    """Dump raw MT5 deals pentru ultimele 2 zile — ajuta la diagnosticare."""
+    if not MT5_AVAILABLE or mt5 is None:
+        return Response(json.dumps({"ok": False}), mimetype="application/json")
+    try:
+        from datetime import datetime, timedelta, timezone
+        date_to   = datetime.now(timezone.utc)
+        date_from = date_to - timedelta(days=2)
+        deals = mt5.history_deals_get(date_from, date_to) or []
+        rows = []
+        for d in deals:
+            rows.append({
+                "ticket": d.ticket, "position_id": d.position_id,
+                "symbol": d.symbol, "type": d.type, "entry": d.entry,
+                "volume": d.volume, "price": round(d.price, 5),
+                "profit": round(d.profit, 2), "comment": d.comment,
+                "time": datetime.fromtimestamp(d.time, tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+            })
+        return Response(json.dumps({"ok": True, "count": len(rows), "deals": rows}, indent=2),
+                        mimetype="application/json")
+    except Exception as e:
+        return Response(json.dumps({"ok": False, "msg": str(e)}), mimetype="application/json")
+
+
 @app.route("/history_data")
+@login_required
 def history_data():
     if not MT5_AVAILABLE or mt5 is None:
         return Response(json.dumps({"ok": False, "msg": "MT5 indisponibil"}), mimetype="application/json")
@@ -2912,29 +3417,43 @@ def history_data():
         from datetime import datetime, timedelta, timezone
         date_to   = datetime.now(timezone.utc)
         date_from = date_to - timedelta(days=90)
-        deals = mt5.history_deals_get(date_from, date_to)
-        if deals is None:
-            deals = []
-        # grupeaza deals pe position_id — fiecare pozitie are open+close deal
-        positions = {}
-        for d in deals:
-            pid = d.position_id
-            if pid not in positions:
-                positions[pid] = []
-            positions[pid].append(d)
+        # Pas 1: ia TOATE deal-urile din perioada
+        all_deals = mt5.history_deals_get(date_from, date_to) or []
+
+        # Pas 2: colecteaza position_id-uri din deal-urile de DESCHIDERE (entry=0)
+        # Acestea au mereu position_id corect (= ticket-ul pozitiei)
+        position_ids = set()
+        for d in all_deals:
+            if d.entry == 0 and d.position_id and d.position_id != 0:
+                position_ids.add(d.position_id)
+
+        # Pas 3: comentarii din orders
+        orders_history = mt5.history_orders_get(date_from, date_to) or []
+        order_comment_map = {}
+        for o in orders_history:
+            if o.position_id and o.position_id != 0 and o.comment:
+                if o.position_id not in order_comment_map:
+                    order_comment_map[o.position_id] = o.comment
+
         history = []
-        for pid, dlist in positions.items():
-            # deal tip IN = deschidere (entry=1), OUT = inchidere (entry=2)
-            entry_deal = next((d for d in dlist if d.entry == 0), None)  # DEAL_ENTRY_IN=0
-            exit_deal  = next((d for d in dlist if d.entry == 1), None)  # DEAL_ENTRY_OUT=1
+        for pid in position_ids:
+            # Ia toate deal-urile pentru aceasta pozitie dupa ticket
+            pos_deals = mt5.history_deals_get(position=pid)
+            if not pos_deals:
+                continue
+
+            entry_deal = next((d for d in pos_deals if d.entry == 0), None)
+            exit_deal  = next((d for d in pos_deals if d.entry in (1, 2, 3)), None)
             if entry_deal is None:
                 continue
-            profit = sum(d.profit for d in dlist)
-            commission = sum(d.commission for d in dlist)
-            swap = sum(d.swap for d in dlist)
-            deal_type = "BUY" if entry_deal.type == 0 else "SELL"  # DEAL_TYPE_BUY=0
+
+            profit     = sum(d.profit for d in pos_deals)
+            commission = sum(d.commission for d in pos_deals)
+            swap       = sum(d.swap for d in pos_deals)
+            deal_type  = "BUY" if entry_deal.type == 0 else "SELL"
             open_time  = datetime.fromtimestamp(entry_deal.time, tz=timezone.utc).strftime("%Y-%m-%d %H:%M")
             close_time = datetime.fromtimestamp(exit_deal.time, tz=timezone.utc).strftime("%Y-%m-%d %H:%M") if exit_deal else None
+            comment    = entry_deal.comment or order_comment_map.get(pid, "")
             history.append({
                 "ticket":      pid,
                 "symbol":      entry_deal.symbol,
@@ -2948,11 +3467,12 @@ def history_data():
                 "net":         round(profit + commission + swap, 2),
                 "open_time":   open_time,
                 "close_time":  close_time,
-                "comment":     entry_deal.comment,
+                "comment":     comment,
             })
-        # sortat descrescator dupa data deschidere
-        history.sort(key=lambda x: x["open_time"], reverse=True)
-        # pastreaza doar pozitiile inchise (au close_time)
+
+        # sortat descrescator dupa data INCHIDERE
+        history.sort(key=lambda x: x["close_time"] or x["open_time"], reverse=True)
+        # pastreaza doar pozitiile inchise (au exit deal)
         closed = [h for h in history if h["close_time"]]
         total_net = round(sum(h["net"] for h in closed), 2)
         wins  = len([h for h in closed if h["net"] > 0])
@@ -2971,6 +3491,7 @@ def history_data():
 
 
 @app.route("/trades")
+@login_required
 def trades_page():
     return TRADES_HTML
 

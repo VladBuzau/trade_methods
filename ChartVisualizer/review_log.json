@@ -1,0 +1,4502 @@
+[
+  {
+    "timestamp": "2026-04-06T17:09:58.966695",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T17:07:57.809504",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T17:06:57.232341",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T17:05:56.664052",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T17:04:56.110336",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T17:03:55.543952",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:25:51.524627",
+    "symbol": "XAUUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:25:51.455121",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:25:51.379341",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:25:51.087942",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:25:51.015115",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:24:50.792220",
+    "symbol": "XAUUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:24:50.728454",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:24:50.660356",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:24:50.339770",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:23:50.142701",
+    "symbol": "XAUUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:23:50.082217",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:23:50.019840",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:23:49.700155",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:22:49.496760",
+    "symbol": "XAUUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:22:49.433309",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:22:49.370445",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:21:48.744353",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:21:48.637062",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:21:48.336618",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:20:48.114066",
+    "symbol": "XAUUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:19:47.410571",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:19:47.345038",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:18:46.740696",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:18:46.672609",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:17:46.118159",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:09:41.455480",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:03:37.870840",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:01:36.593467",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T16:00:36.015123",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:59:35.540884",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:59:35.435194",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:59:35.371683",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:58:34.915132",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:58:34.812246",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:58:34.745218",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:57:34.285513",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:57:34.182586",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:57:34.117176",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:56:33.675044",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:56:33.558017",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:55:33.063747",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:55:32.954105",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:54:32.448756",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:53:32.093091",
+    "symbol": "XAUUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:53:31.760619",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:53:31.626464",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:53:31.546063",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:51:27.582871",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:50:27.142986",
+    "symbol": "XAUUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:50:26.983964",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:49:25.569313",
+    "symbol": "ETHUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 5/5 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:35:04.797586",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe DOGEUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:32:03.162595",
+    "symbol": "UNIUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:31:02.595304",
+    "symbol": "UNIUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:31:02.526278",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe DOGEUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:20:56.590814",
+    "symbol": "BNBUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:17:54.949497",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe DOGEUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:16:54.326727",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:15:53.726263",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:14:52.820985",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:13:52.469722",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:13:52.181584",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:12:51.827624",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:12:51.504914",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:11:51.097978",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:11:50.801206",
+    "symbol": "LTCUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:11:50.735482",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:10:50.255405",
+    "symbol": "BNBUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:10:50.111401",
+    "symbol": "LTCUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:10:50.044984",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:09:49.447067",
+    "symbol": "LTCUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:09:49.378572",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:08:48.822449",
+    "symbol": "LTCUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:08:48.753044",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:07:48.370797",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:06:47.462661",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:05:46.874724",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Limita atinsa: 6/6 pozitii deschise — asteapta sa se inchida una",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:04:46.395664",
+    "symbol": "DOGEUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 0.24 loturi BUY DOGEUSD @ 0.09308  SL=0.09108  TP=0.09508",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:04:46.042741",
+    "symbol": "BNBUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:04:45.807928",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:03:45.331193",
+    "symbol": "BNBUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:03:45.137482",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:02:44.689305",
+    "symbol": "BNBUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:02:44.498631",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:01:44.041471",
+    "symbol": "BNBUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:01:43.848531",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:00:43.441846",
+    "symbol": "BNBUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Fonduri insuficiente",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T15:00:43.230553",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:44:33.499856",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:43:32.919581",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:42:32.273484",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:41:31.651490",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:40:31.062849",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:39:30.451545",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:38:29.822058",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:37:29.246364",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:36:28.682806",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe XRPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:35:28.026561",
+    "symbol": "XRPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 1.0 loturi BUY XRPUSD @ 1.3508  SL=1.34606  TP=1.35554",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:26:20.225834",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:26:20.134026",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:26:19.982586",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:25:19.544774",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:25:19.479932",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:25:19.334600",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:24:18.954183",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:24:18.764637",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:23:18.364977",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:23:18.173144",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:22:17.741300",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:21:17.098938",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:20:16.492367",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:19:15.862399",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:18:15.267395",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:17:14.622758",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:16:14.008070",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:14:12.798262",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:13:12.115833",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:09:09.682397",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:09:09.568061",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:09:09.506634",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:09:09.332306",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:08:08.967782",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:08:08.829092",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:08:08.740344",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:08:08.568552",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:07:08.127225",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:07:08.053134",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:06:07.601750",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:06:07.449023",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:05:06.975942",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:05:06.829868",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:04:06.398214",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:04:06.288021",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:04:06.218047",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:04:05.901125",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:03:05.756762",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:03:05.650291",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:03:05.581468",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:03:05.270234",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:02:05.121889",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:02:05.014687",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:02:04.950742",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:02:04.634587",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:01:04.389699",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:01:04.310965",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:01:03.996734",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:00:03.761320",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:00:03.693934",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T14:00:03.381584",
+    "symbol": "EURUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:59:03.228916",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:59:03.126065",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:59:03.062678",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:59:02.836697",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:58:02.609491",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:58:02.494840",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:58:02.429250",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:58:02.180152",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:57:01.949769",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:57:01.848761",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:57:01.783588",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:57:01.542379",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:56:01.293842",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:56:01.187161",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:56:01.117829",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:56:00.887981",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:55:00.623321",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:55:00.517146",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:55:00.205609",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:53:59.914055",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:53:59.806089",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:53:59.611652",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:53:59.498087",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:52:59.264977",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:52:59.163580",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:52:58.981630",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:52:58.876576",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:51:58.616483",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:51:58.511266",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:51:58.209216",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:50:57.923134",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:50:57.822186",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:50:57.625617",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:50:57.513316",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:49:57.261934",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:49:57.135034",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:49:56.860567",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:48:56.585762",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:48:56.474779",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:48:56.089524",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:47:55.842008",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:47:55.733513",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:47:55.389199",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:46:55.149536",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:46:55.009245",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:43:53.218394",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:42:52.605851",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:41:51.989337",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:40:51.385760",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:40:50.974580",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:39:50.741382",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:38:50.149508",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:37:49.518477",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:37:49.101655",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:36:48.753033",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:36:48.559795",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:34:47.622836",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:33:47.055642",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:31:45.862185",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:30:45.279763",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:29:44.682934",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:28:44.099974",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:25:42.470391",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:25:42.331919",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:24:41.855256",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:24:41.730507",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:23:41.246252",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:23:41.128760",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:22:40.652556",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:22:40.511030",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:21:40.006316",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:21:39.856222",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:20:39.365439",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:19:38.773675",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:18:38.178410",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:17:37.595539",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:16:36.984625",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:15:36.404175",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:14:35.757336",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:14:35.378971",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:13:34.785528",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:12:34.201585",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:11:33.559073",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:08:32.149369",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:08:31.768594",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:02:28.517388",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T13:00:27.308735",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:59:26.720550",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:58:26.145201",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:57:25.547410",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:56:24.947953",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:55:24.343519",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:54:23.740748",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:53:23.087309",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:53:22.976334",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:49:20.484896",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:49:20.340212",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:48:19.798835",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:47:19.189599",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:46:18.633451",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:46:18.524589",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:45:17.918891",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:44:17.313604",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:43:16.814838",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:43:16.698245",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:42:16.210764",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:42:16.105022",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:41:15.624947",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:41:15.515467",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:40:15.249164",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:40:15.016220",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:25:06.535826",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:24:06.211170",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:24:05.894828",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:23:05.555724",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:23:05.330857",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:22:04.917080",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:22:04.719980",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:22:04.593831",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:21:04.271822",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:21:04.083462",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:21:03.942168",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:20:03.623680",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:20:03.417202",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:20:03.291944",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:19:02.951401",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:19:02.633852",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:18:02.297716",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:18:01.936389",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:17:01.592260",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:17:01.398608",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:17:01.295189",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:16:00.859821",
+    "symbol": "GBPJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 0.25 loturi BUY GBPJPY @ 211.236  SL=210.919  TP=211.553",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:16:00.516293",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:16:00.444692",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:16:00.333248",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:14:59.894310",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:14:59.818678",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:13:59.285800",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:13:59.215319",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:12:58.707319",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:12:58.640922",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:11:58.369848",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:11:58.087390",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:11:58.023982",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:10:57.762521",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:10:57.421458",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:07:55.851183",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:06:55.499963",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:06:55.238255",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:05:54.923205",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:05:54.656520",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:04:54.339783",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:04:54.069650",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:03:53.770958",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:03:53.501916",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:03:53.437657",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:02:53.154501",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:02:52.727584",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:02:52.635333",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:01:52.173439",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:01:51.880692",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:01:51.777580",
+    "symbol": "USDJPY",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:00:51.549145",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:00:51.448363",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T12:00:51.204719",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:59:50.929280",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:59:50.825758",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:59:50.596778",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:59:50.491807",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:58:50.308345",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:58:50.200957",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:58:49.954868",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:58:49.852660",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "GBPUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:57:49.670721",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:57:49.552864",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:57:49.231387",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Corelatie USD: deja exista 1 trade(s) in directia SELL_USD — skip GBPUSD",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:56:48.983623",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 0.12 loturi SELL USDCHF @ 0.79733  SL=0.80062  TP=0.79404",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:56:48.652129",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:56:48.421954",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:55:48.079268",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:51:45.929975",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:48:44.358054",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:47:43.803623",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:46:43.230109",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:45:42.704699",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:44:42.141953",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:33:36.419609",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:32:35.885153",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:31:35.349427",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:25:32.223137",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:24:31.678190",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:23:31.129831",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:22:30.584191",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:21:30.024129",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:20:29.473034",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:12:25.315145",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T11:11:24.697181",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 0.31 loturi BUY AUDJPY @ 110.432  SL=110.178  TP=110.686",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:41:07.670804",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:24:58.318661",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:23:57.687518",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:22:56.912112",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:22:56.790048",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:21:56.245663",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:20:55.651525",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:19:55.046219",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:18:54.474334",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:17:53.803487",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:16:53.151301",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:15:52.468383",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:15:52.385967",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:14:52.047494",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:14:51.704068",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:13:51.337183",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:13:51.010065",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:12:50.685329",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:12:50.395791",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:12:50.333738",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:11:50.046020",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:11:49.772889",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:11:49.711580",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:10:49.399345",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:10:49.124354",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:10:49.061646",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:09:48.763522",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:09:48.476482",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:09:48.375803",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:08:48.019375",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:08:47.695175",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:07:47.346396",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:07:47.034363",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:07:46.968239",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:06:46.671692",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:06:46.381627",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:05:46.045561",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:05:45.758407",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:05:45.697480",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:04:45.160877",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:04:45.078601",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "AUDUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:04:44.994818",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:03:44.703973",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:03:44.444107",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:03:44.334395",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:02:44.068194",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:02:43.791617",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:02:43.728757",
+    "symbol": "AUDUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Corelatie USD: deja exista 1 trade(s) in directia SELL_USD — skip AUDUSD",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:01:43.372129",
+    "symbol": "USDCHF",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T10:01:43.057972",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:59:41.693253",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:58:41.059738",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:57:40.457081",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:56:39.889582",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:56:39.783395",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:55:39.276761",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:55:39.131693",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:54:38.593695",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:54:38.464567",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:53:37.874223",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:53:37.719449",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:52:37.125442",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:52:36.973738",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:51:36.336070",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:51:36.226092",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:50:35.661925",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:50:35.543379",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:49:35.052726",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:48:34.468732",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:47:33.881310",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:46:33.563086",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:46:33.128789",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:45:32.964784",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:45:32.700185",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:44:32.096184",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:43:31.722077",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:43:31.437418",
+    "symbol": "USDCAD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDCAD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:42:31.047359",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:42:30.522287",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:41:30.360986",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:41:29.862400",
+    "symbol": "GBPUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:41:29.790231",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:40:29.592408",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 75.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:40:29.108553",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:39:28.942484",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:39:28.464336",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:38:28.283815",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:37:27.696617",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:36:27.104611",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:35:26.495927",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:34:25.925501",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:33:25.327412",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:32:24.732831",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:31:24.147023",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:30:23.579366",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:14:14.151431",
+    "symbol": "USDJPY",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:13:13.527804",
+    "symbol": "USDJPY",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:12:12.879007",
+    "symbol": "USDJPY",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:09:11.051203",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:07:09.874294",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:05:08.766917",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:04:08.276117",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:04:08.081010",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:04:07.868981",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:03:07.394021",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:03:07.212798",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:02:06.878034",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:02:06.731097",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURGBP — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:02:06.541380",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe GBPUSD — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:01:06.127947",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 0.39 loturi BUY AUDJPY @ 110.221  SL=110.021  TP=110.421",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:01:05.700479",
+    "symbol": "EURGBP",
+    "signal": "SELL",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 0.18 loturi SELL EURGBP @ 0.87204  SL=0.87404  TP=0.87004",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T09:01:05.189851",
+    "symbol": "GBPUSD",
+    "signal": "BUY",
+    "confidence": 50.0,
+    "executed": true,
+    "result": "OK — 0.24 loturi BUY GBPUSD @ 1.32154  SL=1.31954  TP=1.32354",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T08:59:03.968593",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T08:58:03.312010",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T08:57:02.660157",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T08:55:01.124003",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T08:44:53.630145",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T08:43:52.942422",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T07:14:55.807485",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe EURJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T07:02:47.752144",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T07:01:47.107374",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T07:00:46.449754",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "EURUSD in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T06:44:36.055499",
+    "symbol": "EURUSD",
+    "signal": "SELL",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Corelatie USD: deja exista 1 trade(s) in directia BUY_USD — skip EURUSD",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T05:05:31.746352",
+    "symbol": "USDCHF",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe USDCHF — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T05:05:31.341614",
+    "symbol": "USDCAD",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Corelatie USD: deja exista 1 trade(s) in directia BUY_USD — skip USDCAD",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T05:03:30.188977",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T05:01:28.657170",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T05:00:27.854495",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T04:59:27.182322",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T04:58:26.462988",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "Deja exista trade deschis pe AUDJPY — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T04:57:25.720979",
+    "symbol": "AUDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": true,
+    "result": "OK — 0.39 loturi BUY AUDJPY @ 110.108  SL=109.908  TP=110.308",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:46:36.932477",
+    "symbol": "EURJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": true,
+    "result": "OK — 0.28 loturi BUY EURJPY @ 183.956  SL=183.68  TP=184.232",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:44:35.276689",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:43:34.621585",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:42:33.989029",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:41:33.312264",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:40:32.677583",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:37:30.750993",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:34:28.643756",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:33:27.956340",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:32:27.266144",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:31:26.595739",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:29:25.336258",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:28:24.704446",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:27:24.028801",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:26:23.296463",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  },
+  {
+    "timestamp": "2026-04-06T03:25:22.567687",
+    "symbol": "USDJPY",
+    "signal": "BUY",
+    "confidence": 60.0,
+    "executed": false,
+    "result": "USDJPY in curs de procesare — skip",
+    "strategy": "classic"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp /c/Users/vlady/Desktop/finalavarianta/metatrader-main/EA1/ICTTrader.mq5 \"/c/Users/vlady/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Experts/\")",
+      "Bash(cp /c/Users/vlady/Desktop/finalavarianta/metatrader-main/EA1/ICTTrader.ex5 \"/c/Users/vlady/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Experts/\")",
+      "Bash(cp /c/Users/vlady/Desktop/finalavarianta/metatrader-main/EA/AITrader.mq5 \"/c/Users/vlady/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Experts/\")",
+      "Bash(cp /c/Users/vlady/Desktop/finalavarianta/metatrader-main/EA/AITrader.ex5 \"/c/Users/vlady/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Experts/\")"
+    ]
+  }
+}
