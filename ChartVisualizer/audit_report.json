@@ -1,0 +1,142 @@
+{
+  "scanner": {
+    "total_keys": 38,
+    "accessed": 23,
+    "unused_keys": [
+      "bollinger",
+      "burst_scalper",
+      "candle_sniper",
+      "china_session",
+      "ema_cross",
+      "engulfing",
+      "eob",
+      "ichimoku",
+      "london_breakout",
+      "macd",
+      "ny_breakout",
+      "rsi_divergence",
+      "supertrend",
+      "tp_ratio",
+      "trend_rider"
+    ]
+  },
+  "unused_funcs_app.py": {
+    "file": "app.py",
+    "total_defs": 123,
+    "unused_funcs": []
+  },
+  "unused_funcs_autotrader.py": {
+    "file": "autotrader.py",
+    "total_defs": 51,
+    "unused_funcs": []
+  },
+  "unused_ids_app.py": {
+    "file": "app.py",
+    "total_ids": 112,
+    "unused_ids": [
+      "chart-bars-input",
+      "chart-float-btns",
+      "chart-form",
+      "live-ticker",
+      "main-tf-pills",
+      "sim-sl-val",
+      "sim-tp-val",
+      "sym-form-bars",
+      "sym-form-sym",
+      "sym-form-tf",
+      "sym-search-wrap",
+      "zoom-pills"
+    ],
+    "unused_count": 12
+  },
+  "unused_ids_autotrader.py": {
+    "file": "autotrader.py",
+    "total_ids": 105,
+    "unused_ids": [
+      "pending-expiry-input",
+      "preset-aggressive",
+      "preset-conservative",
+      "preset-intraday",
+      "preset-reversal",
+      "preset-scalp",
+      "preset-session",
+      "preset-sniper",
+      "preset-swing",
+      "reasons-title",
+      "settings-legend",
+      "settings-strategies",
+      "strat-list-table"
+    ],
+    "unused_count": 13
+  },
+  "unused_routes": {
+    "total_routes": 68,
+    "unused_routes": [
+      {
+        "route": "/get_risk",
+        "static_prefix": "/get_risk",
+        "refs": 1
+      },
+      {
+        "route": "/analyze",
+        "static_prefix": "/analyze",
+        "refs": 1
+      },
+      {
+        "route": "/debug_trade",
+        "static_prefix": "/debug_trade",
+        "refs": 1
+      },
+      {
+        "route": "/mt5_status",
+        "static_prefix": "/mt5_status",
+        "refs": 1
+      },
+      {
+        "route": "/trade_chart/<int:ticket>",
+        "static_prefix": "/trade_chart",
+        "refs": 1
+      },
+      {
+        "route": "/debug_deals",
+        "static_prefix": "/debug_deals",
+        "refs": 1
+      },
+      {
+        "route": "/trades/perf/debug",
+        "static_prefix": "/trades/perf/debug",
+        "refs": 1
+      },
+      {
+        "route": "/autotrader/stats",
+        "static_prefix": "/autotrader/stats",
+        "refs": 1
+      },
+      {
+        "route": "/autotrader/switch_market",
+        "static_prefix": "/autotrader/switch_market",
+        "refs": 1
+      },
+      {
+        "route": "/autotrader/place_pending",
+        "static_prefix": "/autotrader/place_pending",
+        "refs": 1
+      },
+      {
+        "route": "/autotrader/perf",
+        "static_prefix": "/autotrader/perf",
+        "refs": 1
+      },
+      {
+        "route": "/autotrader/review_trades",
+        "static_prefix": "/autotrader/review_trades",
+        "refs": 1
+      },
+      {
+        "route": "/autotrader/chart/<symbol>/<tf>",
+        "static_prefix": "/autotrader/chart",
+        "refs": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Trader · Live</title>
+<style>
+:root {
+  --bg: #0e1116; --bg-card: #161b22; --bg-soft: #21262d; --bg-soft-2: #1c2128;
+  --border: #30363d; --text: #e6edf3; --text-dim: #8b949e;
+  --accent: #00e5ff; --green: #3fb950; --red: #f85149; --yellow: #d29922;
+  --radius: 8px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+       background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
+
+.topnav { display:flex; justify-content:space-between; align-items:center;
+          padding:10px 20px; background: var(--bg-card); border-bottom: 1px solid var(--border);
+          position: sticky; top: 0; z-index: 20; }
+.logo { font-weight: 700; font-size: 15px; color: var(--accent); }
+.topnav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+.topnav-links a { padding: 6px 10px; color: var(--text-dim); text-decoration: none;
+                  font-size: 12px; border-radius: 5px; }
+.topnav-links a:hover { color: var(--text); background: var(--bg-soft); }
+
+.layout { display: grid; grid-template-columns: 300px 1fr;
+          min-height: calc(100vh - 50px); }
+.sidebar { background: var(--bg-card); border-right: 1px solid var(--border);
+           padding: 20px 16px; position: sticky; top: 50px;
+           height: calc(100vh - 50px); overflow-y: auto; }
+.main { padding: 20px 24px 60px; overflow-x: hidden; }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; }
+  .sidebar { height: auto; position: relative; } }
+
+.status-block { display: flex; align-items: center; gap: 10px;
+                padding: 10px 12px; background: var(--bg-soft-2);
+                border-radius: var(--radius); margin-bottom: 12px; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--text-dim); }
+.status-dot.running { background: var(--green);
+                      box-shadow: 0 0 0 3px rgba(63,185,80,0.15); }
+.status-dot.stopped { background: var(--red); }
+.status-text { font-weight: 600; font-size: 13px; }
+.status-meta { font-size: 11px; color: var(--text-dim); }
+
+.btn { width: 100%; background: var(--bg-soft); color: var(--text);
+       border: 1px solid var(--border); padding: 9px 12px; border-radius: var(--radius);
+       cursor: pointer; font-size: 13px; font-weight: 500; transition: background 0.15s; }
+.btn:hover:not(:disabled) { background: #30363d; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #0e1116; }
+.btn.danger { background: var(--red); border-color: var(--red); color: white; }
+.btn.sm { width: auto; padding: 4px 10px; font-size: 11px; }
+
+label.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+label.field span { font-size: 11px; color: var(--text-dim); }
+input[type="text"], input[type="number"], select {
+  padding: 7px 10px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 4px; color: var(--text); font-size: 13px;
+}
+
+.section-h { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+             color: var(--text-dim); margin: 14px 0 8px; padding: 0 2px; }
+.mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.mini-stat { padding: 8px 10px; background: var(--bg-soft-2); border-radius: var(--radius);
+             text-align: center; }
+.mini-stat-label { font-size: 10px; color: var(--text-dim); }
+.mini-stat-value { font-size: 16px; font-weight: 600; }
+.mini-stat-value.pos { color: var(--green); }
+.mini-stat-value.neg { color: var(--red); }
+
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--border);
+        margin-bottom: 16px; }
+.tab { padding: 8px 14px; cursor: pointer; color: var(--text-dim);
+       font-size: 13px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: var(--text); border-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.card { background: var(--bg-card); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+th { font-size: 10px; text-transform: uppercase; color: var(--text-dim);
+     background: var(--bg-soft); position: sticky; top: 0; }
+
+.wl-pill { display: inline-flex; align-items: center; gap: 6px;
+           padding: 4px 4px 4px 10px; background: var(--bg-soft);
+           border: 1px solid var(--border); border-radius: 12px;
+           font-size: 12px; font-family: 'SF Mono', Consolas, monospace; margin: 3px; }
+.wl-pill .x { cursor: pointer; background: var(--border); color: var(--text);
+              border-radius: 50%; width: 16px; height: 16px;
+              display: inline-flex; align-items: center; justify-content: center;
+              font-size: 11px; line-height: 1; }
+.wl-pill .x:hover { background: var(--red); }
+
+.empty { color: var(--text-dim); text-align: center; padding: 30px; font-size: 13px; }
+
+.toast { position: fixed; bottom: 24px; left: 50%;
+         transform: translateX(-50%) translateY(50px);
+         background: var(--bg-card); border: 1px solid var(--border);
+         padding: 10px 18px; border-radius: var(--radius); font-size: 13px;
+         opacity: 0; transition: all 0.2s; z-index: 100; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast.ok { border-color: var(--green); }
+.toast.err { border-color: var(--red); }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div style="display:flex; gap:14px; align-items:center;">
+    <div class="logo">🧠 AI Trader</div>
+    <span id="warn" style="color:var(--yellow); font-size:11px"></span>
+  </div>
+  <nav class="topnav-links">
+    <a href="/ai_agent">🤖 Models</a>
+    <a href="/autotrader">⚡ AutoTrader</a>
+    <a href="/backtest">📊 Backtest</a>
+    <a href="/">📈 Chart</a>
+    <a href="/logout" style="color: var(--red)">↩ Logout</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="status-block">
+      <span id="status-dot" class="status-dot stopped"></span>
+      <div>
+        <div id="status-text" class="status-text">Oprit</div>
+        <div id="status-meta" class="status-meta">—</div>
+      </div>
+    </div>
+    <button id="btn-toggle" class="btn primary">Pornește AI Trader</button>
+
+    <div class="section-h">Watchlist</div>
+    <div id="wl-pills">—</div>
+    <div style="display:flex; gap:4px; margin-top:8px">
+      <input id="inp-add-sym" type="text" placeholder="EURUSD" style="flex:1; padding:5px 8px">
+      <select id="inp-add-tf" style="width:60px; padding:5px">
+        <option>M5</option><option>M15</option><option selected>H1</option>
+        <option>H4</option><option>D1</option>
+      </select>
+      <button id="btn-add-sym" class="btn sm">+</button>
+    </div>
+
+    <div class="section-h">Settings</div>
+    <label class="field"><span>Scan interval (sec)</span>
+      <input id="inp-interval" type="number" value="60" min="5" max="3600">
+    </label>
+    <label class="field"><span>Horizon (h)</span>
+      <select id="inp-horizon">
+        <option>4</option><option selected>24</option><option>72</option>
+      </select>
+    </label>
+    <label class="field"><span>Min confidence (%)</span>
+      <input id="inp-conf" type="number" value="60" min="50" max="95">
+    </label>
+    <label class="field"><span>Risc / trade (%)</span>
+      <input id="inp-risk" type="number" value="1.0" min="0.1" max="10" step="0.1">
+    </label>
+    <label class="field"><span>Max open trades</span>
+      <input id="inp-maxop" type="number" value="5" min="1" max="20">
+    </label>
+    <label style="display:flex; align-items:center; gap:8px; cursor:pointer; margin: 10px 0">
+      <input id="inp-paper" type="checkbox" checked>
+      <span style="font-size:12px">Paper trading activ</span>
+    </label>
+    <label style="display:flex; align-items:center; gap:8px; cursor:pointer; margin: 10px 0; padding: 6px 8px; background: rgba(248,81,73,0.08); border-radius: 4px;">
+      <input id="inp-real" type="checkbox">
+      <span style="font-size:12px; color: var(--red)">⚠ Execute MT5 real (magic=991)</span>
+    </label>
+    <label class="field"><span>Risk $ per trade (real MT5)</span>
+      <input id="inp-risk-usd" type="number" value="50" min="1" max="10000">
+    </label>
+    <button id="btn-save-settings" class="btn">💾 Salvează settings</button>
+
+    <div class="section-h">Paper P&L</div>
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-label">Balance</div>
+        <div id="stat-balance" class="mini-stat-value">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">Net P&L</div>
+        <div id="stat-pnl" class="mini-stat-value">—</div>
+      </div>
+    </div>
+    <div class="mini-stats" style="margin-top:6px">
+      <div class="mini-stat">
+        <div class="mini-stat-label">Win Rate</div>
+        <div id="stat-wr" class="mini-stat-value">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">PF</div>
+        <div id="stat-pf" class="mini-stat-value">—</div>
+      </div>
+    </div>
+    <button id="btn-reset-bal" class="btn" style="margin-top: 8px">↺ Reset balance</button>
+  </aside>
+
+  <main class="main">
+    <div class="tabs">
+      <div class="tab active" data-tab="live">🔮 Live Predictions</div>
+      <div class="tab" data-tab="open">⏳ Open Trades</div>
+      <div class="tab" data-tab="closed">✅ Closed Trades</div>
+      <div class="tab" data-tab="how">❓ Cum funcționează</div>
+    </div>
+
+    <div class="tab-panel active" data-panel="live">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+        <h3 style="margin:0; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+          Ultimele 50 predicții (auto-refresh)
+        </h3>
+        <span id="last-scan-meta" style="font-size:11px; color:var(--text-dim)">—</span>
+      </div>
+      <div id="preds-content"><div class="empty">Pornește scanner-ul + adaugă simboluri în watchlist</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="open">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+        <h3 style="margin:0; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+          Trade-uri virtuale deschise
+        </h3>
+        <button id="btn-close-all" class="btn sm danger">Închide toate</button>
+      </div>
+      <div id="open-content"><div class="empty">—</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="closed">
+      <h3 style="margin:0 0 10px; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+        Istoric trade-uri (ultimele 200)
+      </h3>
+      <div id="closed-content"><div class="empty">—</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="how">
+      <div class="card">
+        <h3 style="margin:0 0 10px">🧠 Cum lucrează AI Trader</h3>
+        <p>La fiecare <strong>X secunde</strong> (default 60), bucla de scanare:</p>
+        <ol>
+          <li>Pentru fiecare <code>(symbol, tf)</code> din watchlist</li>
+          <li>Fetch ultimele 300 bare din MT5</li>
+          <li>Calculează 41 features (RSI, MACD, ATR, EMA, candle, etc.)</li>
+          <li>Apelează cele 2 modele (long + short)</li>
+          <li>Dacă BUY/SELL cu confidence ≥ prag → deschide paper trade</li>
+          <li>Verifică toate trade-urile deschise: hit SL? hit TP? timeout?</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 10px">📊 Paper trading explicat</h3>
+        <ul>
+          <li><strong>Balance virtuală:</strong> $10,000 default (modificabil)</li>
+          <li><strong>Risc per trade:</strong> 1% default = $100 risc per trade</li>
+          <li><strong>SL/TP:</strong> ±1.5 × ATR (RR 1:1)</li>
+          <li><strong>Timeout:</strong> dacă nu hit nimic în 24h → close la prețul curent</li>
+          <li><strong>Net P&L:</strong> cumulat de la pornire (reset cu butonul)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 10px">⚠ Premise</h3>
+        <p>Pentru ca AI Trader să producă predicții, ai nevoie de <strong>modele antrenate</strong> pentru fiecare combinație din watchlist.</p>
+        <p>Mergi la <a href="/ai_agent" style="color:var(--accent)">🤖 AI Models</a> și rulează Full Pipeline pentru fiecare <code>(symbol, tf)</code> din watchlist.</p>
+        <p>Dacă nu există model pentru o combinație, scanner-ul logează "no model trained" și skip.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+function toast(m, t='') { const e=$('toast'); e.textContent=m; e.className='toast show '+t;
+  setTimeout(()=>e.classList.remove('show'), 2200); }
+async function api(url, opts={}) {
+  const r = await fetch(url, opts); if (!r.ok) throw new Error('HTTP '+r.status); return r.json();
+}
+
+let lastStatus = null;
+
+function fmtTime(ts) {
+  if (!ts) return '—';
+  return new Date(ts * 1000).toLocaleTimeString('ro-RO');
+}
+function fmtDate(ts) {
+  if (!ts) return '—';
+  return new Date(ts * 1000).toLocaleString('ro-RO').slice(0, 19);
+}
+
+async function pollStatus() {
+  try {
+    const d = await api('/ai_trader/status');
+    lastStatus = d;
+    renderAll(d);
+  } catch(e) {
+    $('warn').textContent = 'Eroare: ' + e.message;
+  }
+}
+
+function renderAll(d) {
+  const s  = d.settings || {};
+  const rt = d.runtime || {};
+  const m  = d.metrics || {};
+
+  // Status
+  const running = !!s.running;
+  $('status-dot').className = 'status-dot ' + (running ? 'running' : 'stopped');
+  $('status-text').textContent = running ? 'Rulează' : 'Oprit';
+  $('status-meta').textContent = rt.scan_count
+    ? `Scan #${rt.scan_count} · ${fmtTime(rt.last_scan_ts)}`
+    : '—';
+  $('btn-toggle').textContent = running ? 'Oprește AI Trader' : 'Pornește AI Trader';
+  $('btn-toggle').className = running ? 'btn danger' : 'btn primary';
+  $('last-scan-meta').textContent = rt.scan_count
+    ? `Scan #${rt.scan_count} la ${fmtTime(rt.last_scan_ts)} · ${(s.watchlist||[]).length} pairs`
+    : '—';
+
+  // Watchlist
+  const wl = s.watchlist || [];
+  if (wl.length === 0) {
+    $('wl-pills').innerHTML = '<div style="color:var(--text-dim); font-size:11px">Gol</div>';
+  } else {
+    $('wl-pills').innerHTML = wl.map(([sym, tf]) =>
+      `<span class="wl-pill">${sym}/${tf}<span class="x" data-rm="${sym}|${tf}">×</span></span>`
+    ).join('');
+    document.querySelectorAll('[data-rm]').forEach(x => {
+      x.addEventListener('click', () => {
+        const [sym, tf] = x.dataset.rm.split('|');
+        removeSymbol(sym, tf);
+      });
+    });
+  }
+
+  // Settings inputs (only if not focused)
+  const setIfNotFocused = (id, v) => {
+    const el = $(id);
+    if (document.activeElement !== el) el.value = v;
+  };
+  setIfNotFocused('inp-interval', s.scan_interval_sec);
+  setIfNotFocused('inp-conf', s.min_confidence);
+  setIfNotFocused('inp-risk', s.risk_per_trade_pct);
+  setIfNotFocused('inp-maxop', s.max_open_trades);
+  if (document.activeElement !== $('inp-horizon')) $('inp-horizon').value = s.horizon_h;
+  $('inp-paper').checked = !!s.paper_trading;
+  $('inp-real').checked = !!s.real_mt5_execute;
+  setIfNotFocused('inp-risk-usd', s.risk_dollars);
+
+  // P&L stats
+  const bal = s.paper_balance || 0;
+  $('stat-balance').textContent = '$' + bal.toFixed(0);
+  const pnlEl = $('stat-pnl');
+  pnlEl.textContent = (m.net_pnl >= 0 ? '+' : '') + m.net_pnl.toFixed(2) + '$';
+  pnlEl.className = 'mini-stat-value ' + (m.net_pnl >= 0 ? 'pos' : 'neg');
+  const wrEl = $('stat-wr');
+  wrEl.textContent = m.win_rate ? m.win_rate.toFixed(1) + '%' : '—';
+  wrEl.className = 'mini-stat-value ' + (m.win_rate >= 50 ? 'pos' : 'neg');
+  $('stat-pf').textContent = m.profit_factor ? m.profit_factor.toFixed(2) : '—';
+
+  renderPredictions(rt.last_predictions || []);
+  renderOpenTrades(rt.open_paper_trades || []);
+  renderClosedTrades(rt.closed_paper_trades || []);
+}
+
+function renderPredictions(preds) {
+  if (!preds.length) {
+    $('preds-content').innerHTML = '<div class="empty">Niciun scan încă</div>';
+    return;
+  }
+  const rows = preds.slice().reverse().map(p => {
+    if (p.error) {
+      return `<tr style="color:var(--text-dim)">
+        <td>${fmtTime(p.ts)}</td>
+        <td>${p.symbol}</td>
+        <td>${p.tf}</td>
+        <td colspan="5" style="color:var(--yellow)">⚠ ${p.error}</td>
+      </tr>`;
+    }
+    const color = p.signal === 'BUY' ? 'var(--green)' :
+                  (p.signal === 'SELL' ? 'var(--red)' : 'var(--text-dim)');
+    const agreeIcon = p.agreement ? '✓' : '';
+    const opened = p.trade_opened ? `<span style="color:var(--green)">→ ${p.trade_opened}</span>` : '';
+    return `<tr>
+      <td style="font-family:monospace">${fmtTime(p.ts)}</td>
+      <td style="font-family:monospace">${p.symbol}</td>
+      <td>${p.tf}</td>
+      <td style="font-family:monospace">${(p.price||0).toFixed(5)}</td>
+      <td style="color:${color}; font-weight:600">${p.signal}</td>
+      <td>${p.confidence}% ${agreeIcon}</td>
+      <td style="color:var(--text-dim); font-size:10px">
+        L=${(p.prob_long||0).toFixed(2)} S=${(p.prob_short||0).toFixed(2)}
+      </td>
+      <td>${opened}</td>
+    </tr>`;
+  }).join('');
+  $('preds-content').innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Time</th><th>Symbol</th><th>TF</th><th>Price</th>
+        <th>Signal</th><th>Conf</th><th>Probs</th><th>Trade</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function renderOpenTrades(open) {
+  if (!open.length) {
+    $('open-content').innerHTML = '<div class="empty">Niciun trade deschis</div>';
+    return;
+  }
+  const rows = open.map(t => {
+    const color = t.side === 'BUY' ? 'var(--green)' : 'var(--red)';
+    return `<tr>
+      <td style="font-family:monospace">${t.ticket}</td>
+      <td style="font-family:monospace">${t.symbol}</td>
+      <td>${t.tf}</td>
+      <td style="color:${color}; font-weight:600">${t.side}</td>
+      <td style="font-family:monospace">${t.entry_price.toFixed(5)}</td>
+      <td style="font-family:monospace; color:var(--red)">${t.sl.toFixed(5)}</td>
+      <td style="font-family:monospace; color:var(--green)">${t.tp.toFixed(5)}</td>
+      <td>${t.confidence}%</td>
+      <td style="font-size:11px; color:var(--text-dim)">${fmtTime(t.ts_entry)}</td>
+    </tr>`;
+  }).join('');
+  $('open-content').innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Ticket</th><th>Symbol</th><th>TF</th><th>Side</th>
+        <th>Entry</th><th>SL</th><th>TP</th><th>Conf</th><th>Opened</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function renderClosedTrades(closed) {
+  if (!closed.length) {
+    $('closed-content').innerHTML = '<div class="empty">Niciun trade închis încă</div>';
+    return;
+  }
+  const rows = closed.slice().reverse().map(t => {
+    const color = t.side === 'BUY' ? 'var(--green)' : 'var(--red)';
+    const pnlClass = t.pnl >= 0 ? 'pos' : 'neg';
+    return `<tr>
+      <td style="font-family:monospace">${t.symbol}</td>
+      <td style="color:${color}">${t.side}</td>
+      <td style="font-family:monospace">${t.entry_price.toFixed(5)}</td>
+      <td style="font-family:monospace">${(t.exit_price||0).toFixed(5)}</td>
+      <td><b>${t.outcome}</b></td>
+      <td style="color:${t.pnl>=0?'var(--green)':'var(--red)'}; font-weight:600">
+        ${t.pnl>=0?'+':''}${(t.pnl||0).toFixed(2)}$
+      </td>
+      <td style="font-size:11px">${fmtDate(t.ts_entry)}</td>
+      <td style="font-size:11px">${fmtDate(t.ts_exit)}</td>
+    </tr>`;
+  }).join('');
+  $('closed-content').innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Symbol</th><th>Side</th><th>Entry</th><th>Exit</th>
+        <th>Out</th><th>PnL</th><th>Opened</th><th>Closed</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// ─── Actions ─────────────────────────────────────────────────────────────
+async function toggleRun() {
+  const running = lastStatus?.settings?.running;
+  try {
+    await api(running ? '/ai_trader/stop' : '/ai_trader/start', {method:'POST'});
+    toast(running ? 'Oprit' : 'Pornit', 'ok');
+    pollStatus();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); }
+}
+
+async function addSymbol() {
+  const sym = $('inp-add-sym').value.trim().toUpperCase();
+  const tf  = $('inp-add-tf').value;
+  if (!sym) return;
+  try {
+    await api('/ai_trader/add_symbol', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({symbol: sym, tf: tf}),
+    });
+    $('inp-add-sym').value = '';
+    toast(`${sym}/${tf} adăugat`, 'ok');
+    pollStatus();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); }
+}
+
+async function removeSymbol(sym, tf) {
+  try {
+    await api('/ai_trader/remove_symbol', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({symbol: sym, tf: tf}),
+    });
+    toast(`${sym}/${tf} șters`, 'ok');
+    pollStatus();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); }
+}
+
+async function saveSettings() {
+  const realToggle = $('inp-real').checked;
+  if (realToggle) {
+    if (!confirm('⚠ ATENȚIE: vei executa trade-uri REALE pe MT5 cu bani reali.\n\nAi MT5 conectat? Vrei să continui?')) {
+      $('inp-real').checked = false;
+      return;
+    }
+  }
+  const patch = {
+    scan_interval_sec:   parseInt($('inp-interval').value),
+    horizon_h:           parseInt($('inp-horizon').value),
+    min_confidence:      parseInt($('inp-conf').value),
+    risk_per_trade_pct:  parseFloat($('inp-risk').value),
+    risk_dollars:        parseFloat($('inp-risk-usd').value),
+    max_open_trades:     parseInt($('inp-maxop').value),
+    paper_trading:       $('inp-paper').checked,
+    real_mt5_execute:    realToggle,
+  };
+  try {
+    await api('/ai_trader/settings', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(patch),
+    });
+    toast('Settings salvate', 'ok');
+    pollStatus();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); }
+}
+
+async function resetBalance() {
+  if (!confirm('Reset balance la $10,000?')) return;
+  try {
+    await api('/ai_trader/reset_balance', {method:'POST'});
+    toast('Balance reset', 'ok');
+    pollStatus();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); }
+}
+
+async function closeAll() {
+  if (!confirm('Închizi toate trade-urile virtuale deschise?')) return;
+  try {
+    const r = await api('/ai_trader/close_all', {method:'POST'});
+    toast(`${r.closed} trade-uri închise`, 'ok');
+    pollStatus();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); }
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tab').forEach(t =>
+    t.addEventListener('click', () => switchTab(t.dataset.tab)));
+  $('btn-toggle').addEventListener('click', toggleRun);
+  $('btn-add-sym').addEventListener('click', addSymbol);
+  $('btn-save-settings').addEventListener('click', saveSettings);
+  $('btn-reset-bal').addEventListener('click', resetBalance);
+  $('btn-close-all').addEventListener('click', closeAll);
+  $('inp-add-sym').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addSymbol();
+  });
+  pollStatus();
+  setInterval(pollStatus, 3000);
+});
+</script>
+</body>
+</html>

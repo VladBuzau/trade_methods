@@ -1,0 +1,188 @@
+{
+  "scalp": {
+    "label": "Scalp",
+    "icon": "⚡",
+    "desc": "Trade-uri rapide pe M5/M15. Risc mic, multe semnale.",
+    "global": {
+      "sl_atr_mult": 1.0,
+      "max_lot_global": 0.5,
+      "tp_ratio": 1.0,
+      "risk_dollars": 30,
+      "max_open_trades": 3
+    },
+    "enabled": ["burst_scalper", "candle_sniper", "london_breakout", "ny_breakout",
+                "china_session", "engulfing", "bollinger", "smc"],
+    "disabled": ["ichimoku", "rsi_divergence", "eob", "trend_rider", "sr_mtf", "gold_scalper"],
+    "per_strategy_tfs": {
+      "burst_scalper":   ["M1", "M5"],
+      "candle_sniper":   ["M5"],
+      "london_breakout": ["M5", "M15"],
+      "ny_breakout":     ["M5", "M15"],
+      "china_session":   ["M5", "M15"],
+      "engulfing":       ["M5", "M15"],
+      "bollinger":       ["M5", "M15"],
+      "smc":             ["M5", "M15"]
+    }
+  },
+  "intraday": {
+    "label": "Intraday",
+    "icon": "📈",
+    "desc": "Echilibrat — strategii FTMO recomandate pe M15/H1.",
+    "global": {
+      "sl_atr_mult": 1.5, "max_lot_global": 1.0, "tp_ratio": 1.5,
+      "risk_dollars": 50, "max_open_trades": 3
+    },
+    "enabled": ["smc", "trend_rider", "sr_mtf", "bollinger", "engulfing", "eob"],
+    "disabled": ["ichimoku", "london_breakout", "ny_breakout", "china_session",
+                 "rsi_divergence", "burst_scalper", "candle_sniper", "gold_scalper"],
+    "per_strategy_tfs": {
+      "smc":         ["M15", "H1"],
+      "trend_rider": ["M15", "H1"],
+      "sr_mtf":      ["M15", "H1"],
+      "bollinger":   ["M15", "H1"],
+      "engulfing":   ["M15", "H1"],
+      "eob":         ["M15", "H1"]
+    }
+  },
+  "swing": {
+    "label": "Swing",
+    "icon": "🌊",
+    "desc": "Trade-uri lungi pe H1/H4/D1. Risc/reward 2:1.",
+    "global": {
+      "sl_atr_mult": 2.0, "max_lot_global": 1.5, "tp_ratio": 2.0,
+      "risk_dollars": 100, "max_open_trades": 4
+    },
+    "enabled": ["smc", "ichimoku", "trend_rider", "sr_mtf", "rsi_divergence", "engulfing"],
+    "disabled": ["bollinger", "london_breakout", "ny_breakout", "china_session",
+                 "burst_scalper", "candle_sniper", "gold_scalper", "eob"],
+    "per_strategy_tfs": {
+      "smc":            ["H1", "H4"],
+      "ichimoku":       ["H4", "D1"],
+      "trend_rider":    ["H1", "H4"],
+      "sr_mtf":         ["H1", "H4"],
+      "rsi_divergence": ["H4", "D1"],
+      "engulfing":      ["H1", "H4"]
+    }
+  },
+  "sniper": {
+    "label": "Sniper",
+    "icon": "🎯",
+    "desc": "3 strategii precise, doar pe H1, min confidence 85%.",
+    "global": {
+      "sl_atr_mult": 1.5, "max_lot_global": 1.0, "tp_ratio": 2.0,
+      "risk_dollars": 50, "max_open_trades": 1
+    },
+    "enabled": ["smc", "eob", "engulfing"],
+    "disabled": ["ichimoku", "bollinger", "rsi_divergence", "trend_rider", "sr_mtf",
+                 "burst_scalper", "candle_sniper", "gold_scalper",
+                 "london_breakout", "ny_breakout", "china_session"],
+    "per_strategy_tfs": { "smc": ["H1"], "eob": ["H1"], "engulfing": ["H1"] },
+    "per_strategy_min_confidence": { "smc": 85.0, "eob": 85.0, "engulfing": 85.0 }
+  },
+  "session": {
+    "label": "Session",
+    "icon": "🏙",
+    "desc": "Doar breakout-uri London/NY/China pe M15.",
+    "global": {
+      "sl_atr_mult": 1.2, "max_lot_global": 1.0, "tp_ratio": 1.5,
+      "risk_dollars": 50, "max_open_trades": 2
+    },
+    "enabled": ["london_breakout", "ny_breakout", "china_session"],
+    "disabled": ["smc", "eob", "trend_rider", "sr_mtf", "ichimoku",
+                 "bollinger", "engulfing", "rsi_divergence",
+                 "burst_scalper", "candle_sniper", "gold_scalper"],
+    "per_strategy_tfs": {
+      "london_breakout": ["M15"],
+      "ny_breakout":     ["M15"],
+      "china_session":   ["M15"]
+    }
+  },
+  "reversal": {
+    "label": "Reversal",
+    "icon": "🐻",
+    "desc": "Contra-trend: divergențe + pin bars pe M15/H1.",
+    "global": {
+      "sl_atr_mult": 1.5, "max_lot_global": 0.5, "tp_ratio": 2.0,
+      "risk_dollars": 40, "max_open_trades": 2
+    },
+    "enabled": ["rsi_divergence", "engulfing", "bollinger"],
+    "disabled": ["smc", "eob", "trend_rider", "sr_mtf", "ichimoku",
+                 "burst_scalper", "candle_sniper", "gold_scalper",
+                 "london_breakout", "ny_breakout", "china_session"],
+    "per_strategy_tfs": {
+      "rsi_divergence": ["M15", "H1"],
+      "engulfing":      ["M15", "H1"],
+      "bollinger":      ["M15", "H1"]
+    }
+  },
+  "conservative": {
+    "label": "Conservative",
+    "icon": "💎",
+    "desc": "FTMO-safe: 3 premium, H1/H4, min conf 80%.",
+    "global": {
+      "sl_atr_mult": 2.0, "max_lot_global": 0.5, "tp_ratio": 2.0,
+      "risk_dollars": 30, "max_open_trades": 2
+    },
+    "enabled": ["smc", "eob", "trend_rider"],
+    "disabled": ["ichimoku", "bollinger", "engulfing", "rsi_divergence", "sr_mtf",
+                 "burst_scalper", "candle_sniper", "gold_scalper",
+                 "london_breakout", "ny_breakout", "china_session"],
+    "per_strategy_tfs": { "smc": ["H1", "H4"], "eob": ["H1", "H4"], "trend_rider": ["H1", "H4"] },
+    "per_strategy_min_confidence": { "smc": 80.0, "eob": 80.0, "trend_rider": 80.0 }
+  },
+  "aggressive": {
+    "label": "Aggressive",
+    "icon": "🚀",
+    "desc": "Toate strategiile activate, combined mode, risc mai mare.",
+    "global": {
+      "sl_atr_mult": 1.5, "max_lot_global": 2.0, "tp_ratio": 1.5,
+      "risk_dollars": 100, "max_open_trades": 5,
+      "combined_mode": true
+    },
+    "enabled": ["smc", "eob", "trend_rider", "sr_mtf", "bollinger", "ichimoku",
+                "engulfing", "rsi_divergence", "burst_scalper", "candle_sniper",
+                "gold_scalper", "london_breakout", "ny_breakout", "china_session"],
+    "disabled": [],
+    "per_strategy_tfs": {
+      "smc":             ["M15", "H1"],
+      "eob":             ["M15", "H1"],
+      "trend_rider":     ["M15", "H1"],
+      "sr_mtf":          ["M15", "H1"],
+      "bollinger":       ["M15", "H1"],
+      "ichimoku":        ["H4", "D1"],
+      "engulfing":       ["M15", "H1"],
+      "rsi_divergence":  ["H1", "H4"],
+      "burst_scalper":   ["M1", "M5"],
+      "candle_sniper":   ["M5"],
+      "gold_scalper":    ["M5", "M15"],
+      "london_breakout": ["M15"],
+      "ny_breakout":     ["M15"],
+      "china_session":   ["M15"]
+    }
+  },
+  "scalp_boost": {
+    "label": "Scalp Boost",
+    "icon": "🔥",
+    "desc": "Scalp + boost lot, combined mode, max 30 min/trade.",
+    "global": {
+      "sl_atr_mult": 1.0, "max_lot_global": 1.0, "tp_ratio": 1.0,
+      "risk_dollars": 30, "max_open_trades": 3,
+      "scalp_boost": true
+    },
+    "enabled": ["burst_scalper", "candle_sniper", "gold_scalper",
+                "london_breakout", "ny_breakout", "china_session",
+                "engulfing", "bollinger", "smc"],
+    "disabled": ["ichimoku", "rsi_divergence", "eob", "trend_rider", "sr_mtf"],
+    "per_strategy_tfs": {
+      "burst_scalper":   ["M1", "M5"],
+      "candle_sniper":   ["M5"],
+      "gold_scalper":    ["M5", "M15"],
+      "london_breakout": ["M5", "M15"],
+      "ny_breakout":     ["M5", "M15"],
+      "china_session":   ["M5", "M15"],
+      "engulfing":       ["M5", "M15"],
+      "bollinger":       ["M5", "M15"],
+      "smc":             ["M5", "M15"]
+    }
+  }
+}

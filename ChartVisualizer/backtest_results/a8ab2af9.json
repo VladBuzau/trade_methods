@@ -1,0 +1,86 @@
+{
+  "job_id": "a8ab2af9",
+  "params": {
+    "symbol": "XAUUSD",
+    "strategy": "eob",
+    "tfs": [
+      "M15",
+      "H1"
+    ],
+    "bars_window": 2000,
+    "duration_years": 0.5,
+    "step": 1,
+    "risk_dollars": 50,
+    "tp_ratio": 2,
+    "min_confidence": 66,
+    "spread": 0.0003,
+    "max_duration_hours": 24
+  },
+  "symbol": "XAUUSD",
+  "strategy": "eob",
+  "tfs": [
+    "M15",
+    "H1"
+  ],
+  "from_dt": "2025-11-03",
+  "to_dt": "2026-05-04",
+  "total_bars": 11632,
+  "step": 1,
+  "trades": [
+    {
+      "signal": "BUY",
+      "sl": 4971.794,
+      "tp": 5002.734,
+      "entry_price": 4990.2703,
+      "entry_bar": 6879,
+      "entry_time": "2026-02-19 07:15:00",
+      "risk": 50.0,
+      "confidence": 70.0,
+      "tf": "M15",
+      "strategy": "eob",
+      "reasons": [
+        "ADX 19.0 >= 18 pe H1 \u2713",
+        "HTF trend: BULL (64% bull)",
+        "HTF EOB BULLISH [4973.94\u20134995.4] wick=53.8% age=79bare decay=0.3 (+1pt)",
+        "Sweet spot (treimea medie a zonei) (+2)",
+        "MTF M15 BUY: Nu exista BOS BULLISH conf=56% sweep=False",
+        "MTF H1 BUY: Nu exista BOS BULLISH conf=82% sweep=False",
+        "LTF M15: momentum=ACCELERATING compresie=False(1bare) state=NORMAL",
+        "LTF BUY: Entry score: 7/10 [momentum+2, displacement+3, confluenta82%+2]",
+        "Score SELL=0 BUY=14 \u2192 BUY 70.0% | HTF trend: BULL",
+        "Invalidation: Hard stop: 4968.96606 | Soft invalidare: 4984.67 | BOS recapture: 4959.01818"
+      ],
+      "exit_bar": 6884,
+      "exit_time": "2026-02-19 08:30:00",
+      "outcome": "TP",
+      "pnl": 33.73,
+      "rr": 0.67,
+      "duration_bars": 5,
+      "entry_bar_last": 6883
+    }
+  ],
+  "metrics": {
+    "total_trades": 1,
+    "wins": 1,
+    "losses": 0,
+    "expires": 0,
+    "timeouts": 0,
+    "win_rate": 100.0,
+    "profit_factor": 999.0,
+    "net_pnl": 33.73,
+    "gross_profit": 33.73,
+    "gross_loss": 0,
+    "max_drawdown": 0.0,
+    "avg_rr": 0.67,
+    "sharpe": 0.0,
+    "max_consec_loss": 0,
+    "equity_curve": [
+      10000.0,
+      10033.73
+    ],
+    "equity_dates": [
+      "2026-02-19"
+    ]
+  },
+  "created_at": "2026-05-05T01:18:31.963139"
+}

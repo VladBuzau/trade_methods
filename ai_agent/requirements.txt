@@ -1,0 +1,28 @@
+# ai_agent — dependinte
+# Faza 1 — Data pipeline
+MetaTrader5
+requests
+pandas
+numpy
+praw                  # Reddit (free)
+
+# Faza 2 — Features (deja avem pandas/numpy)
+ta                    # technical indicators (RSI, MACD, BB, etc.)
+
+# Faza 3 — Sentiment NLP
+transformers          # FinBERT
+torch                 # backbone pentru transformers
+sentencepiece         # tokenizer
+
+# Faza 4 — ML training
+scikit-learn
+xgboost
+lightgbm              # alternativa la xgboost
+joblib                # model save/load
+
+# Faza 5 — Backtesting integration
+# (reutilizam infrastructura existenta din ChartVisualizer)
+
+# Utilitati
+python-dotenv         # citire .env files
+tqdm                  # progress bars

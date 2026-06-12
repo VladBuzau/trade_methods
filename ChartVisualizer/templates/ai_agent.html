@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agent · Dashboard</title>
+<style>
+:root {
+  --bg: #0e1116; --bg-card: #161b22; --bg-soft: #21262d; --bg-soft-2: #1c2128;
+  --border: #30363d; --text: #e6edf3; --text-dim: #8b949e;
+  --accent: #00e5ff; --green: #3fb950; --red: #f85149; --yellow: #d29922;
+  --radius: 8px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+       background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
+
+.topnav { display:flex; justify-content:space-between; align-items:center;
+          padding:10px 20px; background: var(--bg-card); border-bottom: 1px solid var(--border);
+          position: sticky; top: 0; z-index: 20; }
+.logo { font-weight: 700; font-size: 15px; color: var(--accent); }
+.topnav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+.topnav-links a { padding: 6px 10px; color: var(--text-dim); text-decoration: none;
+                  font-size: 12px; border-radius: 5px; }
+.topnav-links a:hover { color: var(--text); background: var(--bg-soft); }
+
+.layout { display: grid; grid-template-columns: 280px 1fr;
+          min-height: calc(100vh - 50px); }
+.sidebar { background: var(--bg-card); border-right: 1px solid var(--border);
+           padding: 20px 16px; position: sticky; top: 50px;
+           height: calc(100vh - 50px); overflow-y: auto; }
+.main { padding: 20px 24px 60px; overflow-x: hidden; }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; }
+  .sidebar { height: auto; position: relative; } }
+
+.brand { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.brand-sub { font-size: 11px; color: var(--text-dim); margin-bottom: 16px; }
+.section-h { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+             color: var(--text-dim); margin: 14px 0 8px; padding: 0 2px; }
+
+.btn { width: 100%; background: var(--bg-soft); color: var(--text);
+       border: 1px solid var(--border); padding: 9px 12px; border-radius: var(--radius);
+       cursor: pointer; font-size: 13px; font-weight: 500; transition: background 0.15s; }
+.btn:hover:not(:disabled) { background: #30363d; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #0e1116; }
+.btn.danger { background: var(--red); border-color: var(--red); color: white; }
+.btn.sm { width: auto; padding: 4px 10px; font-size: 11px; }
+
+label.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+label.field span { font-size: 11px; color: var(--text-dim); }
+input[type="text"], input[type="number"], select {
+  padding: 7px 10px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 4px; color: var(--text); font-size: 13px;
+}
+
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--border);
+        margin-bottom: 16px; }
+.tab { padding: 8px 14px; cursor: pointer; color: var(--text-dim);
+       font-size: 13px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: var(--text); border-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.card { background: var(--bg-card); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
+.card-h { font-weight: 600; margin-bottom: 8px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+th { font-size: 10px; text-transform: uppercase; color: var(--text-dim);
+     background: var(--bg-soft); position: sticky; top: 0; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+         gap: 10px; margin-bottom: 14px; }
+.stat { background: var(--bg-card); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 12px; text-align: center; }
+.stat-label { font-size: 10px; text-transform: uppercase; color: var(--text-dim); }
+.stat-value { font-size: 20px; font-weight: 600; margin-top: 4px; }
+.stat-value.pos { color: var(--green); }
+.stat-value.neg { color: var(--red); }
+
+.progress-bar { width: 100%; height: 6px; background: var(--bg-soft);
+                border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+.progress-text { font-size: 11px; color: var(--text-dim); }
+
+.auc-good { color: var(--green); font-weight: 600; }
+.auc-meh  { color: var(--yellow); font-weight: 600; }
+.auc-bad  { color: var(--red); font-weight: 600; }
+
+.empty { color: var(--text-dim); text-align: center; padding: 30px; font-size: 13px; }
+
+.toast { position: fixed; bottom: 24px; left: 50%;
+         transform: translateX(-50%) translateY(50px);
+         background: var(--bg-card); border: 1px solid var(--border);
+         padding: 10px 18px; border-radius: var(--radius); font-size: 13px;
+         opacity: 0; transition: all 0.2s; z-index: 100; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast.ok { border-color: var(--green); }
+.toast.err { border-color: var(--red); }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div style="display:flex; gap:14px; align-items:center;">
+    <div class="logo">🤖 AI Agent</div>
+  </div>
+  <nav class="topnav-links">
+    <a href="/ai_trader" style="color: var(--accent)">🧠 AI Trader</a>
+    <a href="/autotrader">⚡ AutoTrader</a>
+    <a href="/backtest">📊 Backtest</a>
+    <a href="/">📈 Chart</a>
+    <a href="/trades">💼 Trades</a>
+    <a href="/logout" style="color: var(--red)">↩ Logout</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">Acțiuni</div>
+    <div class="brand-sub">Quick training pipeline</div>
+
+    <label class="field"><span>Symbol</span>
+      <input id="inp-symbol" type="text" value="EURUSD">
+    </label>
+    <label class="field"><span>Timeframe</span>
+      <select id="inp-tf">
+        <option>M5</option><option>M15</option>
+        <option selected>H1</option><option>H4</option><option>D1</option>
+      </select>
+    </label>
+    <label class="field"><span>Horizon (h)</span>
+      <select id="inp-horizon">
+        <option>4</option><option selected>24</option><option>72</option>
+      </select>
+    </label>
+    <label class="field"><span>Years (data)</span>
+      <input id="inp-years" type="number" value="2" min="0.5" step="0.5">
+    </label>
+
+    <button id="btn-pipeline" class="btn primary">▶ Full Pipeline</button>
+    <button id="btn-train" class="btn" style="margin-top:6px">🎯 Train Only</button>
+
+    <div class="section-h">Bulk</div>
+    <button id="btn-dump" class="btn">📥 Dump MT5 (toate)</button>
+
+    <div class="section-h">Status job</div>
+    <div id="job-progress" style="display:none">
+      <div class="progress-bar"><div id="progfill" class="progress-fill" style="width:0%"></div></div>
+      <div id="progtext" class="progress-text">—</div>
+    </div>
+    <div id="job-idle" class="progress-text">Niciun job activ</div>
+
+    <div class="section-h">DB Stats</div>
+    <div id="db-stats" class="progress-text">Se încarcă...</div>
+  </aside>
+
+  <main class="main">
+    <div class="tabs">
+      <div class="tab active" data-tab="models">📦 Modele</div>
+      <div class="tab" data-tab="predictions">🔮 Predicții</div>
+      <div class="tab" data-tab="accuracy">📊 Accuracy</div>
+      <div class="tab" data-tab="validate">🧪 Validare</div>
+      <div class="tab" data-tab="news">📰 Impact Știri</div>
+      <div class="tab" data-tab="how">❓ Cum funcționează</div>
+    </div>
+
+    <div class="tab-panel active" data-panel="models">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:10px">
+        <h3 style="margin:0; font-size:13px; color:var(--text-dim); text-transform:uppercase; white-space:nowrap">
+          Modele antrenate <span id="model-count" style="color:var(--text-dim)"></span>
+        </h3>
+        <input id="models-search" type="text" placeholder="🔍 Caută (symbol, tf, target...)"
+               style="flex:1; max-width:400px; padding:7px 12px; background:var(--bg);
+                      border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:13px">
+        <button id="btn-refresh-models" class="btn sm">⟳ Refresh</button>
+      </div>
+      <div id="models-content"><div class="empty">Click Refresh să încarci lista</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="predictions">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+        <h3 style="margin:0; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+          Ultimele predicții live (din scanner)
+        </h3>
+        <button id="btn-refresh-preds" class="btn sm">⟳ Refresh</button>
+      </div>
+      <div id="preds-content"><div class="empty">—</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="accuracy">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+        <h3 style="margin:0; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+          Acuratețe live (ultimele 7 zile)
+        </h3>
+        <button id="btn-refresh-acc" class="btn sm">⟳ Refresh</button>
+      </div>
+      <div id="acc-content"><div class="empty">—</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="validate">
+      <div class="card">
+        <h3 style="margin: 0 0 10px">🧪 Validare statistică riguroasă</h3>
+        <p>Rulează AI-ul pe date <strong>OUT-OF-SAMPLE</strong> (ultimele 60 zile,
+           pe care modelul NU le-a văzut la antrenament) și compară cu 2 baselines deterministe:</p>
+        <ul>
+          <li><strong>Always BUY</strong> — întotdeauna BUY (test "trend up")</li>
+          <li><strong>Always SELL</strong> — întotdeauna SELL (test "trend down")</li>
+        </ul>
+        <p>Apoi calculează <strong>p-value binomial</strong>: e win rate diferit
+           statistic de 50%? Verdict automat <strong>FARA EDGE</strong> sau <strong>POTENTIAL EDGE</strong>.</p>
+      </div>
+      <div style="display:flex; gap:8px; margin: 14px 0">
+        <button id="btn-validate" class="btn primary" style="width:auto">🧪 Rulează validarea</button>
+        <span id="val-status" style="align-self:center; color:var(--text-dim); font-size:12px"></span>
+      </div>
+      <div id="validate-content"><div class="empty">Click "Rulează validarea" — folosește symbol/TF/horizon din sidebar</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="news">
+      <div class="card">
+        <h3 style="margin:0 0 10px">📰 Analiza Impact Știri Macro</h3>
+        <p>Pentru fiecare eveniment major istoric (NFP, FOMC, CPI, ECB), calculează
+           cât s-a mutat prețul în primele 5/15/30/60/240 min după anunț.</p>
+        <p>Folosește <strong>date economice cunoscute</strong> (NFP = 1st Friday lună,
+           FOMC = 8 meetings/an, etc.) matched cu prețurile MT5 deja descărcate.
+           Zero API keys necesare.</p>
+        <p style="color:var(--text-dim); font-size:12px">
+           <strong>Util pentru:</strong> "evit să tradui în primele 30 min după NFP",
+           "ECB rate decision face EUR să se miște ±35 pips", etc.
+        </p>
+      </div>
+      <div style="display:flex; gap:8px; margin: 14px 0; align-items: center">
+        <label style="font-size:12px">TF analiză:</label>
+        <select id="news-tf" style="width:80px">
+          <option>M5</option><option>M15</option><option>H1</option>
+        </select>
+        <label style="font-size:12px; margin-left:10px">Ani istoric:</label>
+        <input id="news-years" type="number" value="3" min="1" max="5" style="width:60px">
+        <button id="btn-news-impact" class="btn primary" style="width:auto; margin-left:10px">
+          📰 Analizează
+        </button>
+        <span id="news-status" style="color:var(--text-dim); font-size:12px"></span>
+      </div>
+      <div id="news-content"><div class="empty">Click "Analizează" — folosește symbol din sidebar</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="how">
+      <div class="card">
+        <div class="card-h">🎓 Cum învață modelul</div>
+        <p>Modelul XGBoost este antrenat să prezică <strong>dacă un trade BUY (sau SELL) va atinge TP înainte de SL</strong> în următoarele N ore.</p>
+        <p>La fiecare bară istorică:</p>
+        <ol>
+          <li><strong>Input:</strong> 41 features tehnice (RSI, MACD, ATR, EMA distances, candle patterns, time, etc.)</li>
+          <li><strong>Label:</strong> 1 dacă BUY ar fi câștigat în N ore (RR 1:1 cu ATR×1.5), 0 altfel</li>
+          <li><strong>Învățare:</strong> XGBoost ensemble 200 arbori găsește reguli de tip "if RSI<40 AND MACD>0 AND volume_z>1.5 → BUY are 67% șanse"</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-h">⏱ Walk-forward validation</div>
+        <p>Pentru a evita "vrăjeala matematică":</p>
+        <ul>
+          <li>Train pe primele 12 luni → validate pe luna 13</li>
+          <li>Roll forward o lună: train pe luni 2-13 → validate pe luna 14</li>
+          <li>Repetă pentru toate ferestrele disponibile</li>
+        </ul>
+        <p><strong>Mean AUC ≥ 0.55</strong> peste toate fold-urile = potențial alpha real.<br>
+        <strong>Mean AUC ≈ 0.50</strong> = model aleator (la nivel de coin flip).</p>
+      </div>
+      <div class="card">
+        <div class="card-h">🔮 Cum decide modelul în trading live</div>
+        <p>Strategia <code>ai_agent</code> în scanner-ul ChartVisualizer:</p>
+        <ol>
+          <li>Fetch ultimele 300 bare pentru (symbol, TF)</li>
+          <li>Calculează cele 41 features pentru bara curentă</li>
+          <li>Cheamă <code>model_long.predict_proba(features)</code> și <code>model_short.predict_proba(features)</code></li>
+          <li>Combină: dacă ambele în acord → BUY/SELL cu confidence ridicat. Conflict → HOLD.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-h">⚠ Limitări onest</div>
+        <ul>
+          <li>Modelul antrenat pe 6 luni date va overfita (test AUC ≈ 0.50)</li>
+          <li>Pentru rezultate utile: 3-5 ani date + 100+ folds walk-forward</li>
+          <li>Doar features tehnice rareori dau edge stabil. Sentiment + macro ajută MAYBE.</li>
+          <li>Backtest profitabil ≠ live profitabil — paper trade înainte de live.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+function toast(m, t='') { const e=$('toast'); e.textContent=m; e.className='toast show '+t;
+  setTimeout(()=>e.classList.remove('show'),2200); }
+async function api(url, opts={}) {
+  const r = await fetch(url, opts); if (!r.ok) throw new Error('HTTP '+r.status); return r.json();
+}
+
+let activeJobId = null;
+
+// ─── Models tab ──────────────────────────────────────────────────────────
+let _allModels = [];
+
+async function loadModels() {
+  try {
+    _allModels = await api('/ai_agent/models');
+    renderModels();
+  } catch(e) {
+    $('models-content').innerHTML = `<div class="empty">Eroare: ${e.message}</div>`;
+  }
+}
+
+function renderModels() {
+  const q = ($('models-search').value || '').trim().toLowerCase();
+  let filtered = _allModels;
+  if (q) {
+    filtered = _allModels.filter(m => {
+      const s = `${m.symbol} ${m.tf} h${m.horizon} ${m.target}`.toLowerCase();
+      return s.includes(q);
+    });
+  }
+  $('model-count').textContent = `(${filtered.length}${q ? ` din ${_allModels.length}` : ''})`;
+
+  if (!_allModels.length) {
+    $('models-content').innerHTML =
+      '<div class="empty">Niciun model antrenat încă. Folosește sidebar pentru "Full Pipeline".</div>';
+    return;
+  }
+  if (!filtered.length) {
+    $('models-content').innerHTML = `<div class="empty">Niciun model matchează "${q}"</div>`;
+    return;
+  }
+  const rows = filtered.map(m => {
+    const auc = m.mean_auc || 0;
+    const aucClass = auc >= 0.55 ? 'auc-good' : (auc >= 0.52 ? 'auc-meh' : 'auc-bad');
+    return `<tr>
+      <td style="font-family:monospace">${m.symbol}</td>
+      <td>${m.tf}</td>
+      <td>${m.horizon}h</td>
+      <td style="font-size:11px">${m.target}</td>
+      <td class="${aucClass}">${auc.toFixed(3)}</td>
+      <td>${m.n_folds}</td>
+      <td style="font-size:11px;color:var(--text-dim)">${(m.trained_at||'').slice(0,16)}</td>
+    </tr>`;
+  }).join('');
+  $('models-content').innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Symbol</th><th>TF</th><th>Hz</th><th>Target</th>
+        <th>Mean AUC</th><th>Folds</th><th>Trained</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p style="margin-top:10px; color:var(--text-dim); font-size:11px">
+      AUC > 0.55 (verde) = potențial alpha · 0.50-0.55 (galben) = slab · &lt; 0.50 (roșu) = inutil
+    </p>`;
+}
+
+// ─── Predictions tab ─────────────────────────────────────────────────────
+async function loadPredictions() {
+  try {
+    const ps = await api('/ai_agent/predictions?limit=100');
+    if (!ps.length) {
+      $('preds-content').innerHTML =
+        '<div class="empty">Nicio predicție în DB. Modelele rulează când strategia ai_agent e activă în scanner.</div>';
+      return;
+    }
+    const rows = ps.map(p => {
+      const sig = p.pred_dir === 1 ? 'BUY' : (p.pred_dir === -1 ? 'SELL' : 'HOLD');
+      const color = sig === 'BUY' ? 'var(--green)' : (sig === 'SELL' ? 'var(--red)' : 'var(--text-dim)');
+      const dt = new Date(p.ts * 1000).toLocaleString('ro-RO');
+      return `<tr>
+        <td style="font-size:11px; font-family:monospace">${dt}</td>
+        <td style="font-family:monospace">${p.symbol}</td>
+        <td>${p.timeframe}</td>
+        <td>${p.horizon_h}h</td>
+        <td style="color:${color}; font-weight:600">${sig}</td>
+        <td>${p.confidence}%</td>
+        <td style="font-size:10px; color:var(--text-dim)">${p.model_id}</td>
+      </tr>`;
+    }).join('');
+    $('preds-content').innerHTML = `
+      <table>
+        <thead><tr>
+          <th>Time</th><th>Symbol</th><th>TF</th><th>Hz</th>
+          <th>Signal</th><th>Conf</th><th>Model</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  } catch(e) {
+    $('preds-content').innerHTML = `<div class="empty">Eroare: ${e.message}</div>`;
+  }
+}
+
+// ─── Accuracy tab ────────────────────────────────────────────────────────
+async function loadAccuracy() {
+  try {
+    const r = await api('/ai_agent/accuracy_report?days=7');
+    if (!r.models || Object.keys(r.models).length === 0) {
+      $('acc-content').innerHTML = `<div class="empty">Insuficiente predicții pentru raport (${r.n || 0} totale)</div>`;
+      return;
+    }
+    const cards = Object.entries(r.models).map(([model_id, s]) => {
+      const accClass = s.accuracy >= 60 ? 'pos' : (s.accuracy >= 50 ? '' : 'neg');
+      const buckets = Object.entries(s.by_confidence).map(([b, v]) =>
+        `<tr><td>${b}%</td><td style="text-align:right">${v}</td></tr>`).join('');
+      return `<div class="card">
+        <div class="card-h" style="font-family:monospace">${model_id}</div>
+        <div class="stats">
+          <div class="stat"><div class="stat-label">Predicții</div><div class="stat-value">${s.predictions}</div></div>
+          <div class="stat"><div class="stat-label">Acuratețe</div><div class="stat-value ${accClass}">${s.accuracy}%</div></div>
+          <div class="stat"><div class="stat-label">Wins</div><div class="stat-value pos">${s.wins}</div></div>
+          <div class="stat"><div class="stat-label">Losses</div><div class="stat-value neg">${s.losses}</div></div>
+        </div>
+        <div style="margin-top:10px">
+          <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px">Per confidence bucket</div>
+          <table>${buckets}</table>
+        </div>
+      </div>`;
+    }).join('');
+    $('acc-content').innerHTML = cards;
+  } catch(e) {
+    $('acc-content').innerHTML = `<div class="empty">Eroare: ${e.message}</div>`;
+  }
+}
+
+// ─── DB Stats ────────────────────────────────────────────────────────────
+async function loadDbStats() {
+  try {
+    const s = await api('/ai_agent/db_stats');
+    const fmt = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : n;
+    $('db-stats').innerHTML = `
+      <div style="font-size:11px; line-height:1.7">
+        Prices: <strong>${fmt(s.prices||0)}</strong><br>
+        News: <strong>${fmt(s.news||0)}</strong><br>
+        Features: <strong>${fmt(s.features||0)}</strong><br>
+        Labels: <strong>${fmt(s.labels||0)}</strong><br>
+        Predictions: <strong>${fmt(s.predictions||0)}</strong>
+      </div>`;
+  } catch(e) {
+    $('db-stats').textContent = 'Eroare';
+  }
+}
+
+// ─── Job tracking ────────────────────────────────────────────────────────
+async function pollJob() {
+  if (!activeJobId) return;
+  try {
+    const j = await api(`/ai_agent/job/${activeJobId}`);
+    $('progfill').style.width = (j.progress||0) + '%';
+    $('progtext').textContent = j.message || j.status;
+    if (j.status === 'done') {
+      toast('Job complet', 'ok');
+      activeJobId = null;
+      $('btn-pipeline').disabled = false;
+      $('btn-train').disabled = false;
+      $('btn-dump').disabled = false;
+      $('job-progress').style.display = 'none';
+      $('job-idle').style.display = '';
+      loadModels(); loadDbStats();
+    } else if (j.status === 'error') {
+      toast('Eroare: ' + j.message, 'err');
+      activeJobId = null;
+      $('btn-pipeline').disabled = false;
+      $('btn-train').disabled = false;
+      $('btn-dump').disabled = false;
+      $('job-progress').style.display = 'none';
+      $('job-idle').style.display = '';
+    } else {
+      setTimeout(pollJob, 1500);
+    }
+  } catch(e) { setTimeout(pollJob, 3000); }
+}
+
+function startJob(job_id) {
+  activeJobId = job_id;
+  $('job-progress').style.display = 'block';
+  $('job-idle').style.display = 'none';
+  $('btn-pipeline').disabled = true;
+  $('btn-train').disabled = true;
+  $('btn-dump').disabled = true;
+  $('progfill').style.width = '0%';
+  $('progtext').textContent = 'pornit...';
+  pollJob();
+}
+
+// ─── Validation tab ─────────────────────────────────────────────────────
+let validateJobId = null;
+
+async function runValidation() {
+  const body = {
+    symbol:   $('inp-symbol').value.trim().toUpperCase(),
+    tf:       $('inp-tf').value,
+    horizon:  parseInt($('inp-horizon').value),
+    oos_days: 60,
+  };
+  $('btn-validate').disabled = true;
+  $('val-status').textContent = 'Pornit...';
+  try {
+    const r = await api('/ai_agent/validate', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(body),
+    });
+    if (r.ok) {
+      validateJobId = r.job_id;
+      $('validate-content').innerHTML = '<div class="empty">Rulează validarea (poate dura 2-5 min)...</div>';
+      pollValidate();
+    }
+  } catch(e) {
+    toast('Eroare: '+e.message, 'err');
+    $('btn-validate').disabled = false;
+  }
+}
+
+async function pollValidate() {
+  if (!validateJobId) return;
+  try {
+    const j = await api(`/ai_agent/job/${validateJobId}`);
+    $('val-status').textContent = j.message || j.status;
+    if (j.status === 'done') {
+      $('btn-validate').disabled = false;
+      renderValidation(j.result);
+    } else if (j.status === 'error') {
+      $('btn-validate').disabled = false;
+      $('validate-content').innerHTML = `<div class="empty">Eroare: ${j.message}</div>`;
+    } else {
+      setTimeout(pollValidate, 2000);
+    }
+  } catch(e) { setTimeout(pollValidate, 3000); }
+}
+
+function renderValidation(r) {
+  if (!r) return;
+  if (r.error) {
+    $('validate-content').innerHTML = `<div class="empty">Eroare: ${r.error}</div>`;
+    return;
+  }
+  const verdictColor = r.verdict.includes('EDGE') ? 'var(--green)' :
+                       (r.verdict.includes('MARGINAL') ? 'var(--yellow)' : 'var(--red)');
+  const concl = (r.conclusion || []).map(c => `<li>${c}</li>`).join('');
+  const results = r.results || {};
+  const rows = ['ai', 'always_buy', 'always_sell'].map(k => {
+    const x = results[k] || {};
+    const isAi = k === 'ai';
+    const wrClass = x.win_rate >= 55 ? 'auc-good' : (x.win_rate >= 50 ? 'auc-meh' : 'auc-bad');
+    return `<tr ${isAi ? 'style="background:rgba(0,229,255,0.08)"' : ''}>
+      <td><strong>${x.name || k}</strong></td>
+      <td>${x.n_signals || 0}</td>
+      <td>${x.wins || 0}</td>
+      <td>${x.losses || 0}</td>
+      <td class="${wrClass}">${x.win_rate || 0}%</td>
+      <td>${x.avg_pnl_pips || 0}</td>
+      <td>${x.p_value || 0}</td>
+      <td>${x.significant ? '✓' : '—'}</td>
+    </tr>`;
+  }).join('');
+  $('validate-content').innerHTML = `
+    <div class="card" style="border-left: 4px solid ${verdictColor};">
+      <h2 style="margin: 0; color: ${verdictColor};">${r.verdict}</h2>
+      <p style="color: var(--text-dim); font-size: 12px; margin: 4px 0">
+        ${r.symbol}/${r.tf} · horizon ${r.horizon_h}h · ${r.n_bars_oos} bare OOS · eval pe ${r.eval_bars} bare
+      </p>
+      <ul style="margin: 10px 0">${concl}</ul>
+    </div>
+    <h3 style="margin: 14px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+      Comparație predictori
+    </h3>
+    <table>
+      <thead><tr>
+        <th>Predictor</th><th>Semnale</th><th>Wins</th><th>Losses</th>
+        <th>Win Rate</th><th>Avg PnL (pips)</th><th>p-value</th><th>Significant?</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p style="margin-top: 12px; color: var(--text-dim); font-size: 11px">
+      <strong>Interpretare:</strong> p-value &lt; 0.05 = win rate diferit STATISTIC de 50%.
+      Dacă AI are p-value mare (≥0.05), modelul nu are valoare predictivă reală.
+    </p>`;
+}
+
+// ─── News Impact tab ────────────────────────────────────────────────────
+let newsJobId = null;
+
+async function runNewsImpact() {
+  const body = {
+    symbol: $('inp-symbol').value.trim().toUpperCase(),
+    tf:     $('news-tf').value,
+    years:  parseInt($('news-years').value),
+  };
+  $('btn-news-impact').disabled = true;
+  $('news-status').textContent = 'Pornit...';
+  try {
+    const r = await api('/ai_agent/news_impact', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(body),
+    });
+    if (r.ok) {
+      newsJobId = r.job_id;
+      $('news-content').innerHTML = '<div class="empty">Calculez impact pentru evenimente istorice (poate dura 1-3 min)...</div>';
+      pollNews();
+    }
+  } catch(e) {
+    toast('Eroare: '+e.message, 'err');
+    $('btn-news-impact').disabled = false;
+  }
+}
+
+async function pollNews() {
+  if (!newsJobId) return;
+  try {
+    const j = await api(`/ai_agent/job/${newsJobId}`);
+    $('news-status').textContent = j.message || j.status;
+    if (j.status === 'done') {
+      $('btn-news-impact').disabled = false;
+      renderNewsImpact(j.result);
+    } else if (j.status === 'error') {
+      $('btn-news-impact').disabled = false;
+      $('news-content').innerHTML = `<div class="empty">Eroare: ${j.message}</div>`;
+    } else {
+      setTimeout(pollNews, 1500);
+    }
+  } catch(e) { setTimeout(pollNews, 2500); }
+}
+
+function renderNewsImpact(r) {
+  if (!r || !r.results || Object.keys(r.results).length === 0) {
+    $('news-content').innerHTML = '<div class="empty">Niciun eveniment matched (poate ai date insuficiente)</div>';
+    return;
+  }
+  const cards = Object.entries(r.results).map(([name, data]) => {
+    const stats = data.stats || {};
+    const horizons = ['move_5m_pips', 'move_15m_pips', 'move_30m_pips',
+                      'move_60m_pips', 'move_240m_pips'];
+    const horizonLabels = {'move_5m_pips':'5min', 'move_15m_pips':'15min',
+                           'move_30m_pips':'30min', 'move_60m_pips':'1h',
+                           'move_240m_pips':'4h'};
+    const rows = horizons.map(h => {
+      const s = stats[h] || {};
+      if (!s.n) return `<tr><td>${horizonLabels[h]}</td><td colspan="7" style="color:var(--text-dim)">—</td></tr>`;
+      const biasClass = s.bias_pct >= 60 ? 'auc-good' : (s.bias_pct >= 40 ? '' : 'auc-bad');
+      const biasArrow = s.bias_pct > 55 ? '↑' : (s.bias_pct < 45 ? '↓' : '↔');
+      const meanClass = s.mean_pips > 0 ? 'auc-good' : (s.mean_pips < 0 ? 'auc-bad' : '');
+      return `<tr>
+        <td><strong>${horizonLabels[h]}</strong></td>
+        <td>${s.n}</td>
+        <td class="${meanClass}">${s.mean_pips > 0 ? '+' : ''}${s.mean_pips} pips</td>
+        <td>${s.mean_abs_pips} pips</td>
+        <td style="color:var(--green)">+${s.max_up_pips}</td>
+        <td style="color:var(--red)">${s.max_down_pips}</td>
+        <td>${s.ups}/${s.downs}</td>
+        <td class="${biasClass}">${biasArrow} ${s.bias_pct}%</td>
+      </tr>`;
+    }).join('');
+    return `<div class="card">
+      <h3 style="margin: 0 0 4px">${name} <span style="color:var(--text-dim); font-size:11px; font-weight:normal">
+        ${data.n}/${data.n_total} evenimente cu date</span></h3>
+      <p style="color:var(--text-dim); font-size:11px; margin:0 0 10px">
+        Mișcarea ${data.symbol} după anunț, in pips
+      </p>
+      <table>
+        <thead><tr>
+          <th>Orizont</th><th>N</th><th>Mediu</th><th>Magnitudine</th>
+          <th>Max ↑</th><th>Max ↓</th><th>Ups/Downs</th><th>Bias direcțional</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+  $('news-content').innerHTML = `
+    <p style="color:var(--text-dim); font-size:12px; margin: 8px 0 14px">
+      <strong>${r.symbol} ${r.tf}</strong> · perioada <strong>${r.period}</strong>
+    </p>
+    ${cards}
+    <p style="color:var(--text-dim); font-size:11px; margin-top: 14px">
+      <strong>Interpretare:</strong> "Mediu" = direcția dominantă, "Magnitudine" = miscare în orice direcție.
+      "Bias direcțional" > 60% sugerează că prețul reacționează predominant într-o direcție după acel tip de știre.
+    </p>`;
+}
+
+// ─── Tabs ────────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+  if (name === 'models') loadModels();
+  else if (name === 'predictions') loadPredictions();
+  else if (name === 'accuracy') loadAccuracy();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tab').forEach(t =>
+    t.addEventListener('click', () => switchTab(t.dataset.tab)));
+
+  $('btn-pipeline').addEventListener('click', async () => {
+    const body = {
+      symbol:  $('inp-symbol').value.trim().toUpperCase(),
+      tf:      $('inp-tf').value,
+      horizon: parseInt($('inp-horizon').value),
+      years:   parseFloat($('inp-years').value),
+    };
+    try {
+      const r = await api('/ai_agent/full_pipeline', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(body),
+      });
+      if (r.ok) { toast('Pipeline pornit', 'ok'); startJob(r.job_id); }
+    } catch(e) { toast('Eroare: '+e.message, 'err'); }
+  });
+
+  $('btn-train').addEventListener('click', async () => {
+    const body = {
+      symbol:  $('inp-symbol').value.trim().toUpperCase(),
+      tf:      $('inp-tf').value,
+      horizon: parseInt($('inp-horizon').value),
+      train_days: 365, test_days: 30,
+      target: 'y_hit_long',
+    };
+    try {
+      const r = await api('/ai_agent/train', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(body),
+      });
+      if (r.ok) { toast('Train pornit', 'ok'); startJob(r.job_id); }
+    } catch(e) { toast('Eroare: '+e.message, 'err'); }
+  });
+
+  $('btn-dump').addEventListener('click', async () => {
+    if (!confirm('Asta poate dura 1-3 ore (5 ani × 11 simboluri × 5 TF). Continuă?')) return;
+    try {
+      const r = await api('/ai_agent/dump_data', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({years: 5.0}),
+      });
+      if (r.ok) { toast('Dump pornit', 'ok'); startJob(r.job_id); }
+    } catch(e) { toast('Eroare: '+e.message, 'err'); }
+  });
+
+  $('btn-refresh-models').addEventListener('click', loadModels);
+  $('btn-refresh-preds').addEventListener('click', loadPredictions);
+  $('btn-refresh-acc').addEventListener('click', loadAccuracy);
+  $('models-search').addEventListener('input', renderModels);
+  $('btn-validate').addEventListener('click', runValidation);
+  $('btn-news-impact').addEventListener('click', runNewsImpact);
+
+  // ── Persist form values in localStorage ──
+  const formInputs = ['inp-symbol', 'inp-tf', 'inp-horizon', 'inp-years'];
+  formInputs.forEach(id => {
+    const saved = localStorage.getItem('ai_agent_' + id);
+    if (saved !== null && $(id)) $(id).value = saved;
+    $(id).addEventListener('change', () => {
+      localStorage.setItem('ai_agent_' + id, $(id).value);
+    });
+    $(id).addEventListener('input', () => {
+      localStorage.setItem('ai_agent_' + id, $(id).value);
+    });
+  });
+
+  // Persist search query
+  const savedSearch = localStorage.getItem('ai_agent_models_search');
+  if (savedSearch) $('models-search').value = savedSearch;
+  $('models-search').addEventListener('input', () => {
+    localStorage.setItem('ai_agent_models_search', $('models-search').value);
+  });
+
+  loadModels();
+  loadDbStats();
+  resumeActiveJob();
+});
+
+async function resumeActiveJob() {
+  try {
+    const r = await api('/ai_agent/active_job');
+    if (r.active && r.job_id) {
+      console.log('Resuming job', r.job_id);
+      activeJobId = r.job_id;
+      $('job-progress').style.display = 'block';
+      $('job-idle').style.display = 'none';
+      $('btn-pipeline').disabled = true;
+      $('btn-train').disabled = true;
+      $('btn-dump').disabled = true;
+      pollJob();
+    }
+  } catch(e) { /* silent */ }
+}
+</script>
+</body>
+</html>

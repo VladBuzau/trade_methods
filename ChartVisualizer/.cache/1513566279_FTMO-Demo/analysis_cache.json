@@ -1,0 +1,869 @@
+{
+  "20260602135536_GBPJPY_classic_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "classic",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 215.131,
+    "sl": 214.97601,
+    "tp": 215.44097,
+    "confidence": 100.0,
+    "justification": [
+      "Trend ASCENDENT confirmat pe 2 din 2 TF-uri",
+      "H1: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.68669), Fibonacci 38.2% (215.05477), RSI 62.8, ADX 30.6",
+      "H4: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.19307), Fibonacci 38.2% (214.86568), RSI 73.2, ADX 23.8"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:55:36.711303",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.97601,
+        "tp": 215.44097,
+        "price": 215.131,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.68669) ✓",
+          "Fibonacci 38.2% (215.05477) ✓",
+          "RSI 62.8 ✓",
+          "ADX 30.6 ✓"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.0714,
+        "tp": 217.2502,
+        "price": 215.131,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.19307) ✓",
+          "Fibonacci 38.2% (214.86568) ✓",
+          "RSI 73.2 ✓",
+          "ADX 23.8 ✓"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "trend": "ASCENDING",
+      "conviction": 5,
+      "reasons": [
+        "EMA20>EMA50 ✓",
+        "pullback EMA50 (214.68669) ✓",
+        "Fibonacci 38.2% (215.05477) ✓",
+        "RSI 62.8 ✓",
+        "ADX 30.6 ✓"
+      ],
+      "price": 215.131,
+      "sl": 214.97601,
+      "tp": 215.44097
+    }
+  },
+  "20260602135638_GBPJPY_smc_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "smc",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 214.954,
+    "sl": 214.73536,
+    "tp": 215.28196,
+    "confidence": 94.0,
+    "justification": [
+      "Structure: BULL (HH/HL confirmat)",
+      "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+      "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+      "FVG in OB @ 214.87800-214.92800 confluenta",
+      "Liquidity sweep detectat inainte de BOS",
+      "ATR normal (0.14214)",
+      "Pret la 0.1% de OB",
+      "Sesiune lichida (Londra/NY)",
+      "Setup complet: conviction 13/12",
+      "Confidence 94.0% (conviction 13, 2/2 TF-uri active, +4% agreement)"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:56:38.837194",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 13,
+        "sl": 214.73536,
+        "tp": 215.28196,
+        "price": 214.954,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+          "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+          "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+          "Liquidity sweep detectat inainte de BOS ✓",
+          "ATR normal (0.14214) ✓",
+          "Pret la 0.1% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 13/12"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 11,
+        "sl": 213.2111,
+        "tp": 215.22585,
+        "price": 214.017,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.63000 cu displacement 67% (varsta 7 bare)",
+          "OB fresh @ 213.31700-214.01700 (varsta 20 bare)",
+          "FVG in OB @ 213.88500-213.96800 ✓ confluenta",
+          "Fara liquidity sweep — semnal slabit",
+          "ATR normal (0.35300) ✓",
+          "Pret la 0.7% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 11/12"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "conviction": 13,
+      "reasons": [
+        "Structure: BULL (HH/HL confirmat)",
+        "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+        "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+        "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+        "Liquidity sweep detectat inainte de BOS ✓",
+        "ATR normal (0.14214) ✓",
+        "Pret la 0.1% de OB ✓",
+        "Sesiune lichida (Londra/NY) ✓",
+        "Setup complet: conviction 13/12"
+      ],
+      "price": 214.954,
+      "sl": 214.73536,
+      "tp": 215.28196
+    }
+  },
+  "20260602135638_GBPJPY_classic_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "classic",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 215.132,
+    "sl": 214.97601,
+    "tp": 215.44397,
+    "confidence": 100.0,
+    "justification": [
+      "Trend ASCENDENT confirmat pe 2 din 2 TF-uri",
+      "H1: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.68673), Fibonacci 38.2% (215.05477), RSI 62.8, ADX 30.6",
+      "H4: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.19311), Fibonacci 38.2% (214.86568), RSI 73.2, ADX 23.8"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:56:38.878357",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.97601,
+        "tp": 215.44397,
+        "price": 215.132,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.68673) ✓",
+          "Fibonacci 38.2% (215.05477) ✓",
+          "RSI 62.8 ✓",
+          "ADX 30.6 ✓"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.0714,
+        "tp": 217.2532,
+        "price": 215.132,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.19311) ✓",
+          "Fibonacci 38.2% (214.86568) ✓",
+          "RSI 73.2 ✓",
+          "ADX 23.8 ✓"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "trend": "ASCENDING",
+      "conviction": 5,
+      "reasons": [
+        "EMA20>EMA50 ✓",
+        "pullback EMA50 (214.68673) ✓",
+        "Fibonacci 38.2% (215.05477) ✓",
+        "RSI 62.8 ✓",
+        "ADX 30.6 ✓"
+      ],
+      "price": 215.132,
+      "sl": 214.97601,
+      "tp": 215.44397
+    }
+  },
+  "20260602135739_AUDUSD_candle_sniper_BUY": {
+    "symbol": "AUDUSD",
+    "strategy": "candle_sniper",
+    "signal": "BUY",
+    "tf": "M1",
+    "price": 0.71829,
+    "sl": 0.71825,
+    "tp": 0.71835,
+    "confidence": 90.0,
+    "justification": [
+      "Auto TF: M1 (verificate M1+M5)",
+      "Pattern: P3 Liquidity",
+      "Liquidity grab BUY: wick 40% sub 0.71821",
+      "ATR: 0.00008 | SL ancorat structural (dist 0.00004)",
+      "TP RR 1:1.5 → dist 0.00006",
+      "Patternuri converg: 2",
+      "HTF bias: BULL",
+      "Confidence 90.0% (conviction 12, 1/1 TF-uri active)"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:57:39.544891",
+    "tfs_slim": [
+      {
+        "tf": "M1",
+        "signal": "BUY",
+        "conviction": 12,
+        "sl": 0.71825,
+        "tp": 0.71835,
+        "price": 0.71829,
+        "reasons": [
+          "Auto TF: M1 (verificate M1+M5)",
+          "Pattern: P3 Liquidity",
+          "Liquidity grab BUY: wick 40% sub 0.71821",
+          "ATR: 0.00008 | SL ancorat structural (dist 0.00004)",
+          "TP RR 1:1.5 → dist 0.00006",
+          "Patternuri converg: 2",
+          "HTF bias: BULL"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "M1",
+      "signal": "BUY",
+      "conviction": 12,
+      "reasons": [
+        "Auto TF: M1 (verificate M1+M5)",
+        "Pattern: P3 Liquidity",
+        "Liquidity grab BUY: wick 40% sub 0.71821",
+        "ATR: 0.00008 | SL ancorat structural (dist 0.00004)",
+        "TP RR 1:1.5 → dist 0.00006",
+        "Patternuri converg: 2",
+        "HTF bias: BULL"
+      ],
+      "price": 0.71829,
+      "sl": 0.71825,
+      "tp": 0.71835
+    }
+  },
+  "20260602135752_USDCAD_candle_sniper_SELL": {
+    "symbol": "USDCAD",
+    "strategy": "candle_sniper",
+    "signal": "SELL",
+    "tf": "M1",
+    "price": 1.38529,
+    "sl": 1.38534,
+    "tp": 1.38522,
+    "confidence": 75.0,
+    "justification": [
+      "Auto TF: M1 (verificate M1+M5)",
+      "Pattern: P3 Liquidity",
+      "Liquidity grab SELL: wick 45% peste 1.38534",
+      "ATR: 0.00010 | SL ancorat structural (dist 0.00005)",
+      "TP RR 1:1.5 → dist 0.00007",
+      "Patternuri converg: 1",
+      "HTF bias: NEUTRAL",
+      "Confidence 75.0% (conviction 10, 1/1 TF-uri active)"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:57:52.655374",
+    "tfs_slim": [
+      {
+        "tf": "M1",
+        "signal": "SELL",
+        "conviction": 10,
+        "sl": 1.38534,
+        "tp": 1.38522,
+        "price": 1.38529,
+        "reasons": [
+          "Auto TF: M1 (verificate M1+M5)",
+          "Pattern: P3 Liquidity",
+          "Liquidity grab SELL: wick 45% peste 1.38534",
+          "ATR: 0.00010 | SL ancorat structural (dist 0.00005)",
+          "TP RR 1:1.5 → dist 0.00007",
+          "Patternuri converg: 1",
+          "HTF bias: NEUTRAL"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "M1",
+      "signal": "SELL",
+      "conviction": 10,
+      "reasons": [
+        "Auto TF: M1 (verificate M1+M5)",
+        "Pattern: P3 Liquidity",
+        "Liquidity grab SELL: wick 45% peste 1.38534",
+        "ATR: 0.00010 | SL ancorat structural (dist 0.00005)",
+        "TP RR 1:1.5 → dist 0.00007",
+        "Patternuri converg: 1",
+        "HTF bias: NEUTRAL"
+      ],
+      "price": 1.38529,
+      "sl": 1.38534,
+      "tp": 1.38522
+    }
+  },
+  "20260602135753_GBPJPY_smc_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "smc",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 214.954,
+    "sl": 214.73536,
+    "tp": 215.28196,
+    "confidence": 94.0,
+    "justification": [
+      "Structure: BULL (HH/HL confirmat)",
+      "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+      "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+      "FVG in OB @ 214.87800-214.92800 confluenta",
+      "Liquidity sweep detectat inainte de BOS",
+      "ATR normal (0.14214)",
+      "Pret la 0.1% de OB",
+      "Sesiune lichida (Londra/NY)",
+      "Setup complet: conviction 13/12",
+      "Confidence 94.0% (conviction 13, 2/2 TF-uri active, +4% agreement)"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:57:53.194178",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 13,
+        "sl": 214.73536,
+        "tp": 215.28196,
+        "price": 214.954,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+          "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+          "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+          "Liquidity sweep detectat inainte de BOS ✓",
+          "ATR normal (0.14214) ✓",
+          "Pret la 0.1% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 13/12"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 11,
+        "sl": 213.2111,
+        "tp": 215.22585,
+        "price": 214.017,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.63000 cu displacement 67% (varsta 7 bare)",
+          "OB fresh @ 213.31700-214.01700 (varsta 20 bare)",
+          "FVG in OB @ 213.88500-213.96800 ✓ confluenta",
+          "Fara liquidity sweep — semnal slabit",
+          "ATR normal (0.35300) ✓",
+          "Pret la 0.7% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 11/12"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "conviction": 13,
+      "reasons": [
+        "Structure: BULL (HH/HL confirmat)",
+        "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+        "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+        "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+        "Liquidity sweep detectat inainte de BOS ✓",
+        "ATR normal (0.14214) ✓",
+        "Pret la 0.1% de OB ✓",
+        "Sesiune lichida (Londra/NY) ✓",
+        "Setup complet: conviction 13/12"
+      ],
+      "price": 214.954,
+      "sl": 214.73536,
+      "tp": 215.28196
+    }
+  },
+  "20260602135753_GBPJPY_classic_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "classic",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 215.114,
+    "sl": 214.97601,
+    "tp": 215.38997,
+    "confidence": 100.0,
+    "justification": [
+      "Trend ASCENDENT confirmat pe 2 din 2 TF-uri",
+      "H1: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.68603), Fibonacci 38.2% (215.05477), RSI 61.9, ADX 30.6",
+      "H4: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.1924), Fibonacci 38.2% (214.86568), RSI 73.0, ADX 23.8"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:57:53.246648",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.97601,
+        "tp": 215.38997,
+        "price": 215.114,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.68603) ✓",
+          "Fibonacci 38.2% (215.05477) ✓",
+          "RSI 61.9 ✓",
+          "ADX 30.6 ✓"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.0714,
+        "tp": 217.1992,
+        "price": 215.114,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.1924) ✓",
+          "Fibonacci 38.2% (214.86568) ✓",
+          "RSI 73.0 ✓",
+          "ADX 23.8 ✓"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "trend": "ASCENDING",
+      "conviction": 5,
+      "reasons": [
+        "EMA20>EMA50 ✓",
+        "pullback EMA50 (214.68603) ✓",
+        "Fibonacci 38.2% (215.05477) ✓",
+        "RSI 61.9 ✓",
+        "ADX 30.6 ✓"
+      ],
+      "price": 215.114,
+      "sl": 214.97601,
+      "tp": 215.38997
+    }
+  },
+  "20260602135753_AUDJPY_candle_sniper_BUY": {
+    "symbol": "AUDJPY",
+    "strategy": "candle_sniper",
+    "signal": "BUY",
+    "tf": "M1",
+    "price": 114.733,
+    "sl": 114.72671,
+    "tp": 114.7418,
+    "confidence": 67.5,
+    "justification": [
+      "Auto TF: M1 (verificate M1+M5)",
+      "Pattern: P5 FailedBrk",
+      "Failed break BUY: breaker sub 114.72300, close 114.73300 peste",
+      "ATR: 0.01257 | SL ancorat structural (dist 0.00629)",
+      "TP RR 1:1.5 → dist 0.00880",
+      "Patternuri converg: 1",
+      "HTF bias: BULL",
+      "Confidence 67.5% (conviction 9, 1/1 TF-uri active)"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:57:53.490181",
+    "tfs_slim": [
+      {
+        "tf": "M1",
+        "signal": "BUY",
+        "conviction": 9,
+        "sl": 114.72671,
+        "tp": 114.7418,
+        "price": 114.733,
+        "reasons": [
+          "Auto TF: M1 (verificate M1+M5)",
+          "Pattern: P5 FailedBrk",
+          "Failed break BUY: breaker sub 114.72300, close 114.73300 peste",
+          "ATR: 0.01257 | SL ancorat structural (dist 0.00629)",
+          "TP RR 1:1.5 → dist 0.00880",
+          "Patternuri converg: 1",
+          "HTF bias: BULL"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "M1",
+      "signal": "BUY",
+      "conviction": 9,
+      "reasons": [
+        "Auto TF: M1 (verificate M1+M5)",
+        "Pattern: P5 FailedBrk",
+        "Failed break BUY: breaker sub 114.72300, close 114.73300 peste",
+        "ATR: 0.01257 | SL ancorat structural (dist 0.00629)",
+        "TP RR 1:1.5 → dist 0.00880",
+        "Patternuri converg: 1",
+        "HTF bias: BULL"
+      ],
+      "price": 114.733,
+      "sl": 114.72671,
+      "tp": 114.7418
+    }
+  },
+  "20260602135854_GBPJPY_smc_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "smc",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 214.954,
+    "sl": 214.73536,
+    "tp": 215.28196,
+    "confidence": 94.0,
+    "justification": [
+      "Structure: BULL (HH/HL confirmat)",
+      "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+      "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+      "FVG in OB @ 214.87800-214.92800 confluenta",
+      "Liquidity sweep detectat inainte de BOS",
+      "ATR normal (0.14214)",
+      "Pret la 0.1% de OB",
+      "Sesiune lichida (Londra/NY)",
+      "Setup complet: conviction 13/12",
+      "Confidence 94.0% (conviction 13, 2/2 TF-uri active, +4% agreement)"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:58:54.538568",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 13,
+        "sl": 214.73536,
+        "tp": 215.28196,
+        "price": 214.954,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+          "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+          "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+          "Liquidity sweep detectat inainte de BOS ✓",
+          "ATR normal (0.14214) ✓",
+          "Pret la 0.1% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 13/12"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 11,
+        "sl": 213.2111,
+        "tp": 215.22585,
+        "price": 214.017,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.63000 cu displacement 67% (varsta 7 bare)",
+          "OB fresh @ 213.31700-214.01700 (varsta 20 bare)",
+          "FVG in OB @ 213.88500-213.96800 ✓ confluenta",
+          "Fara liquidity sweep — semnal slabit",
+          "ATR normal (0.35300) ✓",
+          "Pret la 0.7% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 11/12"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "conviction": 13,
+      "reasons": [
+        "Structure: BULL (HH/HL confirmat)",
+        "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+        "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+        "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+        "Liquidity sweep detectat inainte de BOS ✓",
+        "ATR normal (0.14214) ✓",
+        "Pret la 0.1% de OB ✓",
+        "Sesiune lichida (Londra/NY) ✓",
+        "Setup complet: conviction 13/12"
+      ],
+      "price": 214.954,
+      "sl": 214.73536,
+      "tp": 215.28196
+    }
+  },
+  "20260602135854_GBPJPY_classic_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "classic",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 215.117,
+    "sl": 214.97601,
+    "tp": 215.39897,
+    "confidence": 100.0,
+    "justification": [
+      "Trend ASCENDENT confirmat pe 2 din 2 TF-uri",
+      "H1: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.68615), Fibonacci 38.2% (215.05477), RSI 62.0, ADX 30.6",
+      "H4: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.19252), Fibonacci 38.2% (214.86568), RSI 73.0, ADX 23.8"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:58:54.563841",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.97601,
+        "tp": 215.39897,
+        "price": 215.117,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.68615) ✓",
+          "Fibonacci 38.2% (215.05477) ✓",
+          "RSI 62.0 ✓",
+          "ADX 30.6 ✓"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.0714,
+        "tp": 217.2082,
+        "price": 215.117,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.19252) ✓",
+          "Fibonacci 38.2% (214.86568) ✓",
+          "RSI 73.0 ✓",
+          "ADX 23.8 ✓"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "trend": "ASCENDING",
+      "conviction": 5,
+      "reasons": [
+        "EMA20>EMA50 ✓",
+        "pullback EMA50 (214.68615) ✓",
+        "Fibonacci 38.2% (215.05477) ✓",
+        "RSI 62.0 ✓",
+        "ADX 30.6 ✓"
+      ],
+      "price": 215.117,
+      "sl": 214.97601,
+      "tp": 215.39897
+    }
+  },
+  "20260602135955_GBPJPY_smc_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "smc",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 214.954,
+    "sl": 214.73536,
+    "tp": 215.28196,
+    "confidence": 94.0,
+    "justification": [
+      "Structure: BULL (HH/HL confirmat)",
+      "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+      "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+      "FVG in OB @ 214.87800-214.92800 confluenta",
+      "Liquidity sweep detectat inainte de BOS",
+      "ATR normal (0.14214)",
+      "Pret la 0.1% de OB",
+      "Sesiune lichida (Londra/NY)",
+      "Setup complet: conviction 13/12",
+      "Confidence 94.0% (conviction 13, 2/2 TF-uri active, +4% agreement)"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:59:55.497958",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 13,
+        "sl": 214.73536,
+        "tp": 215.28196,
+        "price": 214.954,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+          "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+          "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+          "Liquidity sweep detectat inainte de BOS ✓",
+          "ATR normal (0.14214) ✓",
+          "Pret la 0.1% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 13/12"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 11,
+        "sl": 213.2111,
+        "tp": 215.22585,
+        "price": 214.017,
+        "reasons": [
+          "Structure: BULL (HH/HL confirmat)",
+          "BOS @ 214.63000 cu displacement 67% (varsta 7 bare)",
+          "OB fresh @ 213.31700-214.01700 (varsta 20 bare)",
+          "FVG in OB @ 213.88500-213.96800 ✓ confluenta",
+          "Fara liquidity sweep — semnal slabit",
+          "ATR normal (0.35300) ✓",
+          "Pret la 0.7% de OB ✓",
+          "Sesiune lichida (Londra/NY) ✓",
+          "Setup complet: conviction 11/12"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "conviction": 13,
+      "reasons": [
+        "Structure: BULL (HH/HL confirmat)",
+        "BOS @ 214.95400 cu displacement 79% (varsta 6 bare)",
+        "OB fresh @ 214.77800-214.95400 (varsta 10 bare)",
+        "FVG in OB @ 214.87800-214.92800 ✓ confluenta",
+        "Liquidity sweep detectat inainte de BOS ✓",
+        "ATR normal (0.14214) ✓",
+        "Pret la 0.1% de OB ✓",
+        "Sesiune lichida (Londra/NY) ✓",
+        "Setup complet: conviction 13/12"
+      ],
+      "price": 214.954,
+      "sl": 214.73536,
+      "tp": 215.28196
+    }
+  },
+  "20260602135955_GBPJPY_classic_BUY": {
+    "symbol": "GBPJPY",
+    "strategy": "classic",
+    "signal": "BUY",
+    "tf": "H1",
+    "price": 215.119,
+    "sl": 214.97601,
+    "tp": 215.40497,
+    "confidence": 100.0,
+    "justification": [
+      "Trend ASCENDENT confirmat pe 2 din 2 TF-uri",
+      "H1: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.68622), Fibonacci 38.2% (215.05477), RSI 62.1, ADX 30.6",
+      "H4: Trend ASCENDENT, EMA20>EMA50, pullback EMA50 (214.1926), Fibonacci 38.2% (214.86568), RSI 73.0, ADX 23.8"
+    ],
+    "voters": [],
+    "vote_map": {},
+    "timestamp": "2026-06-02T13:59:55.521589",
+    "tfs_slim": [
+      {
+        "tf": "H1",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.97601,
+        "tp": 215.40497,
+        "price": 215.119,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.68622) ✓",
+          "Fibonacci 38.2% (215.05477) ✓",
+          "RSI 62.1 ✓",
+          "ADX 30.6 ✓"
+        ]
+      },
+      {
+        "tf": "H4",
+        "signal": "BUY",
+        "conviction": 5,
+        "sl": 214.0714,
+        "tp": 217.2142,
+        "price": 215.119,
+        "reasons": [
+          "EMA20>EMA50 ✓",
+          "pullback EMA50 (214.1926) ✓",
+          "Fibonacci 38.2% (214.86568) ✓",
+          "RSI 73.0 ✓",
+          "ADX 23.8 ✓"
+        ]
+      }
+    ],
+    "strat_votes": [],
+    "strat_details": {},
+    "best_tf": {
+      "tf": "H1",
+      "signal": "BUY",
+      "trend": "ASCENDING",
+      "conviction": 5,
+      "reasons": [
+        "EMA20>EMA50 ✓",
+        "pullback EMA50 (214.68622) ✓",
+        "Fibonacci 38.2% (215.05477) ✓",
+        "RSI 62.1 ✓",
+        "ADX 30.6 ✓"
+      ],
+      "price": 215.119,
+      "sl": 214.97601,
+      "tp": 215.40497
+    }
+  }
+}

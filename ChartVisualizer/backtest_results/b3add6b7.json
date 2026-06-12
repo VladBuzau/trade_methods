@@ -1,0 +1,82 @@
+{
+  "job_id": "b3add6b7",
+  "params": {
+    "symbol": "XAUUSD",
+    "strategy": "eob",
+    "tfs": [
+      "M15"
+    ],
+    "bars_window": 2000,
+    "duration_years": 2,
+    "step": 1,
+    "risk_dollars": 50,
+    "tp_ratio": 2,
+    "min_confidence": 66,
+    "spread": 0.0003,
+    "max_duration_hours": 24
+  },
+  "symbol": "XAUUSD",
+  "strategy": "eob",
+  "tfs": [
+    "M15"
+  ],
+  "from_dt": "2024-05-04",
+  "to_dt": "2026-05-04",
+  "total_bars": 47180,
+  "step": 1,
+  "trades": [
+    {
+      "signal": "SELL",
+      "sl": 2604.108,
+      "tp": 2600.463,
+      "entry_price": 2602.6196999999997,
+      "entry_bar": 15076,
+      "entry_time": "2024-12-20 13:45:00",
+      "risk": 50.0,
+      "confidence": 60.0,
+      "tf": "M15",
+      "strategy": "eob",
+      "reasons": [
+        "ADX 21.7 >= 18 pe M15 \u2713",
+        "HTF trend: BEAR (43% bull)",
+        "HTF EOB BEARISH [2600.94\u20132603.82] wick=48.6% age=39bare decay=0.51 (+2pt)",
+        "Sweet spot (treimea medie a zonei) (+2)",
+        "MTF M15 SELL: Nu exista BOS BEARISH conf=85% sweep=True",
+        "LTF M15: momentum=NEUTRAL compresie=False(0bare) state=NORMAL",
+        "LTF SELL: Entry score: 6/10 [displacement+3, confluenta85%+2, sweep+1]",
+        "Score SELL=12 BUY=0 \u2192 SELL 60.0% | HTF trend: BEAR",
+        "Invalidation: Hard stop: 2606.42382 | Soft invalidare: 2602.38 | BOS recapture: 2611.63146"
+      ],
+      "exit_bar": 15076,
+      "exit_time": "2024-12-20 13:45:00",
+      "outcome": "SL",
+      "pnl": -50.0,
+      "rr": 1.45,
+      "duration_bars": 0
+    }
+  ],
+  "metrics": {
+    "total_trades": 1,
+    "wins": 0,
+    "losses": 1,
+    "expires": 0,
+    "timeouts": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "net_pnl": -50.0,
+    "gross_profit": 0,
+    "gross_loss": 50.0,
+    "max_drawdown": 50.0,
+    "avg_rr": 0.0,
+    "sharpe": 0.0,
+    "max_consec_loss": 1,
+    "equity_curve": [
+      10000.0,
+      9950.0
+    ],
+    "equity_dates": [
+      "2024-12-20"
+    ]
+  },
+  "created_at": "2026-05-05T01:43:25.603984"
+}

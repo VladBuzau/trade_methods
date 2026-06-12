@@ -1,0 +1,5 @@
+requests
+pyautogui
+pyperclip
+pygetwindow
+psutil

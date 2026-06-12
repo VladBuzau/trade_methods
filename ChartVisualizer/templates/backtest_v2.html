@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backtest · v2</title>
+<style>
+:root {
+  --bg: #0e1116; --bg-card: #161b22; --bg-soft: #21262d; --bg-soft-2: #1c2128;
+  --border: #30363d; --text: #e6edf3; --text-dim: #8b949e;
+  --accent: #2f81f7; --green: #3fb950; --red: #f85149; --yellow: #d29922;
+  --radius: 8px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+       background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
+
+/* Top nav */
+.topnav { display:flex; justify-content:space-between; align-items:center; padding:10px 20px;
+          background: var(--bg-card); border-bottom: 1px solid var(--border);
+          position: sticky; top: 0; z-index: 20; }
+.logo { font-weight: 700; font-size: 15px; }
+.topnav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+.topnav-links a { padding: 6px 10px; color: var(--text-dim); text-decoration: none;
+                  font-size: 12px; border-radius: 5px; }
+.topnav-links a:hover { color: var(--text); background: var(--bg-soft); }
+.topnav-links a.active { color: var(--accent); background: var(--bg-soft); }
+
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 50px); }
+.sidebar { background: var(--bg-card); border-right: 1px solid var(--border);
+           padding: 20px 16px; position: sticky; top: 50px;
+           height: calc(100vh - 50px); overflow-y: auto; }
+.main { padding: 20px 24px 60px; overflow-x: hidden; }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; }
+  .sidebar { height: auto; position: relative; } }
+
+.brand { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+.section-h { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+             color: var(--text-dim); margin: 14px 0 8px; padding: 0 2px; }
+
+.btn { width: 100%; background: var(--bg-soft); color: var(--text);
+       border: 1px solid var(--border); padding: 9px 12px; border-radius: var(--radius);
+       cursor: pointer; font-size: 13px; font-weight: 500; transition: background 0.15s; }
+.btn:hover:not(:disabled) { background: #30363d; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn.primary:hover:not(:disabled) { background: #1f6feb; }
+.btn.danger { background: var(--red); border-color: var(--red); color: white; }
+.btn.sm { width: auto; padding: 5px 10px; font-size: 11px; }
+
+label.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+label.field span { font-size: 11px; color: var(--text-dim); }
+input[type="text"], input[type="number"], select {
+  padding: 7px 10px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 4px; color: var(--text); font-size: 13px;
+}
+input:focus, select:focus { outline: none; border-color: var(--accent); }
+
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--border);
+        margin-bottom: 16px; }
+.tab { padding: 8px 14px; cursor: pointer; color: var(--text-dim);
+       font-size: 13px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: var(--text); border-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.chk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 4px 12px; }
+
+/* TF pill checkboxes */
+.tf-pill { padding: 4px 9px; background: var(--bg); border: 1px solid var(--border);
+           border-radius: 4px; font-size: 11px; cursor: pointer; user-select: none; }
+.tf-pill.on { background: var(--accent); border-color: var(--accent); color: white; }
+.chk { display: flex; align-items: center; gap: 8px; cursor: pointer;
+       padding: 4px 8px; border-radius: 4px; font-size: 12px; user-select: none; }
+.chk:hover { background: rgba(255,255,255,0.04); }
+.chk input[type="checkbox"] { accent-color: var(--accent); width: 14px; height: 14px; margin: 0; }
+.chk span { color: var(--text); }
+.chk input:not(:checked) + span { color: var(--text-dim); }
+
+.policy-json { background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+               padding: 10px 12px; font-family: 'SF Mono', Consolas, monospace;
+               font-size: 11px; color: #a8c8ff; max-height: 240px; overflow: auto;
+               white-space: pre-wrap; line-height: 1.4; }
+
+/* Results */
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+         gap: 10px; margin-bottom: 14px; }
+.stat { background: var(--bg-card); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 12px; text-align: center; }
+.stat-label { font-size: 10px; text-transform: uppercase; color: var(--text-dim); }
+.stat-value { font-size: 18px; font-weight: 600; margin-top: 4px; }
+.stat-value.pos { color: var(--green); }
+.stat-value.neg { color: var(--red); }
+
+.progress-bar { width: 100%; height: 6px; background: var(--bg-soft);
+                border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+.progress-text { font-size: 11px; color: var(--text-dim); }
+
+table.impact { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+table.impact th, table.impact td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+table.impact th { font-size: 10px; text-transform: uppercase; color: var(--text-dim); }
+table.impact tr.pos { color: var(--green); }
+table.impact tr.neg { color: var(--red); }
+
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(50px);
+         background: var(--bg-card); border: 1px solid var(--border); padding: 10px 18px;
+         border-radius: var(--radius); font-size: 13px; opacity: 0; transition: all 0.2s; z-index: 100; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast.ok { border-color: var(--green); }
+.toast.err { border-color: var(--red); }
+
+.empty { color: var(--text-dim); text-align: center; padding: 30px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div style="display:flex; gap:14px; align-items:center;">
+    <div class="logo">📊 Backtest v2</div>
+  </div>
+  <nav class="topnav-links">
+    <a href="/autotrader">⚡ AutoTrader</a>
+    <a href="/" >📊 Chart</a>
+    <a href="/trades">📈 Trades</a>
+    <a href="/backtest_legacy" title="UI clasic">v1</a>
+    <a href="/logout" style="color: var(--red)">↩ Logout</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">Configurare backtest</div>
+
+    <label class="field"><span>Strategie</span>
+      <select id="inp-strategy"></select>
+    </label>
+    <label class="field"><span>Simbol</span>
+      <input id="inp-symbol" type="text" value="EURUSD">
+    </label>
+    <label class="field"><span>Timeframe-uri</span>
+      <div id="tf-pills" style="display:flex; gap:4px; flex-wrap:wrap"></div>
+    </label>
+    <label class="field"><span>Durata (ani)</span>
+      <input id="inp-years" type="number" value="2" min="0.1" step="0.5">
+    </label>
+    <label class="field"><span>Step (bare între analyze)</span>
+      <input id="inp-step" type="number" value="4" min="1" max="20">
+    </label>
+
+    <div class="section-h">Risc</div>
+    <label class="field"><span>Risc / trade ($)</span>
+      <input id="inp-risk" type="number" value="50" min="1">
+    </label>
+    <label class="field"><span>TP / SL ratio</span>
+      <input id="inp-tpratio" type="number" value="2" min="0.5" step="0.1">
+    </label>
+    <label class="field"><span>Min confidence (%)</span>
+      <input id="inp-conf" type="number" value="66" min="0" max="100">
+    </label>
+    <label class="field"><span>Max ore / trade</span>
+      <input id="inp-maxh" type="number" value="10" min="0.5" step="0.5">
+    </label>
+
+    <button id="btn-run" class="btn primary" style="margin-top: 14px">▶ Rulează backtest</button>
+    <button id="btn-signal-log" class="btn" style="margin-top: 6px">🔍 Signal Log (rolling window)</button>
+    <button id="btn-impact" class="btn" style="margin-top: 6px">📊 Element Impact (rulează N runs)</button>
+    <label class="field" style="margin-top: 10px"><span>Eval bars (validare semnal)</span>
+      <input id="inp-eval" type="number" value="24" min="3" max="200">
+    </label>
+  </aside>
+
+  <main class="main">
+    <div class="tabs">
+      <div class="tab active" data-tab="setup">⚙ Setup</div>
+      <div class="tab" data-tab="results">📈 Rezultate</div>
+      <div class="tab" data-tab="signal-log">🔍 Signal Log</div>
+      <div class="tab" data-tab="impact">🎯 Element Impact</div>
+      <div class="tab" data-tab="saved">💾 Salvate</div>
+    </div>
+
+    <div class="tab-panel active" data-panel="setup">
+      <div id="setup-header"><div class="empty">Selectează o strategie</div></div>
+      <div id="setup-elements"></div>
+    </div>
+
+    <div class="tab-panel" data-panel="results">
+      <div id="results-progress" style="display:none">
+        <div class="progress-bar"><div id="prog-fill" class="progress-fill" style="width:0%"></div></div>
+        <div id="prog-text" class="progress-text">—</div>
+      </div>
+      <div id="results-content"><div class="empty">Rulează un backtest pentru rezultate</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="signal-log">
+      <div id="siglog-progress" style="display:none">
+        <div class="progress-bar"><div id="siglog-fill" class="progress-fill" style="width:0%"></div></div>
+        <div id="siglog-text" class="progress-text">—</div>
+      </div>
+      <div id="siglog-content">
+        <div class="empty">Click "Signal Log" în sidebar. Strategia va rula pe fereastră glisantă (step=1), va înregistra fiecare BUY/SELL/HOLD și va valida pe următoarele N bare (eval_bars).</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="saved">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+        <h3 style="margin:0; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+          Rezultate salvate (max 50)
+        </h3>
+        <button id="btn-refresh-saved" class="btn sm">⟳ Refresh</button>
+      </div>
+      <div id="saved-content"><div class="empty">Click Refresh să încarci lista</div></div>
+    </div>
+
+    <div class="tab-panel" data-panel="impact">
+      <div id="impact-progress" style="display:none">
+        <div class="progress-bar"><div id="impact-fill" class="progress-fill" style="width:0%"></div></div>
+        <div id="impact-text" class="progress-text">—</div>
+      </div>
+      <div id="impact-content">
+        <div class="empty">Click "Element Impact" în sidebar pentru a rula 12 backtests (baseline + fiecare opt_*) și a vedea ce filtre îmbunătățesc rezultatele.</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+function toast(m, type='') { const t=$('toast'); t.textContent=m; t.className='toast show '+type;
+  setTimeout(()=>t.classList.remove('show'),2200); }
+async function api(url, opts={}) {
+  const r = await fetch(url, opts); if (!r.ok) throw new Error('HTTP '+r.status); return r.json();
+}
+
+const ALL_TFS = ["M1","M5","M15","M30","H1","H4","D1"];
+let state = { strategies: [], current: null, elementsConfig: {},
+              selectedTfs: new Set(),
+              jobId: null, parentId: null, siglogId: null };
+
+async function loadStrategies() {
+  state.strategies = await api('/autotrader/strategies');
+  const sel = $('inp-strategy');
+  sel.innerHTML = state.strategies.map(s =>
+    `<option value="${s.key}">${s.icon||'•'} ${s.name}</option>`).join('');
+  sel.addEventListener('change', () => onStrategyChange(sel.value));
+  onStrategyChange(sel.value);
+}
+
+function onStrategyChange(key) {
+  state.current = state.strategies.find(s => s.key === key);
+  if (!state.current) return;
+  // Initialize elements:
+  //   - opt_*  → OFF (opt-in)
+  //   - STRICT / BLOCKING / opt-in markers in label → OFF (opt-in)
+  //   - restul specifice → ON
+  state.elementsConfig = {};
+  const labels = state.current.element_labels || {};
+  for (const k in labels) {
+    if (k.startsWith('opt_')) {
+      state.elementsConfig[k] = false;
+      continue;
+    }
+    const lbl = String(labels[k] || '').toUpperCase();
+    if (lbl.includes('STRICT') || lbl.includes('BLOCKING')) {
+      state.elementsConfig[k] = false;
+      continue;
+    }
+    state.elementsConfig[k] = true;
+  }
+  // Auto-fill TFs din default_tfs / tfs
+  state.selectedTfs = new Set(state.current.tfs || []);
+  renderTfPills();
+  // Auto-fill alte setari
+  if (state.current.min_confidence) {
+    $('inp-conf').value = state.current.min_confidence;
+  }
+  renderSetup();
+}
+
+function renderTfPills() {
+  const cont = $('tf-pills');
+  cont.innerHTML = ALL_TFS.map(tf =>
+    `<span class="tf-pill ${state.selectedTfs.has(tf) ? 'on' : ''}" data-tf="${tf}">${tf}</span>`
+  ).join('');
+  cont.querySelectorAll('[data-tf]').forEach(p => {
+    p.addEventListener('click', () => {
+      const tf = p.dataset.tf;
+      if (state.selectedTfs.has(tf)) state.selectedTfs.delete(tf);
+      else state.selectedTfs.add(tf);
+      renderTfPills();
+    });
+  });
+}
+
+function selectedTfsList() {
+  // Return in ordine ALL_TFS
+  return ALL_TFS.filter(t => state.selectedTfs.has(t));
+}
+
+function renderSetup() {
+  const s = state.current;
+  if (!s) return;
+  $('setup-header').innerHTML = `
+    <h2 style="margin:0 0 4px">${s.icon||'•'} ${s.name}</h2>
+    <div style="color:var(--text-dim); font-size:12px">${s.key} · default TFs: ${(s.tfs||[]).join(', ')} · min ${(s.min_confidence||66).toFixed(0)}%</div>`;
+
+  const labels = s.element_labels || {};
+  const specific = Object.entries(labels).filter(([k]) => !k.startsWith('opt_'));
+  const optional = Object.entries(labels).filter(([k]) =>  k.startsWith('opt_'));
+
+  const renderRow = ([k, lbl]) => `
+    <label class="chk" data-elem="${k}">
+      <input type="checkbox" ${state.elementsConfig[k] ? 'checked' : ''}>
+      <span>${lbl}</span>
+    </label>`;
+
+  $('setup-elements').innerHTML = `
+    <div style="margin: 12px 0 8px; display: flex; gap: 8px; align-items: center;">
+      <input id="elem-search" type="text" placeholder="🔍 Caută element (ex: rsi, volume, h4, sweep)..."
+             style="flex:1; padding:7px 12px; background:var(--bg); border:1px solid var(--border);
+                    border-radius:4px; color:var(--text); font-size:13px;">
+      <button id="elem-clear" class="btn sm" style="white-space:nowrap">✕ Reset</button>
+      <button id="elem-all-on" class="btn sm" style="white-space:nowrap">Toate ON</button>
+      <button id="elem-all-off" class="btn sm" style="white-space:nowrap">Toate OFF</button>
+    </div>
+    <div class="section-h" data-section="specific">Componente specifice strategiei <span id="cnt-spec" style="color:var(--text-dim)">(${specific.length})</span></div>
+    <div class="chk-grid" id="grid-specific">${specific.map(renderRow).join('')}</div>
+    <div class="section-h" data-section="optional">Filtre opționale (opt_*) — bifează ce vrei testat <span id="cnt-opt" style="color:var(--text-dim)">(${optional.length})</span></div>
+    <div class="chk-grid" id="grid-optional">${optional.map(renderRow).join('')}</div>
+    <div class="section-h">JSON elements (live)</div>
+    <pre class="policy-json" id="setup-json"></pre>
+  `;
+  document.querySelectorAll('#setup-elements [data-elem]').forEach(l => {
+    l.addEventListener('change', () => {
+      const k = l.dataset.elem;
+      state.elementsConfig[k] = l.querySelector('input').checked;
+      $('setup-json').textContent = JSON.stringify(state.elementsConfig, null, 2);
+    });
+  });
+  $('setup-json').textContent = JSON.stringify(state.elementsConfig, null, 2);
+
+  // Search filter pe elemente
+  const searchInp = $('elem-search');
+  searchInp.addEventListener('input', () => {
+    const q = searchInp.value.toLowerCase().trim();
+    let visSpec = 0, visOpt = 0;
+    document.querySelectorAll('#setup-elements [data-elem]').forEach(l => {
+      const key = l.dataset.elem.toLowerCase();
+      const lbl = l.querySelector('span').textContent.toLowerCase();
+      const match = !q || key.includes(q) || lbl.includes(q);
+      l.style.display = match ? '' : 'none';
+      if (match) {
+        if (l.dataset.elem.startsWith('opt_')) visOpt++; else visSpec++;
+      }
+    });
+    $('cnt-spec').textContent = `(${visSpec})`;
+    $('cnt-opt').textContent = `(${visOpt})`;
+  });
+  $('elem-clear').addEventListener('click', () => {
+    searchInp.value = '';
+    searchInp.dispatchEvent(new Event('input'));
+  });
+  $('elem-all-on').addEventListener('click', () => {
+    document.querySelectorAll('#setup-elements [data-elem]').forEach(l => {
+      if (l.style.display === 'none') return;  // doar cele filtrate
+      const cb = l.querySelector('input');
+      cb.checked = true;
+      state.elementsConfig[l.dataset.elem] = true;
+    });
+    $('setup-json').textContent = JSON.stringify(state.elementsConfig, null, 2);
+    toast('Toate vizibile: ON', 'ok');
+  });
+  $('elem-all-off').addEventListener('click', () => {
+    document.querySelectorAll('#setup-elements [data-elem]').forEach(l => {
+      if (l.style.display === 'none') return;
+      const cb = l.querySelector('input');
+      cb.checked = false;
+      state.elementsConfig[l.dataset.elem] = false;
+    });
+    $('setup-json').textContent = JSON.stringify(state.elementsConfig, null, 2);
+    toast('Toate vizibile: OFF', 'ok');
+  });
+}
+
+// Run backtest
+async function runBacktest() {
+  const params = {
+    symbol:         $('inp-symbol').value.trim().toUpperCase(),
+    strategy:       state.current.key,
+    tfs:            selectedTfsList(),
+    duration_years: parseFloat($('inp-years').value),
+    step:           parseInt($('inp-step').value),
+    risk_dollars:   parseFloat($('inp-risk').value),
+    tp_ratio:       parseFloat($('inp-tpratio').value),
+    min_confidence: parseFloat($('inp-conf').value),
+    max_duration_hours: parseFloat($('inp-maxh').value),
+    elements:       state.elementsConfig,
+  };
+  $('btn-run').disabled = true;
+  try {
+    const r = await api('/backtest/run', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(params),
+    });
+    if (!r.ok) { toast('Eroare: ' + r.message, 'err'); $('btn-run').disabled = false; return; }
+    state.jobId = r.job_id;
+    switchTab('results');
+    $('results-progress').style.display = 'block';
+    $('results-content').innerHTML = '<div class="empty">Backtest în execuție...</div>';
+    pollStatus();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); $('btn-run').disabled = false; }
+}
+
+async function pollStatus() {
+  if (!state.jobId) return;
+  try {
+    const j = await api(`/backtest/status/${state.jobId}`);
+    $('prog-fill').style.width = (j.progress||0) + '%';
+    $('prog-text').textContent = j.message || j.status;
+    if (j.status === 'done') {
+      $('btn-run').disabled = false;
+      renderResults(j.result);
+      $('results-progress').style.display = 'none';
+      toast('Backtest complet', 'ok');
+    } else if (j.status === 'error') {
+      $('btn-run').disabled = false;
+      $('results-content').innerHTML = `<div class="empty">Eroare: ${j.message}</div>`;
+      $('results-progress').style.display = 'none';
+    } else {
+      setTimeout(pollStatus, 1200);
+    }
+  } catch(e) { setTimeout(pollStatus, 2000); }
+}
+
+function renderResults(result) {
+  if (!result) { $('results-content').innerHTML = '<div class="empty">Fără date</div>'; return; }
+  const m = result.metrics || {};
+  const totalTrades = m.total_trades || m.trades || (result.trades || []).length;
+  const stats = `
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Trades</div><div class="stat-value">${totalTrades}</div></div>
+      <div class="stat"><div class="stat-label">Win Rate</div><div class="stat-value">${(m.win_rate||0).toFixed(1)}%</div></div>
+      <div class="stat"><div class="stat-label">PF</div><div class="stat-value">${(m.profit_factor||0).toFixed(2)}</div></div>
+      <div class="stat"><div class="stat-label">Net P&L</div><div class="stat-value ${(m.net_pnl||0)>=0?'pos':'neg'}">${(m.net_pnl||0).toFixed(0)}$</div></div>
+      <div class="stat"><div class="stat-label">Max DD</div><div class="stat-value neg">${(m.max_drawdown||0).toFixed(0)}$</div></div>
+      <div class="stat"><div class="stat-label">Expectancy</div><div class="stat-value ${(m.expectancy||0)>=0?'pos':'neg'}">${(m.expectancy||0).toFixed(2)}$</div></div>
+    </div>`;
+  // Lista ultime 30 trades — pe baza outcome, exit price e SL sau TP
+  const tr = (result.trades || []).slice(-30).reverse();
+  const exitPrice = (t) => {
+    if (t.outcome === 'TP') return t.tp;
+    if (t.outcome === 'SL') return t.sl;
+    return null;  // EXPIRED / TIMEOUT — fara exit explicit
+  };
+  const tradesList = tr.length ? `
+    <h3 style="margin-top:14px; font-size:13px; color:var(--text-dim); text-transform:uppercase">Ultimele 30 trade-uri</h3>
+    <div style="max-height:450px; overflow:auto; border:1px solid var(--border); border-radius:6px">
+    <table style="width:100%; font-size:11px">
+      <thead><tr style="background:var(--bg-soft); position:sticky; top:0">
+        <th style="padding:6px;text-align:left">Side</th>
+        <th style="padding:6px;text-align:right">Entry</th>
+        <th style="padding:6px;text-align:right">SL</th>
+        <th style="padding:6px;text-align:right">TP</th>
+        <th style="padding:6px;text-align:right">Exit</th>
+        <th style="padding:6px;text-align:right">Bars</th>
+        <th style="padding:6px;text-align:right">PnL</th>
+        <th style="padding:6px;text-align:right">RR</th>
+        <th style="padding:6px;text-align:left">Outcome</th></tr></thead>
+      <tbody>${tr.map(t => {
+        const xp = exitPrice(t);
+        return `
+        <tr style="border-top:1px solid var(--border)">
+          <td style="padding:5px"><span style="color:${t.signal==='BUY'?'var(--green)':'var(--red)'};font-weight:600">${t.signal}</span></td>
+          <td style="padding:5px;text-align:right;font-family:monospace">${(t.entry_price||0).toFixed(5)}</td>
+          <td style="padding:5px;text-align:right;color:var(--red);font-family:monospace">${(t.sl||0).toFixed(5)}</td>
+          <td style="padding:5px;text-align:right;color:var(--green);font-family:monospace">${(t.tp||0).toFixed(5)}</td>
+          <td style="padding:5px;text-align:right;font-family:monospace">${xp!=null ? xp.toFixed(5) : '—'}</td>
+          <td style="padding:5px;text-align:right;color:var(--text-dim)">${t.duration_bars||0}</td>
+          <td style="padding:5px;text-align:right;font-weight:600" class="${(t.pnl||0)>=0?'pos':'neg'}">${(t.pnl||0).toFixed(2)}$</td>
+          <td style="padding:5px;text-align:right">${(t.rr||0).toFixed(2)}</td>
+          <td style="padding:5px;font-weight:600">${t.outcome}</td>
+        </tr>`;
+      }).join('')}</tbody></table></div>` : '';
+  $('results-content').innerHTML = stats + tradesList;
+}
+
+// Element Impact
+async function runElementImpact() {
+  if (!state.current) return;
+  const params = {
+    symbol:         $('inp-symbol').value.trim().toUpperCase(),
+    strategy:       state.current.key,
+    tfs:            selectedTfsList(),
+    duration_years: parseFloat($('inp-years').value),
+    step:           parseInt($('inp-step').value),
+    risk_dollars:   parseFloat($('inp-risk').value),
+    tp_ratio:       parseFloat($('inp-tpratio').value),
+    min_confidence: parseFloat($('inp-conf').value),
+    max_duration_hours: parseFloat($('inp-maxh').value),
+    baseline_elements: state.elementsConfig,
+  };
+  $('btn-impact').disabled = true;
+  try {
+    const r = await api('/backtest/element_impact', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(params),
+    });
+    if (!r.ok) { toast('Eroare: '+r.message, 'err'); $('btn-impact').disabled = false; return; }
+    state.parentId = r.parent_id;
+    switchTab('impact');
+    $('impact-progress').style.display = 'block';
+    $('impact-content').innerHTML = `<div class="empty">Lansat: ${r.n_runs} runs paralele...</div>`;
+    pollImpact();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); $('btn-impact').disabled = false; }
+}
+
+async function pollImpact() {
+  if (!state.parentId) return;
+  try {
+    const j = await api(`/backtest/status/${state.parentId}`);
+    $('impact-fill').style.width = (j.progress||0) + '%';
+    $('impact-text').textContent = j.message || j.status;
+    if (j.status === 'done') {
+      $('btn-impact').disabled = false;
+      renderImpact(j.element_impact);
+      $('impact-progress').style.display = 'none';
+      toast('Element impact complet', 'ok');
+    } else {
+      setTimeout(pollImpact, 1500);
+    }
+  } catch(e) { setTimeout(pollImpact, 2500); }
+}
+
+function renderImpact(data) {
+  if (!data) { $('impact-content').innerHTML = '<div class="empty">Fără date</div>'; return; }
+  const b = data.baseline || {};
+  const ranking = data.ranking || [];
+  $('impact-content').innerHTML = `
+    <h3 style="margin:0 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase">Baseline (specifice ON, opt_* OFF)</h3>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Trades</div><div class="stat-value">${b.trades||0}</div></div>
+      <div class="stat"><div class="stat-label">Win Rate</div><div class="stat-value">${(b.win_rate||0).toFixed(1)}%</div></div>
+      <div class="stat"><div class="stat-label">PF</div><div class="stat-value">${(b.profit_factor||0).toFixed(2)}</div></div>
+      <div class="stat"><div class="stat-label">Net P&L</div><div class="stat-value ${(b.total_pnl||0)>=0?'pos':'neg'}">${(b.total_pnl||0).toFixed(0)}$</div></div>
+    </div>
+    <h3 style="margin:14px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase">Ranking — fiecare opt_* vs baseline</h3>
+    <table class="impact">
+      <thead><tr>
+        <th>Element</th>
+        <th>Δ PF</th>
+        <th>Δ Win Rate</th>
+        <th>Δ P&L</th>
+        <th>Trades</th>
+      </tr></thead>
+      <tbody>
+      ${ranking.map(r => `
+        <tr class="${r.delta_pf > 0 ? 'pos' : (r.delta_pf < 0 ? 'neg' : '')}">
+          <td>${r.element}</td>
+          <td>${r.delta_pf > 0 ? '+' : ''}${r.delta_pf.toFixed(2)}</td>
+          <td>${r.delta_winrate > 0 ? '+' : ''}${r.delta_winrate.toFixed(1)}%</td>
+          <td>${r.delta_pnl > 0 ? '+' : ''}${r.delta_pnl.toFixed(0)}$</td>
+          <td>${r.trades} (vs ${r.trades_baseline})</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+    <p style="margin-top:12px; font-size:11px; color:var(--text-dim)">
+      Verde = filtrul ÎMBUNĂTĂȚEȘTE Profit Factor vs baseline.
+      Roșu = filtrul ÎNRĂUTĂȚEȘTE. Trades = câte semnale au trecut prin filtru.
+    </p>`;
+}
+
+// Signal Log
+async function runSignalLog() {
+  if (!state.current) return;
+  const params = {
+    symbol:         $('inp-symbol').value.trim().toUpperCase(),
+    strategy:       state.current.key,
+    tfs:            selectedTfsList(),
+    duration_years: parseFloat($('inp-years').value),
+    bars_window:    500,
+    eval_bars:      parseInt($('inp-eval').value),
+    min_confidence: parseFloat($('inp-conf').value),
+    elements:       state.elementsConfig,
+  };
+  $('btn-signal-log').disabled = true;
+  try {
+    const r = await api('/backtest/signal_log', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(params),
+    });
+    if (!r.ok) { toast('Eroare: '+r.message, 'err'); $('btn-signal-log').disabled = false; return; }
+    state.siglogId = r.job_id;
+    switchTab('signal-log');
+    $('siglog-progress').style.display = 'block';
+    $('siglog-content').innerHTML = '<div class="empty">Procesare...</div>';
+    pollSignalLog();
+  } catch(e) { toast('Eroare: '+e.message, 'err'); $('btn-signal-log').disabled = false; }
+}
+
+async function pollSignalLog() {
+  if (!state.siglogId) return;
+  try {
+    const j = await api(`/backtest/status/${state.siglogId}`);
+    $('siglog-fill').style.width = (j.progress||0) + '%';
+    $('siglog-text').textContent = j.message || j.status;
+    if (j.status === 'done') {
+      $('btn-signal-log').disabled = false;
+      renderSignalLog(j.result);
+      $('siglog-progress').style.display = 'none';
+      toast('Signal log complet', 'ok');
+    } else if (j.status === 'error') {
+      $('btn-signal-log').disabled = false;
+      $('siglog-content').innerHTML = `<div class="empty">Eroare: ${j.message}</div>`;
+      $('siglog-progress').style.display = 'none';
+    } else {
+      setTimeout(pollSignalLog, 1500);
+    }
+  } catch(e) { setTimeout(pollSignalLog, 2500); }
+}
+
+function renderSignalLog(result) {
+  if (!result) return;
+  const sum = result.summary || {};
+  const cs  = result.confidence_stats || {};
+  const sigs = result.signals || [];
+
+  const summaryHtml = `
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Bare scanate</div><div class="stat-value">${result.scanned||0}</div></div>
+      <div class="stat"><div class="stat-label">BUY signals</div><div class="stat-value">${sum.buys||0}</div></div>
+      <div class="stat"><div class="stat-label">SELL signals</div><div class="stat-value">${sum.sells||0}</div></div>
+      <div class="stat"><div class="stat-label">HOLDs</div><div class="stat-value" style="color:var(--text-dim)">${sum.holds||0}</div></div>
+      <div class="stat"><div class="stat-label">Acuratețe BUY</div><div class="stat-value ${sum.buy_accuracy>=50?'pos':'neg'}">${(sum.buy_accuracy||0).toFixed(1)}%</div></div>
+      <div class="stat"><div class="stat-label">Acuratețe SELL</div><div class="stat-value ${sum.sell_accuracy>=50?'pos':'neg'}">${(sum.sell_accuracy||0).toFixed(1)}%</div></div>
+      <div class="stat"><div class="stat-label">Overall</div><div class="stat-value ${sum.overall_accuracy>=50?'pos':'neg'}">${(sum.overall_accuracy||0).toFixed(1)}%</div></div>
+    </div>
+    <h3 style="margin:14px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+      Acuratețe per bucket confidence
+      <span style="float:right; color:var(--text-dim); font-weight:normal">eval pe ${result.eval_bars} bare</span>
+    </h3>
+    <table class="impact">
+      <thead><tr>
+        <th>Confidence</th>
+        <th>Semnale</th>
+        <th>Valide</th>
+        <th>Acuratețe</th>
+      </tr></thead>
+      <tbody>
+        ${['50-60','60-70','70-80','80-90','90-100'].map(k => {
+          const r = cs[k] || {total:0, valid:0, accuracy:0};
+          return `<tr class="${r.accuracy>=60?'pos':(r.accuracy>=40?'':'neg')}">
+            <td>${k}%</td>
+            <td>${r.total}</td>
+            <td>${r.valid}</td>
+            <td>${r.accuracy.toFixed(1)}%</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+
+  // Lista (max ultimele 500 — deja filtrate server-side)
+  const rows = sigs.slice().reverse().slice(0, 200).map(s => {
+    const sigColor = s.signal === 'BUY' ? 'var(--green)' :
+                     (s.signal === 'SELL' ? 'var(--red)' : 'var(--text-dim)');
+    const outCol = s.outcome === 'valid' ? 'var(--green)' :
+                   (s.outcome === 'invalid' ? 'var(--red)' : 'var(--text-dim)');
+    return `<tr>
+      <td style="padding:4px 6px;font-family:monospace;font-size:10px">${s.time.slice(0,16)}</td>
+      <td style="padding:4px 6px;text-align:right;font-family:monospace">${(s.price||0).toFixed(5)}</td>
+      <td style="padding:4px 6px;color:${sigColor};font-weight:600">${s.signal}</td>
+      <td style="padding:4px 6px;text-align:right">${s.confidence}%</td>
+      <td style="padding:4px 6px;text-align:right;color:var(--green)">+${(s.max_up||0).toFixed(4)}</td>
+      <td style="padding:4px 6px;text-align:right;color:var(--red)">-${(s.max_down||0).toFixed(4)}</td>
+      <td style="padding:4px 6px;color:${outCol};font-weight:600">${s.outcome||'—'}</td>
+    </tr>`;
+  }).join('');
+
+  const tableHtml = `
+    <h3 style="margin:18px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase">
+      Ultimele 200 semnale (din ${result.all_signals_count} totale)
+    </h3>
+    <div style="max-height:500px; overflow:auto; border:1px solid var(--border); border-radius:6px">
+    <table style="width:100%; font-size:11px">
+      <thead><tr style="background:var(--bg-soft); position:sticky; top:0; z-index:1">
+        <th style="padding:6px;text-align:left">Time</th>
+        <th style="padding:6px;text-align:right">Price</th>
+        <th style="padding:6px;text-align:left">Signal</th>
+        <th style="padding:6px;text-align:right">Conf</th>
+        <th style="padding:6px;text-align:right">Max+</th>
+        <th style="padding:6px;text-align:right">Max-</th>
+        <th style="padding:6px;text-align:left">Outcome</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+
+  $('siglog-content').innerHTML = summaryHtml + tableHtml;
+}
+
+// Saved results
+async function loadSavedList() {
+  try {
+    const list = await api('/backtest/saved_list');
+    if (!list || !list.length) {
+      $('saved-content').innerHTML = '<div class="empty">Niciun rezultat salvat încă</div>';
+      return;
+    }
+    const rows = list.map(s => {
+      const isLog = s.type === 'signal_log';
+      const wr = isLog ? `${s.win_rate.toFixed(1)}% acc` :
+                         `WR ${s.win_rate.toFixed(1)}%`;
+      const pnlCol = (s.net_pnl||0) >= 0 ? 'pos' : 'neg';
+      return `<tr style="cursor:pointer; border-top:1px solid var(--border)" data-fn="${s.filename}">
+        <td style="padding:6px 8px">${isLog?'🔍':'📈'}</td>
+        <td style="padding:6px 8px;font-family:monospace;font-size:11px">${s.saved_at.slice(0,19).replace('T',' ')}</td>
+        <td style="padding:6px 8px;font-weight:600">${s.symbol}</td>
+        <td style="padding:6px 8px">${s.strategy}</td>
+        <td style="padding:6px 8px;font-size:11px">${(s.tfs||[]).join(',')}</td>
+        <td style="padding:6px 8px;text-align:right">${s.trades||0}</td>
+        <td style="padding:6px 8px;text-align:right">${wr}</td>
+        <td style="padding:6px 8px;text-align:right">${isLog?'—':(s.pf||0).toFixed(2)}</td>
+        <td style="padding:6px 8px;text-align:right" class="${pnlCol}">${isLog?'—':(s.net_pnl||0).toFixed(0)+'$'}</td>
+      </tr>`;
+    }).join('');
+    $('saved-content').innerHTML = `
+      <table style="width:100%; font-size:12px; border-collapse:collapse">
+        <thead><tr style="background:var(--bg-soft)">
+          <th style="padding:8px"></th>
+          <th style="padding:8px;text-align:left">Saved at</th>
+          <th style="padding:8px;text-align:left">Symbol</th>
+          <th style="padding:8px;text-align:left">Strategy</th>
+          <th style="padding:8px;text-align:left">TFs</th>
+          <th style="padding:8px;text-align:right">Signals/Trades</th>
+          <th style="padding:8px;text-align:right">Acc/WR</th>
+          <th style="padding:8px;text-align:right">PF</th>
+          <th style="padding:8px;text-align:right">Net P&L</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <p style="margin-top:10px; color:var(--text-dim); font-size:11px">
+        Click pe un rând pentru a încărca rezultatul.
+      </p>
+    `;
+    $('saved-content').querySelectorAll('[data-fn]').forEach(r => {
+      r.addEventListener('click', () => loadSavedResult(r.dataset.fn));
+    });
+  } catch(e) {
+    $('saved-content').innerHTML = `<div class="empty">Eroare: ${e.message}</div>`;
+  }
+}
+
+async function loadSavedResult(filename) {
+  try {
+    const r = await api(`/backtest/load/${filename}`);
+    if (!r.ok) { toast('Eroare load: '+r.message, 'err'); return; }
+    if (r.type === 'signal_log') {
+      renderSignalLog(r.result);
+      switchTab('signal-log');
+    } else {
+      renderResults(r.result);
+      switchTab('results');
+    }
+    toast(`Loaded: ${filename}`, 'ok');
+  } catch(e) { toast('Eroare: '+e.message, 'err'); }
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+  $('btn-run').addEventListener('click', runBacktest);
+  $('btn-signal-log').addEventListener('click', runSignalLog);
+  $('btn-impact').addEventListener('click', runElementImpact);
+  $('btn-refresh-saved').addEventListener('click', loadSavedList);
+  // Auto-refresh saved when switching to that tab
+  document.querySelectorAll('[data-tab="saved"]').forEach(t =>
+    t.addEventListener('click', () => setTimeout(loadSavedList, 50)));
+  loadStrategies();
+});
+</script>
+</body>
+</html>

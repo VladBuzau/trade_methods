@@ -1,0 +1,151 @@
+{
+  "job_id": "adf18f0a",
+  "params": {
+    "symbol": "XAUUSD",
+    "strategy": "eob",
+    "tfs": [
+      "M15",
+      "H1"
+    ],
+    "bars_window": 2000,
+    "duration_years": 2,
+    "step": 1,
+    "risk_dollars": 50,
+    "tp_ratio": 2,
+    "min_confidence": 66,
+    "spread": 0.0003,
+    "max_duration_hours": 24
+  },
+  "symbol": "XAUUSD",
+  "strategy": "eob",
+  "tfs": [
+    "M15",
+    "H1"
+  ],
+  "from_dt": "2024-05-04",
+  "to_dt": "2026-05-04",
+  "total_bars": 47179,
+  "step": 1,
+  "trades": [
+    {
+      "signal": "BUY",
+      "sl": 3419.436,
+      "tp": 3427.571,
+      "entry_price": 3425.2803000000004,
+      "entry_bar": 28809,
+      "entry_time": "2025-07-23 14:30:00",
+      "risk": 50.0,
+      "confidence": 90.0,
+      "tf": "M15",
+      "strategy": "eob",
+      "reasons": [
+        "ADX 41.6 >= 18 pe H1 \u2713",
+        "HTF trend: BULL (60% bull)",
+        "HTF EOB BULLISH [3419.94\u20133424.98] wick=47.8% age=3bare decay=0.96 (+4pt)",
+        "Sweet spot (treimea medie a zonei) (+2)",
+        "MTF M15 BUY: Nu exista BOS BULLISH conf=100% sweep=True",
+        "MTF H1 BUY: Nu exista BOS BULLISH conf=100% sweep=False",
+        "LTF M15: momentum=ACCELERATING compresie=False(0bare) state=NORMAL",
+        "LTF BUY: Entry score: 8/10 [momentum+2, displacement+3, confluenta100%+2, sweep+1]",
+        "Score SELL=0 BUY=18 \u2192 BUY 90.0% | HTF trend: BULL",
+        "Invalidation: Hard stop: 3416.52006 | Soft invalidare: 3422.46 | BOS recapture: 3409.68018"
+      ],
+      "exit_bar": 28809,
+      "exit_time": "2025-07-23 14:30:00",
+      "outcome": "TP",
+      "pnl": 19.6,
+      "rr": 0.39,
+      "duration_bars": 0
+    },
+    {
+      "signal": "BUY",
+      "sl": 3419.436,
+      "tp": 3446.9889,
+      "entry_price": 3428.6203,
+      "entry_bar": 28810,
+      "entry_time": "2025-07-23 14:45:00",
+      "risk": 50.0,
+      "confidence": 85.0,
+      "tf": "M15",
+      "strategy": "eob",
+      "reasons": [
+        "ADX 41.6 >= 18 pe H1 \u2713",
+        "HTF trend: BULL (60% bull)",
+        "HTF EOB BULLISH [3419.94\u20133424.98] wick=47.8% age=3bare decay=0.96 (+4pt)",
+        "Sweet spot (treimea medie a zonei) (+2)",
+        "MTF M15 BUY: Nu exista BOS BULLISH conf=86% sweep=False",
+        "MTF H1 BUY: Nu exista BOS BULLISH conf=100% sweep=False",
+        "LTF M15: momentum=ACCELERATING compresie=False(1bare) state=NORMAL",
+        "LTF BUY: Entry score: 7/10 [momentum+2, displacement+3, confluenta100%+2]",
+        "Score SELL=0 BUY=17 \u2192 BUY 85.0% | HTF trend: BULL",
+        "Invalidation: Hard stop: 3416.52006 | Soft invalidare: 3422.46 | BOS recapture: 3409.68018"
+      ],
+      "exit_bar": 28815,
+      "exit_time": "2025-07-23 16:00:00",
+      "outcome": "SL",
+      "pnl": -50.0,
+      "rr": 2.0,
+      "duration_bars": 5,
+      "entry_bar_last": 28814
+    },
+    {
+      "signal": "BUY",
+      "sl": 4971.794,
+      "tp": 5002.734,
+      "entry_price": 4990.2703,
+      "entry_bar": 42426,
+      "entry_time": "2026-02-19 07:15:00",
+      "risk": 50.0,
+      "confidence": 70.0,
+      "tf": "M15",
+      "strategy": "eob",
+      "reasons": [
+        "ADX 19.0 >= 18 pe H1 \u2713",
+        "HTF trend: BULL (64% bull)",
+        "HTF EOB BULLISH [4973.94\u20134995.4] wick=53.8% age=79bare decay=0.3 (+1pt)",
+        "Sweet spot (treimea medie a zonei) (+2)",
+        "MTF M15 BUY: Nu exista BOS BULLISH conf=56% sweep=False",
+        "MTF H1 BUY: Nu exista BOS BULLISH conf=82% sweep=False",
+        "LTF M15: momentum=ACCELERATING compresie=False(1bare) state=NORMAL",
+        "LTF BUY: Entry score: 7/10 [momentum+2, displacement+3, confluenta82%+2]",
+        "Score SELL=0 BUY=14 \u2192 BUY 70.0% | HTF trend: BULL",
+        "Invalidation: Hard stop: 4968.96606 | Soft invalidare: 4984.67 | BOS recapture: 4959.01818"
+      ],
+      "exit_bar": 42431,
+      "exit_time": "2026-02-19 08:30:00",
+      "outcome": "TP",
+      "pnl": 33.73,
+      "rr": 0.67,
+      "duration_bars": 5,
+      "entry_bar_last": 42430
+    }
+  ],
+  "metrics": {
+    "total_trades": 3,
+    "wins": 2,
+    "losses": 1,
+    "expires": 0,
+    "timeouts": 0,
+    "win_rate": 66.7,
+    "profit_factor": 1.07,
+    "net_pnl": 3.33,
+    "gross_profit": 53.33,
+    "gross_loss": 50.0,
+    "max_drawdown": 50.0,
+    "avg_rr": 0.53,
+    "sharpe": 0.48,
+    "max_consec_loss": 1,
+    "equity_curve": [
+      10000.0,
+      10019.6,
+      9969.6,
+      10003.33
+    ],
+    "equity_dates": [
+      "2025-07-23",
+      "2025-07-23",
+      "2026-02-19"
+    ]
+  },
+  "created_at": "2026-05-05T01:24:49.747032"
+}

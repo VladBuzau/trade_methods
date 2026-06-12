@@ -1,0 +1,12 @@
+{
+  "vscode_title_hint": "Visual Studio Code",
+  "focus_chat_shortcut": "",
+  "pre_inject_delay_s": 0.4,
+  "post_focus_delay_s": 0.3,
+  "_notes": {
+    "vscode_title_hint": "Substring din titlul ferestrei VSCode. Daca ai multe VSCode-uri deschise, fa-l mai specific (ex: 'FINALLBOSS - Visual Studio Code').",
+    "focus_chat_shortcut": "Shortcut keyboard care focuseaza input-ul Claude Code chat. Ex: 'ctrl+alt+c'. Lasa gol daca pastrezi tu input-ul focusat manual.",
+    "pre_inject_delay_s": "Delay dupa activarea ferestrei VSCode, inainte de paste.",
+    "post_focus_delay_s": "Delay dupa apasarea shortcut-ului de focus chat."
+  }
+}

@@ -1,0 +1,758 @@
+================================================================================
+  GHID COMPLET STRATEGII — ChartVisualizer AutoTrader
+  Ultima actualizare: Aprilie 2026
+================================================================================
+
+Acest document explica fiecare strategie din sistem: ce face, cum gandeste,
+cu exemple concrete de trade-uri reale, si o evaluare sincerata a calitatii.
+
+--------------------------------------------------------------------------------
+CUPRINS
+--------------------------------------------------------------------------------
+ 1.  EOB + Unicorn            (Premium — recomandat activ)
+ 2.  SMC v3 STRICT            (Premium — recomandat activ)
+ 3.  TrendRider               (Premium — recomandat activ)
+ 4.  S/R Multi-Timeframe      (Premium — pending orders)
+ 5.  Bollinger Bands          (Standard — range only)
+ 6.  London Breakout          (Standard — 06-09 UTC)
+ 7.  NY Breakout              (Standard — 13-16 UTC)
+ 8.  China Session            (Standard — 00-06 UTC)
+ 9.  RSI Divergence           (Standard — H4/D1 ideal)
+10.  Engulfing                (Standard — H4/D1 ideal)
+11.  Ichimoku                 (Standard — H4/D1, lent)
+12.  Classic / MACD / Supertrend / EMA Cross  (LEGACY — dezactivate)
+13.  Combined Mode            (Mod special — vot majoritar)
+14.  Scalp Boost Mode         (Mod special — trade-uri rapide)
+15.  Sistemul de Scoring      (Cum se calculeaza confidence %)
+16.  Setari recomandate FTMO  (Configuratii sigure)
+17.  Intrebari frecvente      (FAQ)
+
+
+================================================================================
+1. EOB + Unicorn
+   (EOB = Enhanced Order Block)
+================================================================================
+
+IDEEA DE BAZA:
+  Marile institutii (banci, hedge funds) lasa "amprente" in grafic sub forma
+  de zone de acumulare/distributie — numite Order Blocks (OB). Cand pretul
+  se intoarce la aceste zone, institutiile isi completeaza ordinele si pretul
+  isi reia directia. EOB detecteaza aceste zone si intra la retur.
+
+CE CAUTA STRATEGIA (3 faze):
+
+  FAZA 1 — HTF (H4/D1): Gaseste zona Order Block pe timeframe mare
+    O lumanare bullish urmata IMEDIAT de o lumanare bearish mare = OB BEARISH
+    O lumanare bearish urmata IMEDIAT de o lumanare bullish mare = OB BULLISH
+    Zona trebuie sa fie "proaspata" (max 80 de bare in urma)
+    Pretul TREBUIE sa fie in zona (buffer max 5%)
+
+  FAZA 2 — MTF (H1/M15): Unicorn ICT — confirmare pe timeframe mediu
+    BOS (Break of Structure): pretul a rupt un nivel structural recent
+      Grade A (+3 pt): spargere puternica, >0.5x ATR sub/deasupra nivelului
+      Grade B (+1 pt): spargere normala, 0.2-0.5x ATR
+      Grade C (BLOCAT): spargere slaba — semnal ANULAT, nu se executa
+    FVG (Fair Value Gap): gap intre lumanari consecutive — zona de dezechilibru
+    Liquidity Sweep: spike rapid care "vaneaza" stop-urile altora + revenire rapida
+
+  FAZA 3 — LTF (M1/M5): Timing de intrare precis
+    Candle DNA: analiza corpurilor lumanarilor (accelerare / epuizare / compresie)
+    Displacement: lumanare mare (corp >60%) care depaseste high/low recent
+    Entry Score: 0-10, minim 6 necesar pentru a intra
+
+GATE-URI OBLIGATORII:
+  Daca oricare esueaza → HOLD, indiferent de restul.
+
+  G1. Sesiune activa: London 06-16 UTC sau NY 12-21 UTC
+  G2. HTF trend directional (nu NEUTRAL) + semnalul aliniat cu trendul
+  G3. Zona OB HTF valida cu pretul in interior (max 5% buffer)
+  G4. MTF BOS confirmat Grade B sau A (Grade C = ANULAT)
+  G5. Entry Timing Score >= 6/10 pe LTF
+
+EXEMPLU CONCRET — EOB BUY pe EURUSD:
+
+  Situatie: EURUSD scade si formeaza un OB bullish pe H4.
+
+  HTF (H4):
+    Acum 3 ore: lumanare bearish mare (1.0840 -> 1.0810)
+    Urmata de: lumanare bullish si mai mare (1.0810 -> 1.0870) = OB BULLISH format
+    Zona: 1.0810 - 1.0840
+    Pret actual: 1.0825 → IN ZONA (G3 trecut)
+    ATR H4 = 0.0035, ADX = 28 > 18 → trend valid (G2 trecut)
+    Trend: BULL (EMA rising, HH+HL) (G2 trecut)
+
+  MTF (H1):
+    In ultimele 12 ore: pretul a facut LL la 1.0800
+    Acum: close H1 = 1.0842 > ultimul swing high 1.0835 (BOS!)
+    BOS strength = (1.0842 - 1.0835) / 0.0035 = 0.20 → Grade B (+1 pt)
+    FVG detectat: gap 1.0818-1.0828
+    Overlap FVG cu OB: 78% → confluenta puternica (+4 pt)
+
+  LTF (M5):
+    Compresie 4 bare consecutive cu range descrescator
+    Displacement BUY: lumanare M5 cu corp 68%, close > high anterior
+    Entry Score: compresie(+2) + displacement(+3) + confluenta(+2) = 7/10 ✓
+
+  REZULTAT: BUY executat la 1.0831
+  SL: 1.0808 (sub OB), TP: 1.0865 (RR 1:1.5)
+  Confidence: 17/20 = 85%
+
+CUM SE CALCULEAZA CONFIDENCE:
+  Scor max = 20 puncte:
+  HTF: decay(3-5pt) + sweet spot(+2) + vol institutional(+2) + stacking(+2) = max 10
+  MTF: BOS A/B(1-3pt) + in FVG(+2) + confluenta(+2) + sweep(+1) = max 6
+  LTF: DNA score(max 4) + displacement(+3), limitat la 6 = max 6
+  Confidence % = scor / 20 * 100
+
+CAND FUNCTIONEAZA BINE:
+  Perechi majore (EURUSD, GBPUSD, USDJPY, XAUUSD)
+  Sesiunile London si NY (volum mare = zone mai clare)
+  Trend directional clar pe HTF
+
+CAND NU FUNCTIONEAZA:
+  Range-uri fara directie (ATR mic, ADX < 18)
+  Vineri dupa-amiaza sau sesiunea Asiatica (volum redus)
+  Stiri economice majore (NFP, Fed) — pretul "sare" zonele
+
+
+================================================================================
+2. SMC v3 STRICT
+   (Smart Money Concepts)
+================================================================================
+
+IDEEA DE BAZA:
+  Concepte similare cu EOB dar mai concentrate pe "capcanele" institutionale.
+  False breakout-uri care elimina retail traders, urmate de miscarea reala.
+  SMC combina BOS + OB + FVG + Liquidity Sweep intr-o singura secventa
+  obligatorie integrata.
+
+CE DIFERA FATA DE EOB:
+  EOB: detecteaza OB pe HTF si intra pe LTF (3 faze separate)
+  SMC: detecteaza intreaga SECVENTA (sweep → BOS → OB → FVG → displacement)
+       pe mai multe TF-uri simultan, cu 8 gate-uri hard
+
+8 GATE-URI OBLIGATORII (toate trebuie sa treaca):
+  G1. Market structure clara: HH+HL (BULL) sau LL+LH (BEAR) — nu RANGE
+  G2. BOS in ultimele 20 bare cu displacement candle (corp >= 55%)
+  G3. OB fresh untested (format dupa BOS, netestat, max 50 bare vechi)
+  G4. FVG activ care se suprapune cu zona OB (confluenta obligatorie)
+  G5. Liquidity sweep inainte de BOS (wick care a atins high/low anterior)
+  G6. ATR in range normal: 0.5x - 2.0x media recenta
+  G7. Pret in 15% distanta de zona OB (nu prea departe)
+  G8. Multi-TF confirmare: minim 2 din 3 TF-uri au conviction >= 7/12
+
+EXEMPLU CONCRET — SMC SELL pe GBPUSD H1:
+
+  G1: Structure BEAR confirmat:
+    Pivot high anterior: 1.2680 → Pivot high nou: 1.2641 (LH = lower high)
+    Pivot low anterior: 1.2610 → Pivot low nou: 1.2580 (LL = lower low)
+    → BEAR structure ✓
+
+  G2: BOS cu displacement in ultimele 20 bare:
+    Bara 8 ore in urma: close 1.2618 < pivot low 1.2625 (BOS bearish!)
+    Corp lumanare: 73% din range → displacement confirmat ✓
+
+  G3: OB fresh:
+    Bara 11 ore in urma: lumanare bullish (1.2619 → 1.2638) urmata de
+    lumanare bearish mare → OB BEARISH zona 1.2619-1.2638
+    Netestat dupa formare, varsta: 11 bare < 50 maxim ✓
+
+  G4: FVG in zona OB:
+    Gap detectat 1.2620-1.2631
+    Overlap cu OB: 84% ✓
+
+  G5: Liquidity sweep:
+    Bara 14 ore in urma: wick sus 82% din range, spike la 1.2645, revenire rapida
+    = stop-urile celor cu BUY au fost "vanate" ✓
+
+  G6: ATR actual 0.0038 vs medie 0.0042 → ratio 0.90 (intre 0.5 si 2.0) ✓
+
+  G7: Pret 1.2632, centru OB 1.2628 → 0.03% distanta < 15% ✓
+
+  G8: H1 conviction = 9/12, H4 conviction = 8/12 → 2/2 >= 7 ✓
+
+  REZULTAT: SELL la 1.2632, SL 1.2645, TP 1.2613 (RR 1:1.5)
+
+DIFERENTA EOB vs SMC in practica:
+  EOB: mai "permisiv", detecteaza mai multe zone, mai multe semnale
+  SMC: mai "strict", secventa completa obligatorie, semnale mai rare
+  Recomandat: activati AMBELE.
+  Cand coincid (ambele BUY), increderea e mult mai mare.
+  Cand se contrazic, nu intra sau verifica manual.
+
+
+================================================================================
+3. TrendRider
+================================================================================
+
+IDEEA DE BAZA:
+  Strategia "clean" de trend-following: 5 indicatori tehnici trebuie sa fie
+  TOTI aliniati in aceeasi directie pentru a genera un semnal.
+  Inlocuieste Classic, MACD, Supertrend, EMA Cross — care fiecare faceau
+  cate o bucata din acelasi lucru, fara coordonare intre ele.
+
+CEI 5 "PILONI":
+  1. EMA Alignment: EMA 8 > EMA 21 > EMA 50 (bull) sau invers (bear)
+     Daca EMAs sunt "in linie" = trend stabil, nu transitie
+
+  2. MACD Confirm: linia MACD > semnal (bull) SI histograma in crestere
+     Confirma ca momentum-ul se accelereaza, nu se epuizeaza
+
+  3. Supertrend: linia Supertrend e sub pret (bull) sau deasupra (bear)
+     Trailing stop natural — daca e in directia ta, trendul e intact
+
+  4. ADX > 25: trend puternic (gate obligatoriu — sub 25 = range, blocat)
+     Cel mai important filtru: nu intra in range-uri false
+
+  5. ROC (Rate of Change): pretul a crescut/scazut >0.15% in 10 bare
+     Confirma ca miscarea e reala, nu o stagnare
+
+SCORUL:
+  Fiecare pilon EMA/MACD/Supertrend: +2 puncte
+  ROC: +1 punct
+  Max total: 9 puncte (7 tehnic + 2 bonus ADX valid)
+  Semnal generat la >= 5 puncte
+
+SL si TP:
+  SL = min(linia Supertrend, pret - 1.5*ATR) — cel mai conservator
+  TP = (pret - SL) * 1.5 (RR 1:1.5)
+
+EXEMPLU CONCRET — TrendRider BUY pe USDJPY H1:
+
+  Pret actual: 153.40, ATR = 0.35
+
+  1. EMA8 = 153.42, EMA21 = 152.87, EMA50 = 151.93 → 8>21>50 BULL (+2)
+  2. MACD: linie = +0.23, semnal = +0.18, hist azi = +0.05, ieri = +0.03
+     Histograma crescatoare ✓ → BULL (+2)
+  3. Supertrend: linie = 152.65, pret = 153.40 → sub pret → BULL (+2)
+  4. ADX = 34 > 25 → trend valid, gate trecut
+  5. ROC: pret acum 153.40 vs acum 10 bare 152.91 → +0.32% > 0.15% (+1)
+
+  Scor bull: 2+2+2+1 = 7 cu conviction 7+2 = 9
+  SL: min(152.65, 153.40 - 0.525) = min(152.65, 152.875) = 152.65
+  TP: 153.40 + (153.40 - 152.65) * 1.5 = 154.525
+
+CAND FUNCTIONEAZA BINE:
+  Trend-uri directionale clare pe H1 sau H4
+  Perechi cu volatilitate normala (nu dupa stiri)
+  USDJPY, GBPUSD, XAUUSD in trend
+
+CAND NU FUNCTIONEAZA:
+  Range-uri (ADX < 25 blocheaza automat)
+  Reversal-uri — e strategie de trend, nu de reversal
+  NOTA: Daca vedeti rar semnale — e corect, nu defect.
+
+
+================================================================================
+4. S/R Multi-Timeframe (SR_MTF)
+================================================================================
+
+IDEEA DE BAZA:
+  Support si Resistance detectate pe 4 timeframe-uri simultan (M15, H1, H4, D1).
+  O zona e valida DOAR daca apare pe cel putin 2 TF-uri simultan — nu orice
+  nivel, ci niveluri cu confirmare multipla.
+
+CE FACE:
+  1. Gaseste pivot high/low pe fiecare TF
+     (M15: fereastra 5 bare, H1: 5, H4: 4, D1: 3)
+  2. "Clusterizeaza" nivelurile apropiate (toleranta 0.15% din pret)
+  3. O zona valida = cluster pe >= 2 TF-uri simultan
+  4. O zona PUTERNICA = cluster pe >= 3 TF-uri
+  5. Calculeaza distanta fata de pret in unitati ATR
+  6. Daca pretul e aproape (< 3x ATR): genereaza PENDING order
+
+IMPORTANT: SR_MTF returneaza intotdeauna signal=HOLD cu pending_entry setat.
+  Nu executa market orders — plaseaza ordine limita la zona.
+  "Confidence 63%" + signal HOLD = comportament CORECT, nu eroare.
+
+CUM SE CALCULEAZA CONFIDENCE (corectat):
+  dist_atr = |pret - zona| / ATR
+  fresh_bonus = max(0, 10 - varsta_bare * 0.15)   (max 10 daca zona e noua)
+  dist_penalty = min(20, dist_atr * 8)             (penalizeaza distanta)
+  conf = 25 + min(tf_count,4)*10 + min(touches,5)*2 + fresh_bonus - dist_penalty
+
+  Ex: zona confirmata pe 3 TF-uri, 3 touches, varsta 2 bare, distanta 0.94 ATR
+  conf = 25 + 30 + 6 + 9.85 - 7.52 = 63.3%
+
+EXEMPLU CONCRET:
+  XAUUSD (Gold), pret actual 2340
+
+  Detectate pivot highs:
+  M15: 2347 (acum 8 bare), H1: 2348 (acum 3 bare), H4: 2346 (acum 1 bara)
+  Cluster: 2346/2347/2348 → diferenta maxima 0.09% < 0.15% → un cluster
+  tf_count = 3, touches = 3 → zona PUTERNICA
+
+  Pending order: SELL_LIMIT la 2346.5 (intrare in zona de rezistenta)
+  SL: 2352 (deasupra zonei), TP: 2339.5 (RR 1:1.5)
+
+CAND FUNCTIONEAZA BINE:
+  Zone de H4/D1 testate de 3+ ori in trecut
+  XAUUSD, EURUSD, USDJPY (likiditate mare la zone round numbers)
+  Dupa pullback-uri in trend (pretul revine la zona pentru retest)
+
+CAND NU FUNCTIONEAZA:
+  Stiri care "sparg" niveluri istorice
+  Crypto (volatile, zonele se schimba rapid)
+
+
+================================================================================
+5. Bollinger Bands
+================================================================================
+
+IDEEA DE BAZA:
+  Mean reversion: pretul tinde sa revina la medie dupa ce se indeparteaza.
+  Benzile Bollinger (±2 deviatii standard) marcheaza extremele statistice.
+  Cand pretul atinge banda de sus/jos + confirmare RSI = semnal de revenire.
+
+CE VERIFICA:
+  band_touch:   atingere banda exterioara (>2 sigma)
+  double_touch: a atins banda de 2 ori in scurt timp (+2 conviction)
+  rsi_confirm:  RSI < 35 pentru BUY sau RSI > 65 pentru SELL
+  squeeze:      benzile sunt inguste = "energie acumulata" = miscare iminenta
+  adx_range:    ADX < 25 = suntem in range (conditia ideala pentru mean reversion)
+  bbw_filter:   latimea benzilor filtreaza volatilitatea extrema
+
+EXEMPLU:
+  EURUSD H1: medie BB = 1.0850, banda jos = 1.0812, banda sus = 1.0888
+  Pret actual = 1.0814 (la banda inferioara)
+  RSI(14) = 31 < 35 ✓
+  ADX = 18 < 25 (range, nu trend) ✓
+  → BUY cu target spre medie 1.0850
+
+NOTA: Bollinger functioneaza IN RANGE-URI, NU in trend-uri.
+  Cel mai bun pe H1/H4 in sesiunile lente sau intre sesiunile principale.
+
+
+================================================================================
+6. London Breakout
+================================================================================
+
+IDEEA DE BAZA:
+  Sesiunea Asiatica (00:00-06:00 UTC) formeaza un range ingust.
+  La deschiderea Londrei (06:00 UTC), institutiile incep sa tranzactioneze
+  si "sparg" range-ul Asian intr-o directie clara.
+
+LOGICA:
+  1. Range Asian: high-ul si low-ul sesiunii 00:00-06:00 UTC
+  2. La 06:00: care parte se sparge prima?
+  3. Filtre suplimentare:
+     Displacement candle: corp > 60% din range (nu fakeout)
+     H4 trend aliniat (EMA20 > EMA50 pentru directia breakout)
+     Prime time: 06:00-07:30 UTC (bonus conviction)
+     Zi saptamana: Mar-Joi ideal (+1), Luni (open imprevizibil, -2), Vin (-1)
+
+EXEMPLU:
+  GBPUSD, ora 06:20 UTC
+  Range Asian: High 1.2645, Low 1.2620 (25 pips)
+  ATR zilnic = 90 pips → range/ATR = 28% (intre 15% si 120%, calitate OK)
+  Pret la 06:20: 1.2650 (a depasit high-ul Asian)
+  Lumanare M15: corp 12 pips din 15 total = 80% → displacement ✓
+  H4: EMA20 > EMA50 → bull ✓
+  → BUY la 1.2650, SL 1.2625, TP 1.2700 (RR 1:2)
+
+CAND FUNCTIONEAZA BINE:
+  GBPUSD, EURUSD, GBPJPY, XAUUSD (perechi mari la Londra)
+  Marti-Joi
+  Range Asian "bine definit"
+
+
+================================================================================
+7. NY Breakout
+================================================================================
+
+Similar cu London Breakout dar pentru deschiderea New York (13:30-14:30 UTC).
+Range-ul de referinta: sesiunea Londra pana la 12:00 UTC.
+
+PARTICULARITATI:
+  Filtru perechi USD: mai bun pe USDJPY, USDCAD, EURUSD, XAUUSD
+  London Moved Check: daca Londra a miscat >60% din ATR zilnic, NY poate
+    fi continuare sau reversal — scoruri diferite pentru fiecare caz
+  US Open Pause: nu intra inainte de 13:30 UTC (stiri US la 13:00-13:30)
+
+EXEMPLU:
+  EURUSD, ora 14:00 UTC
+  Range Londra: High 1.0875, Low 1.0842
+  Pret: 1.0878 (breakout sus)
+  Londra miscat: 33 pips din 80 ATR = 41% (OK, nu supraextins)
+  → BUY continuare daca H4 trend e bull
+
+
+================================================================================
+8. China Session
+================================================================================
+
+IDEEA DE BAZA:
+  Sesiunea Chinei/Asiei (00:00-06:00 UTC) = de obicei un range.
+  Cauta extreme RSI + lumanare de reversal la marginile range-ului.
+
+LOGICA:
+  Activa doar 00:00-06:00 UTC
+  Perechi: USDJPY, AUDUSD, NZDUSD, USDCAD (expunere Asiatica)
+  RSI extrem: <30 (oversold) sau >70 (overbought) in range
+  Confirmare: pin bar sau engulfing la marginea range-ului
+  Exit: la mijlocul range-ului (nu tine toata noaptea)
+
+EXEMPLU:
+  USDJPY, ora 03:00 UTC
+  Range sesiune: High 153.80, Low 153.20 (60 pips)
+  Pret: 153.22 (la marginea de jos)
+  RSI(14) = 28 → oversold
+  Pin bar cu wick jos > 65% → reversal semnal
+  → BUY cu target 153.50 (mijlocul range-ului), SL sub 153.15
+
+
+================================================================================
+9. RSI Divergence
+================================================================================
+
+IDEEA DE BAZA:
+  Divergenta = pretul si RSI se misca in directii opuse = semnal de reversal.
+  BULLISH: pret lower low, RSI higher low = momentum scade, urmeaza crestere
+  BEARISH: pret higher high, RSI lower high = momentum scade, urmeaza scadere
+
+FILTRE:
+  Divergenta optima: 10-50 bare (prea scurta = zgomot, prea lunga = stale)
+  RSI in zona extrema (<35 bull, >65 bear) la momentul semnalului
+  Double/Triple divergenta: 3 pivot-uri confirma (+2 conviction)
+
+EXEMPLU:
+  XAUUSD D1:
+  Bara 30: pret 2280 (pivot low 1), RSI = 32
+  Bara 15: pret 2265 (pivot low 2, mai jos), RSI = 38 (mai sus!)
+  → Divergenta bullish (pret LL, RSI HL)
+  Distanta: 15 bare (in fereastra 10-50 ✓), RSI actual 38 < 40 ✓
+  → BUY la 2275, SL 2258, TP 2320 (RR 1:2.5)
+
+CAND FUNCTIONEAZA BINE:
+  H4, D1 (timeframe-uri mari = divergente mai semnificative)
+  La finele unui trend prelungit
+  Dupa drawdown puternic pe FX major
+
+
+================================================================================
+10. Engulfing
+================================================================================
+
+IDEEA DE BAZA:
+  Pattern de 2 lumanari: a doua "inghite" complet prima.
+  La un nivel important (S/R, Fibonacci, zona OB) = semnal de reversal.
+
+  BULLISH engulfing: lumanare bearish + lumanare bullish mai mare → BUY
+  BEARISH engulfing: lumanare bullish + lumanare bearish mai mare → SELL
+
+FILTRE:
+  key_level:     engulfing TREBUIE la un nivel important (S/R)
+  level_quality: nivelul testat de 3+ ori = mai important
+  engulf_size:   a doua lumanare >= 1.2x corpul primei
+  Pin bar bonus: wick lung + corp mic la nivel = semnal suplimentar
+
+EXEMPLU:
+  GBPUSD H4, nivel 1.2550 (testat de 4 ori in 3 luni):
+  Bara precedenta: bearish 1.2568 → 1.2545 (corp 23 pips)
+  Bara actuala: bullish 1.2545 → 1.2582 (corp 37 pips)
+  37 > 23*1.2 = 27.6 ✓ → engulfing confirmat, la nivel important ✓
+  → BUY la 1.2582, SL 1.2540, TP 1.2640 (RR 1:2)
+
+
+================================================================================
+11. Ichimoku
+================================================================================
+
+IDEEA DE BAZA:
+  Sistem japonez "tot-intr-unul": trend, support/resistance, momentum,
+  toate dintr-un singur indicator cu 5 linii.
+
+COMPONENTELE:
+  Tenkan-sen (9 bare):   momentum rapid, echivalent EMA9
+  Kijun-sen (26 bare):   directia principala, echivalent EMA26
+  Kumo (cloud):          Senkou A si B proiectate 26 bare in fata = S/R vizual
+  Chikou Span:           pretul decalat 26 bare in urma = confirmare
+
+SEMNALE (in ordinea importantei):
+  TK Cross: Tenkan > Kijun (bull) — mai puternic DEASUPRA cloud-ului
+  Kumo:     pret deasupra cloud = bull, dedesubt = bear
+  Chikou:   linia Chikou deasupra pretului de acum 26 bare = confirmare bull
+  Kumo Twist: Senkou A si B se intersecteaza = schimbare de trend iminenta
+
+EXEMPLU:
+  USDJPY D1:
+  Tenkan = 152.40, Kijun = 151.80 → TK Cross bullish, deasupra cloud ✓
+  Cloud: Senkou A = 150.20, B = 149.50 → pret 152.40 deasupra ✓
+  Chikou decalat 26 zile: acel punct era 149.80 → Chikou 152.40 > 149.80 ✓
+  → Semnal BUY puternic (toate 3 confirmari aliniate)
+
+NOTA: Ichimoku e LENT — functioneaza pe H4 si D1, nu pe timeframe mici.
+  In range-uri genereaza semnale false frecvente.
+
+
+================================================================================
+12. LEGACY STRATEGIES
+    (Classic, MACD, Supertrend, EMA Cross)
+================================================================================
+
+STATUT: DEZACTIVATE BY DEFAULT
+
+Aceste strategii existau in versiunile anterioare si au fost inlocuite
+de TrendRider care face tot ce faceau ele, mai bine si mai coordonat.
+
+  Classic:    EMA20/50/200 + Fibonacci + ADX + RSI (prea multe conditii independente)
+  MACD:       MACD crossover + EMA200 + histogram (singur, fara confirmare)
+  Supertrend: Supertrend line + EMA50 + ADX (bun dar incomplet)
+  EMA Cross:  EMA crossover rapid + EMA50 distanta + cooldown (prea multe false)
+
+PROBLEMA LOR: fiecare genera semnale independent, putine filtre, confidence
+  usor de atins → prea multe trade-uri, prea multe false.
+
+POT FI ACTIVATE? Da, dar fara auto-execute recomandat. Util pentru:
+  Comparatie: vedeti ce spun vs TrendRider
+  Combined Mode: adauga voturi suplimentare in vot majoritar
+
+
+================================================================================
+13. Combined Mode
+================================================================================
+
+IDEEA DE BAZA:
+  Daca 60% din toate strategiile active spun acelasi lucru si au spread
+  suficient de mare → probabilitatea e mult mai mare decat oricare singura.
+
+CUM FUNCTIONEAZA:
+  La fiecare scan, fiecare strategie voteza BUY/SELL/HOLD
+  Voturile sunt ponderate dupa "conviction" (scorul intern al strategiei)
+  Conditii pentru executie:
+    Vot plat: >= 60% din strategii spun BUY sau SELL
+    Spread obligatoriu: diferenta BUY% - SELL% >= 21%
+    Exemplu OK:  60% BUY + 40% HOLD + 0% SELL = spread 60%  ✓
+    Exemplu NOK: 60% BUY + 40% SELL = spread 20% < 21% = NU (conflict real)
+  Best result = strategia cu cel mai mare conviction*coherence → SL si TP
+
+EXEMPLU cu 5 strategii active, EURUSD:
+  TrendRider: BUY (conviction 7)
+  EOB:        BUY (conviction 9)
+  SMC:        HOLD
+  SR_MTF:     BUY (conviction 6)
+  Bollinger:  SELL (conviction 3)
+
+  Voturi: BUY=3, SELL=1, HOLD=1, total=5
+  BUY% = 3/5 = 60% ✓
+  Spread = 60% - 20% = 40% > 21% ✓
+  → Semnal: BUY, SL si TP din EOB (conviction 9 = cel mai mare)
+
+CAND SA ACTIVATI:
+  Cand vreti mai putine dar mai sigure semnale
+  Cand riscul per trade e mai mare
+  NU combinati cu strategiile de sesiune (London/NY/China) in afara orei lor
+
+
+================================================================================
+14. Scalp Boost Mode
+================================================================================
+
+IDEEA DE BAZA:
+  Trade-uri SCURTE (30 min) cu loturile MARITE.
+  Nu asteapta confirmari complete pe H4 — intra rapid cand N strategii agree.
+  TP = 1:1 (TP egal cu SL), inchide automat dupa max 30 minute.
+
+SETARI IMPLICITE:
+  Loturi × 2.0  (risc dublu fata de normal)
+  TP RR = 1.0   (TP egal cu SL — rapid, nu tine mult)
+  Min acord = 3 strategii trebuie sa voteze acelasi sens
+  Max hold = 30 minute (time-based exit automat)
+
+CUM FUNCTIONEAZA:
+  La fiecare scan, numara strategiile care spun BUY vs SELL
+  Daca >= 3 (sau scalp_min_agree) spun BUY → executa BUY cu lot × multiplicator
+  TP = SL × scalp_tp_rr (ex: SL = 20 pips, TP = 20 pips)
+  Dupa 30 minute, trade-ul e inchis oricum (time-based exit)
+
+CALCUL PROFITABILITATE:
+  Risc normal: $50. Scalp Boost × 2: $100/trade
+  Win: +$100, Loss: -$100
+  Win rate necesar pentru profit: > 50% (vs > 40% pentru RR 1:1.5)
+  Recomandat: activati DOAR cu EOB + SMC + TrendRider active (3 premium)
+  Cu 3 din 3 de acord → probabilitate istorica ~65-70% win rate
+
+ATENTIE FTMO:
+  $100/trade cu 3 pozitii simultane = $300 expunere
+  Limita zilnica FTMO 10K = $500 → 3 trade-uri pierdatoare = 60% limita
+  Recomandat Scalp Boost cu max 1-2 pozitii simultan daca faceti FTMO.
+
+CAND ARE SENS:
+  Sesiunea Londra sau NY (lichiditate mare, miscari clare)
+  Cand ai deja 3+ strategii premium activate
+  Nu pe noapte / sesiunea Asiatica
+
+
+================================================================================
+15. Sistemul de Scoring — Cum se calculeaza Confidence %
+================================================================================
+
+PROBLEMA VECHE (rezolvata acum):
+  Confidence era fixa (mereu 95%) sau se calcula simplu ca "scor/scor_max"
+  fara sa tina cont de calitatea reala a semnalului. Ex: SR_MTF dadea mereu
+  95% pentru orice simbol indiferent de distanta sau varsta zonei.
+
+SISTEMUL NOU:
+  Fiecare strategie calculeaza un scor intern (raw score) cu formule proprii.
+  Confidence = raw_score / MAX_SCORE_STRATEGIE * 100
+  Dar TREBUIE sa treaca gate-urile obligatorii. Daca oricare gate esueaza
+  → HOLD, indiferent de scor (confidence raportata, dar semnal = HOLD).
+
+INTERPRETARE:
+  sub 60%:    Semnal slab, nu executa (sub pragul 85%)
+  60-75%:     Acceptabil in Combined Mode ca vot
+  75-85%:     Bun dar sub pragul strict
+  85-95%:     Semnal de calitate, executa
+  95%+:       Semnal exceptional (1-2 pe saptamana per simbol)
+
+DE CE PRAGUL E 85%?
+  Vechi (66%): prea multe semnale, 30-50% false → pierderi frecvente
+  Nou (85%):   un simbol cu 3 strategii = 1-3 semnale pe zi, nu 20
+  Calitate > Cantitate = mai putine intrari dar mai profitabile
+
+AJUSTARE PER STRATEGIE:
+  In config-ul fiecarei strategii: "min_confidence": 85.0
+  Scadeti la 70-75 pentru mai multe semnale.
+  Pastrati la 85-90 pentru FTMO sau daca preferati mai putine tranzactii.
+
+
+================================================================================
+16. Setari recomandate FTMO 10K
+================================================================================
+
+REGULI FTMO 10K:
+  Pierdere zilnica maxima: $500 (5% din cont)
+  Pierdere totala maxima: $1000 (10% din cont)
+  Profit target: $1000 (10%, faza 1), $500 (5%, faza 2)
+
+CONFIGURATIA "SNIPER" (recomandata):
+  Strategii: EOB + SMC + TrendRider (3 premium, toate active)
+  min_confidence: 85% per strategie
+  Risc per trade: $50 (0.5% din cont — conservator)
+  Max loturi: 1.0
+  Max trade-uri deschise simultan: 3
+  TP ratio: 1.5 (RR 1:1.5)
+  Time-based exit: ON
+    Breakeven dupa: 2 ore
+    Inchide dupa: 6 ore
+  Combined Mode: OFF (strategiile raman independente)
+
+CALCUL SECURITATE:
+  $50/trade × 3 pozitii = $150 expunere maxima simultana
+  Pierdere maxima intr-un scan complet: $150 (30% din limita zilnica)
+  10 trade-uri pierdatoare consecutive = $500 (limita zilnica — caz extrem)
+  Cu 85%+ confidence si win rate 60%: expected value = +$12.50 per trade
+
+SCALP BOOST + FTMO (cu atentie):
+  $50 × 2.0 = $100/trade
+  Recomandat: scalp_max_min = 30, max 2 pozitii simultan
+  Risc real: 2 × $100 = $200 (40% din limita zilnica) — acceptabil
+
+
+================================================================================
+17. Intrebari Frecvente (FAQ)
+================================================================================
+
+Q: De ce strategia genereaza HOLD cu confidence 59%?
+A: Confidence > 0 = "am gasit ceva de calitate X dar sub pragul de executie".
+   HOLD + confidence = informatie despre calitatea semnalului, nu eroare.
+
+Q: De ce apar 20 de randuri identice in log pentru acelasi semnal?
+A: Scannerul ruleaza la fiecare 60 secunde. Daca strategia gaseste acelasi
+   semnal la fiecare ciclu, se logheaza de fiecare data.
+   FIX APLICAT: dedup de 8 intrari — acelasi symbol+strategy+signal nu mai
+   apare repetat in ultimele 8 intrari din log.
+
+Q: Ce inseamna "Eroare MT5: 10017"?
+A: AutoTrading e dezactivat in MT5.
+   Solutie: click pe butonul verde "AutoTrading" din bara de sus a MT5
+   SAU: Tools → Options → Expert Advisors → Allow algorithmic trading ✓
+
+Q: Cum vad ce face fiecare strategie pe un simbol?
+A: In tab-ul strategiei din UI vedeti per TF: faza, semnal, conviction, ce zone a gasit.
+
+Q: Pot activa toate strategiile simultan?
+A: Tehnic da, nu recomandat:
+   Sesiune strategies in afara orei lor = mereu HOLD = vot "fals" in Combined
+   Legacy strategies cu TrendRider = dublura
+   Recomandat: EOB + SMC + TrendRider + SR_MTF
+
+Q: TrendRider nu genereaza niciodata semnal — e stricat?
+A: Nu. Necesita ADX > 25 (trend puternic) SI toate 5 conditii aliniate.
+   In range-uri sau perioade calme = HOLD mereu. E corect.
+   In trend-uri clare = 2-3 semnale pe zi pe perechi cu miscare.
+
+Q: De ce Scalp Boost nu executa?
+A: Conditii necesare:
+   1. Auto Execute: ON
+   2. Scalp Boost toggle: ON
+   3. MT5 AutoTrading: ON (butonul verde)
+   4. Minim 3 strategii premium active
+   5. Cel putin 3 strategii trebuie sa fie de acord pe acelasi simbol
+
+Q: EOB si SMC se contrazic — ce fac?
+A: Daca spun directii diferite = conflict real. Nu intra.
+   Verifica manual graficul sau asteapta un scan urmator cand una din ele se schimba.
+
+Q: Care e diferenta practica intre EOB si SMC?
+A: EOB: mai permisiv, mai multe zone detectate, 3 faze separate, mai multe semnale
+   SMC: mai strict, 8 gate-uri, secventa completa obligatorie, mai rare dar mai clare
+   Cand coincid (amandoua BUY) = semnal foarte puternic, intra cu incredere mai mare.
+
+Q: Pot schimba RR-ul (Risk:Reward)?
+A: Da, din setarile globale sau per strategie:
+   TP Ratio: 1.0 (1:1), 1.5 (default), 2.0, etc.
+   Scalp Boost are propriul TP RR separat (default 1.0).
+   Pentru FTMO: 1.5 e echilibrul ideal intre frecventa si profitabilitate.
+
+Q: Ce strategie are cele mai multe sanse de profit?
+A: Nu exista raspuns universal, depinde de conditii de piata.
+   In trend: TrendRider sau SMC
+   In range: Bollinger sau RSI Divergence
+   La deschidere sesiune: London/NY Breakout
+   Cel mai consistent overall: EOB (detecteaza zone institutionale, valid in orice conditii)
+
+Q: Statisticile arata 0 trade-uri — e normal?
+A: Daca auto-execute e OFF sau MT5 AutoTrading e OFF, trade-urile nu se executa
+   si nu apar in statistici. Statisticile se calculeaza din review_log.json
+   care contine doar trade-uri EXECUTATE (executed: true).
+
+
+================================================================================
+  REZUMAT RAPID — CE SA ACTIVATI IN FUNCTIE DE OBIECTIV
+================================================================================
+
+FTMO Challenge (cat mai sigur, minim risc):
+  → EOB + SMC + TrendRider
+  → min_confidence 85%
+  → risc $30-50/trade, max 3 pozitii
+  → Preset: Sniper
+
+Trade-uri mai scurte (1-2 ore):
+  → EOB + SMC + TrendRider + Scalp Boost ON
+  → loturi × 1.5, max hold 45min, TP 1:1
+  → max 2 pozitii simultan
+
+Breakout deschidere Londra:
+  → London Breakout + EOB + SR_MTF
+  → activ 06:00-09:00 UTC, GBPUSD/EURUSD/XAUUSD
+
+Trend pe termen mai lung (H4/D1):
+  → TrendRider + SMC + Ichimoku + RSI Divergence
+  → TF-uri: H4/D1
+  → TP ratio: 2.0-2.5
+
+Crypto (Bitcoin, Ethereum):
+  → TrendRider + Bollinger + RSI Divergence
+  → min_confidence 70-75% (mai mult zgomot pe crypto)
+  → risc mai mic (volatilitate mai mare)
+
+Maxim semnale (explorative, fara bani reali):
+  → Toate strategiile active + Combined Mode ON
+  → min_confidence 60%
+  → Auto Execute: OFF (doar analiza)
+
+================================================================================
+  FIN — Documentatie ChartVisualizer AutoTrader v3
+  Strategii: EOB v3 + SMC v3 + TrendRider + SR_MTF + 7 standard + 4 legacy
+================================================================================

@@ -1,0 +1,47 @@
+{
+  "job_id": "4093ddff",
+  "params": {
+    "symbol": "XAUUSD",
+    "strategy": "supertrend",
+    "tfs": [
+      "H1",
+      "H4"
+    ],
+    "bars_window": 500,
+    "duration_years": 2,
+    "step": 1,
+    "risk_dollars": 50,
+    "tp_ratio": 2,
+    "min_confidence": 80
+  },
+  "symbol": "XAUUSD",
+  "strategy": "supertrend",
+  "tfs": [
+    "H1",
+    "H4"
+  ],
+  "from_dt": "2024-04-27",
+  "to_dt": "2026-04-27",
+  "total_bars": 11804,
+  "step": 1,
+  "trades": [],
+  "metrics": {
+    "total_trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "expires": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "net_pnl": 0.0,
+    "gross_profit": 0.0,
+    "gross_loss": 0.0,
+    "max_drawdown": 0.0,
+    "avg_rr": 0.0,
+    "sharpe": 0.0,
+    "equity_curve": [
+      10000.0
+    ],
+    "equity_dates": []
+  },
+  "created_at": "2026-04-28T02:26:25.037739"
+}

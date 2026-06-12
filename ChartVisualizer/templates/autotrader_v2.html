@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoTrader · Minimalist</title>
+<style>
+:root {
+  --bg: #0e1116;
+  --bg-card: #161b22;
+  --bg-soft: #21262d;
+  --bg-soft-2: #1c2128;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --accent: #2f81f7;
+  --accent-2: #58a6ff;
+  --green: #3fb950;
+  --red: #f85149;
+  --yellow: #d29922;
+  --radius: 8px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* === Top nav === */
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.topnav-left { display: flex; align-items: center; gap: 14px; }
+.logo { font-weight: 700; font-size: 15px; }
+.ftmo-pill {
+  font-size: 11px;
+  padding: 3px 10px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-dim);
+}
+.ftmo-pill.ok { color: var(--green); border-color: rgba(63,185,80,0.4); }
+.ftmo-pill.warn { color: var(--yellow); border-color: rgba(210,153,34,0.4); }
+.ftmo-pill.err { color: var(--red); border-color: rgba(248,81,73,0.4); }
+
+.topnav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+.topnav-links a {
+  padding: 6px 10px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  transition: all 0.1s;
+}
+.topnav-links a:hover {
+  color: var(--text);
+  background: var(--bg-soft);
+  border-color: var(--border);
+}
+.topnav-links a.legacy { color: var(--text-dim); opacity: 0.5; font-size: 11px; }
+.topnav-links a.logout { color: var(--red); }
+.topnav-links a.logout:hover { background: rgba(248,81,73,0.1); border-color: var(--red); }
+
+@media (max-width: 700px) {
+  .topnav { flex-direction: column; gap: 8px; padding: 10px; }
+  .topnav-links { justify-content: center; }
+}
+
+/* === Layout: sidebar + main === */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: calc(100vh - 50px);
+}
+.sidebar {
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  padding: 20px 16px;
+  position: sticky;
+  top: 50px;
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+}
+.main {
+  padding: 20px 24px 60px;
+  overflow-x: hidden;
+}
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { height: auto; position: relative; }
+}
+
+/* === Sidebar === */
+.brand {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.brand-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+.status-block {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg-soft-2);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+.status-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--text-dim);
+}
+.status-dot.running { background: var(--green); box-shadow: 0 0 0 3px rgba(63,185,80,0.15); }
+.status-dot.stopped { background: var(--red); }
+.status-text { font-weight: 600; font-size: 13px; }
+.status-meta { font-size: 11px; color: var(--text-dim); }
+
+.btn {
+  width: 100%;
+  background: var(--bg-soft);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.btn:hover:not(:disabled) { background: #30363d; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn.primary:hover:not(:disabled) { background: #1f6feb; }
+.btn.danger { background: var(--red); border-color: var(--red); color: white; }
+.btn.danger:hover:not(:disabled) { background: #d93b3b; }
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bg-soft-2);
+  border-radius: var(--radius);
+  margin: 8px 0;
+}
+.toggle-label { font-size: 13px; }
+.toggle-desc { font-size: 10px; color: var(--text-dim); }
+.toggle {
+  position: relative;
+  width: 36px; height: 20px;
+  background: var(--bg-soft);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  background: var(--text);
+  border-radius: 50%;
+  transition: transform 0.15s;
+}
+.toggle.on { background: var(--accent); }
+.toggle.on::after { transform: translateX(16px); }
+
+.section-h {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-dim);
+  margin: 18px 0 8px;
+  padding: 0 4px;
+}
+
+.preset-list { display: flex; flex-direction: column; gap: 4px; }
+.preset {
+  background: var(--bg-soft-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 12px;
+}
+.preset:hover { background: var(--bg-soft); }
+.preset.active {
+  border-color: var(--yellow);
+  background: rgba(210,153,34,0.08);
+}
+.preset-name { font-weight: 600; font-size: 13px; }
+.preset-desc { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+.mini-stat {
+  padding: 8px 10px;
+  background: var(--bg-soft-2);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.mini-stat-label { font-size: 10px; color: var(--text-dim); }
+.mini-stat-value { font-size: 14px; font-weight: 600; }
+.mini-stat-value.pos { color: var(--green); }
+.mini-stat-value.neg { color: var(--red); }
+
+/* === Main === */
+.main-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+}
+.main-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.main-meta { font-size: 12px; color: var(--text-dim); }
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.tab {
+  padding: 8px 14px;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 13px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tab.active { color: var(--text); border-color: var(--accent); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Strategy cards */
+.strats { display: flex; flex-direction: column; gap: 8px; }
+.strat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.strat.enabled { border-left: 3px solid var(--green); }
+.strat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.strat-head:hover { background: var(--bg-soft-2); }
+.strat-name { font-weight: 600; font-size: 14px; }
+.strat-info { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+.strat-actions { display: flex; align-items: center; gap: 12px; }
+.strat-signal {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.strat-signal.buy { background: rgba(63,185,80,0.15); color: var(--green); }
+.strat-signal.sell { background: rgba(248,81,73,0.15); color: var(--red); }
+.strat-signal.none { display: none; }
+
+.strat-body {
+  display: none;
+  border-top: 1px solid var(--border);
+  background: var(--bg-soft-2);
+  padding: 14px;
+}
+.strat.expanded .strat-body { display: block; }
+.strat.expanded .strat-chev { transform: rotate(90deg); }
+.strat-chev {
+  display: inline-block;
+  transition: transform 0.15s;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.policy-grid {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  gap: 8px 12px;
+  align-items: center;
+}
+.policy-key {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: 'SF Mono', Consolas, monospace;
+}
+.policy-val input,
+.policy-val select {
+  width: 100%;
+  padding: 5px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 12px;
+}
+.policy-tfs {
+  grid-column: span 2;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.tf-pill {
+  padding: 3px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  user-select: none;
+}
+.tf-pill.on { background: var(--accent); border-color: var(--accent); color: white; }
+
+.policy-json {
+  margin: 6px 0 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 11px;
+  color: #a8c8ff;
+  max-height: 220px;
+  overflow: auto;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.chk-section { margin-bottom: 14px; }
+.chk-section:last-child { margin-bottom: 0; }
+.chk-section-h {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 4px 12px;
+}
+.chk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  user-select: none;
+  transition: background 0.1s;
+}
+.chk:hover { background: rgba(255,255,255,0.04); }
+.chk input[type="checkbox"] {
+  accent-color: var(--accent);
+  cursor: pointer;
+  width: 14px; height: 14px;
+  margin: 0;
+}
+.chk span { color: var(--text); }
+.chk input:not(:checked) + span { color: var(--text-dim); }
+
+.num-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+}
+.num-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.num-grid input {
+  padding: 5px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 12px;
+}
+.num-grid .hint { color: var(--border); font-size: 10px; }
+
+.btn-copy {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+.btn-copy:hover { background: var(--bg-soft); color: var(--text); }
+
+/* Symbols toolbar / pills */
+.sym-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.sym-mode { display: flex; gap: 6px; }
+.sym-add {
+  position: relative;
+  min-width: 240px;
+}
+.sym-add input {
+  width: 100%;
+  padding: 7px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 13px;
+}
+.sym-add input:focus { outline: none; border-color: var(--accent); }
+.sym-suggest {
+  display: none;
+  position: absolute;
+  top: 100%; left: 0; right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+  margin-top: -1px;
+}
+.sym-suggest.open { display: block; }
+.sym-suggest-item {
+  padding: 7px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: 'SF Mono', Consolas, monospace;
+}
+.sym-suggest-item:hover { background: var(--bg-soft); }
+.sym-suggest-item.exists { color: var(--text-dim); }
+.sym-suggest-empty { padding: 10px; color: var(--text-dim); font-size: 12px; text-align: center; }
+
+.sym-section-h {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.sym-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 48px;
+}
+.sym-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 4px 4px 10px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 12px;
+  font-family: 'SF Mono', Consolas, monospace;
+}
+.sym-pill .x {
+  cursor: pointer;
+  background: var(--border);
+  color: var(--text);
+  border-radius: 50%;
+  width: 16px; height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  line-height: 1;
+}
+.sym-pill .x:hover { background: var(--red); }
+
+/* Symbol grid (compact) */
+.sym-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.sym {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  font-size: 12px;
+}
+.sym.buy { border-left: 3px solid var(--green); }
+.sym.sell { border-left: 3px solid var(--red); }
+.sym.skip { opacity: 0.45; }
+.sym-symbol { font-weight: 600; font-size: 13px; }
+.sym-sig {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.sym-sig.buy { background: rgba(63,185,80,0.15); color: var(--green); }
+.sym-sig.sell { background: rgba(248,81,73,0.15); color: var(--red); }
+.sym-conf { font-size: 11px; color: var(--text-dim); margin-top: 3px; }
+
+.empty {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+}
+
+/* Trade rows */
+.trade-row {
+  display: grid;
+  grid-template-columns: 1.4fr 2fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+.trade-meta strong { font-size: 13px; margin-left: 6px; }
+.trade-prices {
+  display: flex;
+  gap: 14px;
+  color: var(--text-dim);
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 11px;
+}
+.trade-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.trade-pnl { font-weight: 600; font-size: 13px; }
+.trade-pnl.pos { color: var(--green); }
+.trade-pnl.neg { color: var(--red); }
+.btn-sm { padding: 4px 10px; font-size: 11px; width: auto; }
+.btn-sm.danger { background: var(--red); border-color: var(--red); color: white; }
+@media (max-width: 700px) {
+  .trade-row { grid-template-columns: 1fr; gap: 4px; }
+  .trade-prices { font-size: 10px; }
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(50px);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.2s;
+  z-index: 100;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast.ok { border-color: var(--green); }
+.toast.err { border-color: var(--red); }
+</style>
+</head>
+<body>
+
+<!-- ====== TOP NAV ====== -->
+<header class="topnav">
+  <div class="topnav-left">
+    <div class="logo">⚡ AutoTrader</div>
+    <span id="ftmo-status" class="ftmo-pill">FTMO —</span>
+  </div>
+  <nav class="topnav-links">
+    <a href="/" title="Chart visualizer">📊 Chart</a>
+    <a href="/trades" title="Istoric trade-uri">📈 Trades</a>
+    <a href="/autoorders" title="Pending orders">⚙ Orders</a>
+    <a href="/backtest" title="Backtest">📊 Backtest</a>
+    <a href="/ai_agent" title="AI Models Dashboard" style="color: var(--accent-2)">🤖 Models</a>
+    <a href="/ai_trader" title="AI Trader Live" style="color: var(--accent-2)">🧠 AI Trade</a>
+    <a href="/account" title="Cont MT5">👤 Cont</a>
+    <a href="/news" title="Calendar economic">📰 News</a>
+    <a href="/settings" title="Setări (Cloudflare/Telegram)">⚙ Setări</a>
+    <a href="/autotrader_legacy" title="UI clasic" class="legacy">v1</a>
+    <a href="/logout" class="logout">↩ Logout</a>
+  </nav>
+</header>
+
+<div class="layout">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar">
+    <div class="brand">⚡ AutoTrader</div>
+    <div class="brand-sub">v2 · minimalist</div>
+
+    <div class="status-block">
+      <span id="status-dot" class="status-dot stopped"></span>
+      <div>
+        <div id="status-text" class="status-text">Oprit</div>
+        <div id="status-meta" class="status-meta">—</div>
+      </div>
+    </div>
+
+    <button id="btn-toggle" class="btn primary">Pornește scanner</button>
+
+    <div class="toggle-row" style="margin-top: 10px">
+      <div>
+        <div class="toggle-label">Auto-execute</div>
+        <div class="toggle-desc">Plasează trade-uri automat</div>
+      </div>
+      <div id="tg-auto-exec" class="toggle" data-key="auto_execute"></div>
+    </div>
+    <div class="toggle-row" style="margin-top: 6px">
+      <div>
+        <div class="toggle-label">1 trade / strategie</div>
+        <div class="toggle-desc">Max 1 trade activ per strategie</div>
+      </div>
+      <div id="tg-one-per-strat" class="toggle" data-key="one_per_strategy"></div>
+    </div>
+    <div class="toggle-row" style="margin-top: 6px">
+      <div>
+        <div class="toggle-label">Combined mode</div>
+        <div class="toggle-desc">Vot majoritar strategii</div>
+      </div>
+      <div id="tg-combined" class="toggle" data-key="combined_mode"></div>
+    </div>
+
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-label">Trade-uri</div>
+        <div id="stat-positions" class="mini-stat-value">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">P&L flotant</div>
+        <div id="stat-pnl" class="mini-stat-value">—</div>
+      </div>
+    </div>
+    <div class="mini-stats" style="margin-top: 6px">
+      <div class="mini-stat">
+        <div class="mini-stat-label">Echity</div>
+        <div id="stat-equity" class="mini-stat-value" style="font-size: 12px">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">Cu semnal</div>
+        <div id="stat-signals" class="mini-stat-value">—</div>
+      </div>
+    </div>
+
+    <div class="section-h">Mod / Preset</div>
+    <div id="preset-list" class="preset-list">
+      <div class="empty">Se încarcă...</div>
+    </div>
+  </aside>
+
+  <!-- ====== MAIN ====== -->
+  <main class="main">
+    <div class="main-h">
+      <div class="main-title">Dashboard</div>
+      <div class="main-meta">
+        <span id="last-scan">—</span>
+        · Scan #<span id="scan-count">0</span>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="strats">Strategii</div>
+      <div class="tab" data-tab="symbols">Simboluri</div>
+      <div class="tab" data-tab="trades">Trade-uri</div>
+    </div>
+
+    <div class="tab-panel active" data-panel="strats">
+      <div id="strats-list" class="strats">
+        <div class="empty">Se încarcă strategiile...</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="symbols">
+      <div class="sym-toolbar">
+        <div class="sym-mode">
+          <button class="btn btn-sm" id="btn-market-forex">Forex (default)</button>
+          <button class="btn btn-sm" id="btn-market-crypto">Crypto (default)</button>
+        </div>
+        <div class="sym-add">
+          <input id="sym-add-input" type="text" placeholder="Caută/adaugă (ex: EURUSD, BTC)" autocomplete="off">
+          <div id="sym-suggest" class="sym-suggest"></div>
+        </div>
+      </div>
+
+      <div class="sym-section-h">Simboluri monitorizate <span id="sym-count" style="color:var(--text-dim)">—</span></div>
+      <div id="sym-pills" class="sym-pills">
+        <div class="empty">Se încarcă...</div>
+      </div>
+
+      <div class="sym-section-h" style="margin-top: 20px">Rezultate scan</div>
+      <div id="sym-grid" class="sym-grid">
+        <div class="empty" style="grid-column:1/-1">Aștept primul scan...</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="trades">
+      <div id="trades-list">
+        <div class="empty">Nicio poziție deschisă.</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+'use strict';
+
+const API = {
+  status:    '/autotrader/status',
+  strategies:'/autotrader/strategies',
+  presets:   '/autotrader/presets',
+  start:     '/autotrader/start',
+  stop:      '/autotrader/stop',
+  set:       '/autotrader/set',
+  apply:     '/autotrader/apply_preset',
+  account:   '/account_data',
+  closeOne:  '/close_position',
+  closeAll:  '/close_all_trades',
+  ftmo:      '/ftmo_status',
+};
+const ALL_TFS = ["M1","M5","M15","M30","H1","H4","D1"];
+
+let state = {
+  status: null,
+  strategies: [],
+  presets: {},
+  activePreset: null,
+};
+
+// ── Utils ──────────────────────────────────────────────────────────────────
+function $(id) { return document.getElementById(id); }
+function fmtTime(d) {
+  const dt = (d instanceof Date) ? d : new Date(d);
+  return dt.toLocaleTimeString('ro-RO', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+}
+function toast(msg, type='') {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+async function api(url, opts={}) {
+  const r = await fetch(url, opts);
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+async function apiSet(body) {
+  await api(API.set, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body),
+  });
+}
+
+// ── Poll status ────────────────────────────────────────────────────────────
+async function pollStatus() {
+  try {
+    const data = await api(API.status);
+    state.status = data;
+    renderStatus(data);
+    renderSymbols(data);
+    if (state.strategies.length === 0) await loadStrategies();
+    else updateStrategiesFromResults(data);
+  } catch(e) {
+    $('status-text').textContent = 'Eroare';
+    $('status-meta').textContent = e.message;
+  }
+}
+
+function renderStatus(data) {
+  const sc = data.scanner || {};
+  const running = !!sc.running;
+  $('status-dot').className = 'status-dot ' + (running ? 'running' : 'stopped');
+  $('status-text').textContent = running ? 'Rulează' : 'Oprit';
+  $('status-meta').textContent = sc.last_scan
+    ? `Ultimul scan: ${fmtTime(sc.last_scan)}`
+    : '—';
+  $('btn-toggle').textContent = running ? 'Oprește scanner' : 'Pornește scanner';
+  $('btn-toggle').className = running ? 'btn danger' : 'btn primary';
+  $('last-scan').textContent = sc.last_scan ? fmtTime(sc.last_scan) : '—';
+  $('scan-count').textContent = sc.scan_count || 0;
+  setToggle('tg-auto-exec', sc.auto_execute);
+
+  // Mini stats — semnal count
+  const results = data.results || {};
+  const withSignal = Object.values(results).filter(r =>
+    r && r.signal && r.signal !== 'SKIP' && r.signal !== '').length;
+  $('stat-signals').textContent = withSignal;
+}
+
+// ── Account / Positions ─────────────────────────────────────────────────────
+let accData = null;
+async function pollAccount() {
+  try {
+    const d = await api(API.account);
+    if (!d.ok) return;
+    accData = d;
+    $('stat-positions').textContent = d.positions.length;
+    const pnlEl = $('stat-pnl');
+    pnlEl.textContent = (d.profit >= 0 ? '+' : '') + d.profit.toFixed(2) + '$';
+    pnlEl.className = 'mini-stat-value ' + (d.profit >= 0 ? 'pos' : 'neg');
+    $('stat-equity').textContent = d.equity.toFixed(0) + ' ' + d.currency;
+    renderTrades(d.positions);
+  } catch(e) {
+    // silent
+  }
+}
+
+function renderTrades(positions) {
+  const list = $('trades-list');
+  if (!positions || positions.length === 0) {
+    list.innerHTML = '<div class="empty">Nicio poziție deschisă.</div>';
+    return;
+  }
+  const html = positions.map(p => {
+    const pnlCls = p.profit >= 0 ? 'pos' : 'neg';
+    const pnlSign = p.profit >= 0 ? '+' : '';
+    const sigCls = p.type === 'BUY' ? 'buy' : 'sell';
+    return `
+      <div class="trade-row">
+        <div class="trade-meta">
+          <span class="strat-signal ${sigCls}">${p.type === 'BUY' ? '↗' : '↘'} ${p.type}</span>
+          <strong>${p.symbol}</strong>
+          <span style="color:var(--text-dim); font-size:11px"> · #${p.ticket} · ${p.volume} lot</span>
+        </div>
+        <div class="trade-prices">
+          <span>open: ${p.price_open}</span>
+          <span>curr: ${p.price_current}</span>
+          <span>SL: ${p.sl || '—'}</span>
+          <span>TP: ${p.tp || '—'}</span>
+        </div>
+        <div class="trade-actions">
+          <span class="trade-pnl ${pnlCls}">${pnlSign}${p.profit.toFixed(2)}$</span>
+          <button class="btn btn-sm" data-close-ticket="${p.ticket}">Închide</button>
+        </div>
+      </div>`;
+  }).join('');
+  list.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+      <strong>${positions.length} pozi${positions.length === 1 ? 'ție' : 'ții'} deschise</strong>
+      <button class="btn btn-sm danger" id="btn-close-all">Închide toate</button>
+    </div>
+    ${html}`;
+  // Wire close handlers
+  document.querySelectorAll('[data-close-ticket]').forEach(b => {
+    b.addEventListener('click', async () => {
+      if (!confirm(`Închizi poziția #${b.dataset.closeTicket}?`)) return;
+      b.disabled = true;
+      try {
+        await api(API.closeOne, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ticket: parseInt(b.dataset.closeTicket)}),
+        });
+        toast('Trade închis', 'ok');
+        pollAccount();
+      } catch(e) {
+        toast('Eroare: ' + e.message, 'err');
+        b.disabled = false;
+      }
+    });
+  });
+  const btnAll = $('btn-close-all');
+  if (btnAll) btnAll.addEventListener('click', async () => {
+    if (!confirm('Închizi TOATE pozițiile?')) return;
+    btnAll.disabled = true;
+    try {
+      await api(API.closeAll, {method: 'POST'});
+      toast('Toate trade-urile închise', 'ok');
+      pollAccount();
+    } catch(e) {
+      toast('Eroare: ' + e.message, 'err');
+      btnAll.disabled = false;
+    }
+  });
+}
+
+// ── Strategies ─────────────────────────────────────────────────────────────
+async function loadStrategies() {
+  try {
+    state.strategies = await api(API.strategies);
+    renderStrategies();
+  } catch(e) {
+    $('strats-list').innerHTML = '<div class="empty">Eroare: ' + e.message + '</div>';
+  }
+}
+
+function renderStrategies() {
+  if (!state.strategies.length) return;
+  const results = (state.status && state.status.results) || {};
+  // Aggreg per-strategy semnal (din simboluri scanate)
+  const sigPerStrat = {};
+  for (const sym in results) {
+    const r = results[sym];
+    if (!r || !r.strategy || !r.signal) continue;
+    const sig = r.signal.toUpperCase();
+    if (sig === 'SKIP' || sig === '') continue;
+    if (!sigPerStrat[r.strategy]) sigPerStrat[r.strategy] = {buy:0, sell:0};
+    if (sig === 'BUY') sigPerStrat[r.strategy].buy++;
+    else if (sig === 'SELL') sigPerStrat[r.strategy].sell++;
+  }
+  const html = state.strategies.map(s => {
+    const enabled = !!s.enabled;
+    const sigs = sigPerStrat[s.key] || {buy:0, sell:0};
+    let sigBadge = '';
+    if (sigs.buy > 0) sigBadge += `<span class="strat-signal buy">↗ ${sigs.buy}</span>`;
+    if (sigs.sell > 0) sigBadge += `<span class="strat-signal sell">↘ ${sigs.sell}</span>`;
+    return `
+      <div class="strat${enabled ? ' enabled' : ''}" data-strat="${s.key}">
+        <div class="strat-head">
+          <div>
+            <div class="strat-name">${s.icon || '•'} ${s.name}</div>
+            <div class="strat-info">
+              ${(s.tfs||[]).join(', ')} · min ${(s.min_confidence||0).toFixed(0)}%
+            </div>
+          </div>
+          <div class="strat-actions">
+            ${sigBadge}
+            <div class="toggle ${enabled ? 'on' : ''}" data-toggle="${s.key}"></div>
+            <span class="strat-chev">▶</span>
+          </div>
+        </div>
+        <div class="strat-body">${renderStratBody(s)}</div>
+      </div>`;
+  }).join('');
+  $('strats-list').innerHTML = html;
+  wireStratEvents();
+}
+
+function renderStratBody(s) {
+  const tfs = new Set(s.tfs || []);
+  const elements = s.elements || {};
+  const elementLabels = s.element_labels || {};
+
+  // Timeframes ca checkbox-uri (în loc de pills)
+  const tfHtml = ALL_TFS.map(tf => `
+    <label class="chk" data-strat="${s.key}" data-key="tf:${tf}">
+      <input type="checkbox" ${tfs.has(tf) ? 'checked' : ''}>
+      <span>${tf}</span>
+    </label>`).join('');
+
+  // Elements ca checkbox-uri
+  const elementsHtml = Object.entries(elementLabels).map(([k, label]) => `
+    <label class="chk" data-strat="${s.key}" data-key="elem:${k}">
+      <input type="checkbox" ${elements[k] ? 'checked' : ''}>
+      <span>${label}</span>
+    </label>`).join('');
+
+  // Numerice — pastrate ca inputs scurte (nu pot fi checkbox)
+  const sl = s.sl_atr_mult ?? '';
+  const risk = s.risk_dollars ?? '';
+  const conf = s.min_confidence ?? 66;
+
+  return `
+    <div class="chk-section">
+      <div class="chk-section-h">Timeframes</div>
+      <div class="chk-grid">${tfHtml}</div>
+    </div>
+    ${elementsHtml ? `
+    <div class="chk-section">
+      <div class="chk-section-h">Componente strategie</div>
+      <div class="chk-grid">${elementsHtml}</div>
+    </div>` : ''}
+    <div class="chk-section">
+      <div class="chk-section-h">Valori numerice</div>
+      <div class="num-grid">
+        <label>min_confidence (%)
+          <input type="number" min="0" max="100" step="1" value="${conf}"
+                 data-input-strat="${s.key}" data-key="min_confidence">
+        </label>
+        <label>sl_atr_mult <span class="hint">(gol = global)</span>
+          <input type="number" min="0.1" max="10" step="0.1" value="${sl}"
+                 placeholder="global" data-input-strat="${s.key}" data-key="sl_atr_mult">
+        </label>
+        <label>risk_dollars <span class="hint">(gol = global)</span>
+          <input type="number" min="1" max="10000" step="1" value="${risk}"
+                 placeholder="global" data-input-strat="${s.key}" data-key="risk_dollars">
+        </label>
+      </div>
+    </div>
+    <div class="chk-section">
+      <div class="chk-section-h">
+        JSON live
+        <button class="btn-copy" data-copy-strat="${s.key}" title="Copiază">📋</button>
+      </div>
+      <pre class="policy-json" data-json-strat="${s.key}">${buildJsonPreview(s)}</pre>
+    </div>
+  `;
+}
+
+function buildJsonPreview(s) {
+  const out = {
+    key: s.key,
+    enabled: !!s.enabled,
+    tfs: s.tfs || [],
+    min_confidence: s.min_confidence ?? 66,
+  };
+  if (s.sl_atr_mult != null && s.sl_atr_mult !== '') out.sl_atr_mult = s.sl_atr_mult;
+  if (s.risk_dollars != null && s.risk_dollars !== '') out.risk_dollars = s.risk_dollars;
+  if (s.elements && Object.keys(s.elements).length) {
+    out.elements = Object.fromEntries(
+      Object.entries(s.elements).filter(([k,v]) => v === true)
+    );
+  }
+  return JSON.stringify(out, null, 2);
+}
+
+function refreshJsonPreview(stratKey) {
+  const s = state.strategies.find(x => x.key === stratKey);
+  if (!s) return;
+  const el = document.querySelector(`[data-json-strat="${stratKey}"]`);
+  if (el) el.textContent = buildJsonPreview(s);
+}
+
+function wireStratEvents() {
+  // Click pe header -> expand
+  document.querySelectorAll('.strat-head').forEach(h => {
+    h.addEventListener('click', e => {
+      if (e.target.closest('.toggle')) return;
+      h.parentElement.classList.toggle('expanded');
+    });
+  });
+  // Toggle strategie enabled (header)
+  document.querySelectorAll('[data-toggle]').forEach(t => {
+    t.addEventListener('click', async e => {
+      e.stopPropagation();
+      const key = t.dataset.toggle;
+      const on = !t.classList.contains('on');
+      t.classList.toggle('on', on);
+      try {
+        await apiSet({[key]: {enabled: on}});
+        toast(`${key}: ${on ? 'ON' : 'OFF'}`, 'ok');
+        const s = state.strategies.find(x => x.key === key);
+        if (s) s.enabled = on;
+        const card = t.closest('.strat');
+        if (card) card.classList.toggle('enabled', on);
+        refreshJsonPreview(key);
+      } catch(err) {
+        t.classList.toggle('on', !on);
+        toast('Eroare: ' + err.message, 'err');
+      }
+    });
+  });
+
+  // Checkboxes (TF + elemente)
+  document.querySelectorAll('.strat-body .chk input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', async () => {
+      const label = cb.closest('.chk');
+      const strat = label.dataset.strat;
+      const key = label.dataset.key;
+      const s = state.strategies.find(x => x.key === strat);
+      if (!s) return;
+      try {
+        if (key.startsWith('tf:')) {
+          const tf = key.slice(3);
+          const tfs = new Set(s.tfs || []);
+          if (cb.checked) tfs.add(tf); else tfs.delete(tf);
+          s.tfs = ALL_TFS.filter(t => tfs.has(t));
+          await apiSet({[strat]: {tfs: s.tfs}});
+        } else if (key.startsWith('elem:')) {
+          const elem = key.slice(5);
+          s.elements = {...(s.elements||{}), [elem]: cb.checked};
+          await apiSet({[strat]: {elements: {[elem]: cb.checked}}});
+        }
+        refreshJsonPreview(strat);
+      } catch(err) {
+        cb.checked = !cb.checked;
+        toast('Eroare: ' + err.message, 'err');
+      }
+    });
+  });
+
+  // Input fields (numeric)
+  document.querySelectorAll('[data-input-strat]').forEach(inp => {
+    inp.addEventListener('input', () => {
+      // Live update JSON preview (chiar inainte de save)
+      const strat = inp.dataset.inputStrat;
+      const key = inp.dataset.key;
+      const s = state.strategies.find(x => x.key === strat);
+      if (!s) return;
+      let v = inp.value.trim();
+      if (v === '') s[key] = null;
+      else s[key] = parseFloat(v);
+      refreshJsonPreview(strat);
+    });
+    inp.addEventListener('change', async () => {
+      const strat = inp.dataset.inputStrat;
+      const key = inp.dataset.key;
+      let v = inp.value.trim();
+      v = v === '' ? null : parseFloat(v);
+      try {
+        await apiSet({[strat]: {[key]: v}});
+        toast(`${strat}.${key} salvat`, 'ok');
+      } catch(err) {
+        toast('Eroare: ' + err.message, 'err');
+      }
+    });
+  });
+
+  // Copy JSON button
+  document.querySelectorAll('[data-copy-strat]').forEach(b => {
+    b.addEventListener('click', () => {
+      const strat = b.dataset.copyStrat;
+      const s = state.strategies.find(x => x.key === strat);
+      if (!s) return;
+      navigator.clipboard.writeText(buildJsonPreview(s));
+      toast('JSON copiat', 'ok');
+    });
+  });
+}
+
+function updateStrategiesFromResults(data) {
+  // Re-render doar dacă există schimbări semnificative
+  const sc = data.scanner || {};
+  let dirty = false;
+  for (const s of state.strategies) {
+    const cfg = sc[s.key] || {};
+    if (cfg.enabled !== s.enabled) { s.enabled = cfg.enabled; dirty = true; }
+  }
+  if (dirty) renderStrategies();
+}
+
+// ── Presets ───────────────────────────────────────────────────────────────
+async function loadPresets() {
+  try {
+    state.presets = await api(API.presets);
+    renderPresets();
+  } catch(e) {
+    $('preset-list').innerHTML = '<div class="empty">Eroare: ' + e.message + '</div>';
+  }
+}
+
+function renderPresets() {
+  const html = Object.entries(state.presets).map(([key, p]) => `
+    <div class="preset ${state.activePreset === key ? 'active' : ''}" data-preset="${key}">
+      <div class="preset-name">${p.icon || ''} ${p.label}</div>
+      <div class="preset-desc">${p.desc || ''}</div>
+    </div>`).join('');
+  $('preset-list').innerHTML = html;
+  document.querySelectorAll('[data-preset]').forEach(p => {
+    p.addEventListener('click', () => applyPreset(p.dataset.preset));
+  });
+}
+
+async function applyPreset(name) {
+  const preset = state.presets[name];
+  if (!preset) return;
+  try {
+    await api(API.apply, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name: name}),
+    });
+    state.activePreset = name;
+    toast(`Preset aplicat: ${preset.label}`, 'ok');
+    renderPresets();
+    await loadStrategies();
+    await pollStatus();
+  } catch(e) {
+    toast('Eroare: ' + e.message, 'err');
+  }
+}
+
+// ── Start / Stop ──────────────────────────────────────────────────────────
+async function toggleScanner() {
+  if (!state.status) return;
+  const running = state.status.scanner.running;
+  $('btn-toggle').disabled = true;
+  try {
+    await api(running ? API.stop : API.start, {method: 'POST'});
+    toast(running ? 'Scanner oprit' : 'Scanner pornit', 'ok');
+    await pollStatus();
+  } catch(e) {
+    toast('Eroare: ' + e.message, 'err');
+  } finally {
+    $('btn-toggle').disabled = false;
+  }
+}
+
+// ── Symbols grid + management ──────────────────────────────────────────────
+let mt5SymbolsAll = [];   // toate simbolurile disponibile pe MT5
+let currentSymbols = [];  // scanner.symbols
+
+function renderSymbols(data) {
+  // Pills (configurate)
+  const sc = data.scanner || {};
+  currentSymbols = sc.symbols || [];
+  renderSymPills();
+
+  // Grid rezultate
+  const results = data.results || {};
+  const symbols = Object.keys(results).sort();
+  const grid = $('sym-grid');
+  if (!symbols.length) {
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">Aștept primul scan...</div>';
+    return;
+  }
+  grid.innerHTML = symbols.map(sym => {
+    const r = results[sym] || {};
+    const sig = (r.signal || '').toUpperCase();
+    const conf = r.confidence || 0;
+    let cls = 'skip', sigCls = 'none', sigText = '—';
+    if (sig === 'BUY') { cls = 'buy'; sigCls = 'buy'; sigText = '↗ BUY'; }
+    else if (sig === 'SELL') { cls = 'sell'; sigCls = 'sell'; sigText = '↘ SELL'; }
+    return `
+      <div class="sym ${cls}">
+        <div class="sym-symbol">${sym}</div>
+        <div class="sym-sig ${sigCls}">${sigText}</div>
+        ${conf ? `<div class="sym-conf">${conf.toFixed(1)}%</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function renderSymPills() {
+  const cont = $('sym-pills');
+  $('sym-count').textContent = `(${currentSymbols.length})`;
+  if (!currentSymbols.length) {
+    cont.innerHTML = '<div class="empty">Niciun simbol configurat. Adaugă din input-ul de sus sau click pe Forex/Crypto default.</div>';
+    return;
+  }
+  cont.innerHTML = currentSymbols.map(s =>
+    `<span class="sym-pill">${s}<span class="x" data-remove="${s}">×</span></span>`
+  ).join('');
+  cont.querySelectorAll('[data-remove]').forEach(x => {
+    x.addEventListener('click', () => removeSymbol(x.dataset.remove));
+  });
+}
+
+async function removeSymbol(sym) {
+  const next = currentSymbols.filter(s => s !== sym);
+  try {
+    await apiSet({symbols: next});
+    currentSymbols = next;
+    renderSymPills();
+    toast(`${sym} eliminat`, 'ok');
+  } catch(e) { toast('Eroare: ' + e.message, 'err'); }
+}
+
+async function addSymbol(sym) {
+  sym = (sym || '').trim().toUpperCase();
+  if (!sym) return;
+  if (currentSymbols.includes(sym)) {
+    toast(`${sym} e deja monitorizat`, 'err');
+    return;
+  }
+  const next = [...currentSymbols, sym];
+  try {
+    await apiSet({symbols: next});
+    currentSymbols = next;
+    renderSymPills();
+    $('sym-add-input').value = '';
+    $('sym-suggest').classList.remove('open');
+    toast(`${sym} adăugat`, 'ok');
+  } catch(e) { toast('Eroare: ' + e.message, 'err'); }
+}
+
+async function loadMt5Symbols() {
+  try {
+    mt5SymbolsAll = await api('/autotrader/mt5_symbols');
+  } catch(e) { mt5SymbolsAll = []; }
+}
+
+function setupSymSearch() {
+  const inp = $('sym-add-input');
+  const sug = $('sym-suggest');
+  const showSuggestions = () => {
+    const q = inp.value.trim().toUpperCase();
+    if (!q) { sug.classList.remove('open'); return; }
+    const matches = mt5SymbolsAll
+      .filter(s => s.toUpperCase().includes(q))
+      .slice(0, 30);
+    if (matches.length === 0) {
+      sug.innerHTML = `<div class="sym-suggest-empty">
+        Nu există ${q} în MT5. <a href="#" data-force-add="${q}" style="color:var(--accent)">Adaugă oricum</a>
+      </div>`;
+    } else {
+      sug.innerHTML = matches.map(s => {
+        const exists = currentSymbols.includes(s);
+        return `<div class="sym-suggest-item ${exists ? 'exists' : ''}" data-pick="${s}">
+          ${s}${exists ? ' (deja monitorizat)' : ''}
+        </div>`;
+      }).join('');
+    }
+    sug.classList.add('open');
+    sug.querySelectorAll('[data-pick]').forEach(el => {
+      el.addEventListener('click', () => addSymbol(el.dataset.pick));
+    });
+    sug.querySelectorAll('[data-force-add]').forEach(el => {
+      el.addEventListener('click', e => { e.preventDefault(); addSymbol(el.dataset.forceAdd); });
+    });
+  };
+  inp.addEventListener('input', showSuggestions);
+  inp.addEventListener('focus', showSuggestions);
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); addSymbol(inp.value); }
+    if (e.key === 'Escape') sug.classList.remove('open');
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.sym-add')) sug.classList.remove('open');
+  });
+}
+
+async function switchMarket(market) {
+  try {
+    const r = await fetch('/autotrader/switch_market', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({market: market}),
+    });
+    const data = await r.json();
+    if (data.ok) {
+      currentSymbols = data.symbols;
+      renderSymPills();
+      toast(`Default ${market} aplicat (${currentSymbols.length} simboluri)`, 'ok');
+    }
+  } catch(e) { toast('Eroare: ' + e.message, 'err'); }
+}
+
+// ── Toggle helper ─────────────────────────────────────────────────────────
+function setToggle(id, on) {
+  const el = $(id);
+  if (el) el.classList.toggle('on', !!on);
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+function setupTabs() {
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      const id = t.dataset.tab;
+      document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === t));
+      document.querySelectorAll('.tab-panel').forEach(p =>
+        p.classList.toggle('active', p.dataset.panel === id));
+    });
+  });
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+function init() {
+  $('btn-toggle').addEventListener('click', toggleScanner);
+
+  // Sidebar toggles
+  document.querySelectorAll('.sidebar .toggle[data-key]').forEach(t => {
+    t.addEventListener('click', async () => {
+      const on = !t.classList.contains('on');
+      t.classList.toggle('on', on);
+      try {
+        await apiSet({[t.dataset.key]: on});
+        toast('Salvat', 'ok');
+      } catch(e) {
+        t.classList.toggle('on', !on);
+        toast('Eroare: ' + e.message, 'err');
+      }
+    });
+  });
+
+  setupTabs();
+  setupSymSearch();
+  $('btn-market-forex').addEventListener('click', () => switchMarket('forex'));
+  $('btn-market-crypto').addEventListener('click', () => switchMarket('crypto'));
+
+  loadPresets();
+  loadMt5Symbols();
+  pollStatus();
+  pollAccount();
+  pollFtmo();
+  setInterval(pollStatus, 5000);
+  setInterval(pollAccount, 4000);
+  setInterval(pollFtmo, 30000);
+}
+
+async function pollFtmo() {
+  try {
+    const d = await api(API.ftmo);
+    const el = $('ftmo-status');
+    if (!d) return;
+    const ok = d.ok !== false && !d.halted;
+    const news = d.news_in_min;
+    let txt = 'FTMO ' + (ok ? 'OK' : '✕');
+    if (typeof news === 'number') {
+      if (news > 0 && news < 30) {
+        txt += ` · știri în ${news} min`;
+        el.className = 'ftmo-pill warn';
+      } else {
+        txt += news > 0 ? ` · știri în ${news} min` : '';
+        el.className = 'ftmo-pill ' + (ok ? 'ok' : 'err');
+      }
+    } else {
+      el.className = 'ftmo-pill ' + (ok ? 'ok' : 'err');
+    }
+    el.textContent = txt;
+  } catch(e) {}
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

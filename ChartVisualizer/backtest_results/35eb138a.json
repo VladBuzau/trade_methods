@@ -1,0 +1,69 @@
+{
+  "job_id": "35eb138a",
+  "params": {
+    "symbol": "EURUSD",
+    "strategy": "eob",
+    "tfs": [
+      "H1",
+      "H4"
+    ],
+    "duration_years": 2,
+    "step": 4,
+    "risk_dollars": 50,
+    "tp_ratio": 2,
+    "min_confidence": 66,
+    "max_duration_hours": 10,
+    "elements": {
+      "eob_htf": true,
+      "eob_ltf": true,
+      "session": true,
+      "adx_filter": true,
+      "adx_strict": true,
+      "fresh_eob": true,
+      "session_only_lon_ny_overlap": true,
+      "no_news_window": true,
+      "opt_volume_above_avg": false,
+      "opt_rsi_confluence": false,
+      "opt_ema_trend_align": false,
+      "opt_htf_alignment": false,
+      "opt_momentum_filter": false,
+      "opt_swing_distance": false,
+      "opt_news_proximity": false,
+      "opt_weekend_close": false,
+      "opt_time_of_day": false,
+      "opt_spread_filter": false,
+      "opt_body_strength": false
+    }
+  },
+  "symbol": "EURUSD",
+  "strategy": "eob",
+  "tfs": [
+    "H1",
+    "H4"
+  ],
+  "from_dt": "2024-06-02",
+  "to_dt": "2026-06-02",
+  "total_bars": 12424,
+  "step": 4,
+  "trades": [],
+  "metrics": {
+    "total_trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "expires": 0,
+    "timeouts": 0,
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "net_pnl": 0.0,
+    "gross_profit": 0.0,
+    "gross_loss": 0.0,
+    "max_drawdown": 0.0,
+    "avg_rr": 0.0,
+    "sharpe": 0.0,
+    "equity_curve": [
+      10000.0
+    ],
+    "equity_dates": []
+  },
+  "created_at": "2026-06-02T18:35:23.545382"
+}

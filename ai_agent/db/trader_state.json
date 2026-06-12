@@ -1,0 +1,22 @@
+{
+  "watchlist": [
+    [
+      "EURUSD",
+      "H1"
+    ],
+    [
+      "XAUUSD",
+      "H1"
+    ]
+  ],
+  "scan_interval_sec": 60,
+  "running": true,
+  "paper_trading": true,
+  "paper_balance": 10936.85,
+  "risk_per_trade_pct": 1.0,
+  "min_confidence": 60,
+  "horizon_h": 24,
+  "max_open_trades": 5,
+  "real_mt5_execute": false,
+  "risk_dollars": 50.0
+}
